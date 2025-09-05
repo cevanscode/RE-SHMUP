@@ -4,12 +4,12 @@ using Microsoft.Xna.Framework.Input;
 
 namespace RE_SHMUP
 {
-    public class Game1 : Game
+    public class RE_SHMUPGame : Game
     {
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
 
-        public Game1()
+        public RE_SHMUPGame()
         {
             _graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
