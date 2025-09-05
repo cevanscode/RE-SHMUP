@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using SharpDX.Direct2D1.Effects;
 
 namespace RE_SHMUP
 {
@@ -10,6 +11,11 @@ namespace RE_SHMUP
         private SpriteBatch _spriteBatch;
         private SpriteFont _spriteFont;
 
+        private Texture2D moon;
+
+        /// <summary>
+        /// Constructor
+        /// </summary>
         public RE_SHMUPGame()
         {
             _graphics = new GraphicsDeviceManager(this);
@@ -17,6 +23,9 @@ namespace RE_SHMUP
             IsMouseVisible = true;
         }
 
+        /// <summary>
+        /// Startup stuff
+        /// </summary>
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
@@ -36,6 +45,8 @@ namespace RE_SHMUP
             //English mode
             //Localization.SetLanguage("en");
 
+            moon = Content.Load<Texture2D>("Moon");
+
             _spriteFont = Content.Load<SpriteFont>("Meiryo");
 
         }
@@ -46,20 +57,25 @@ namespace RE_SHMUP
                 Exit();
 
             // TODO: Add your update logic here
+            
 
             base.Update(gameTime);
         }
 
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
+            GraphicsDevice.Clear(Color.Black);
 
             // TODO: Add your drawing code here
             _spriteBatch.Begin();
 
-            string startTest = Localization.GetText("StartButtonString");
+            string startButtonString = Localization.GetText("StartButtonString");
+            string quitButtonString = Localization.GetText("QuitButton");
 
-            _spriteBatch.DrawString(_spriteFont, startTest, new Vector2(100, 100), Color.White);
+            _spriteBatch.DrawString(_spriteFont, startButtonString, new Vector2(100, 100), Color.White);
+            _spriteBatch.DrawString(_spriteFont, quitButtonString, new Vector2(100, 100), Color.White);
+
+            _spriteBatch.Draw(moon, new Vector2(200, 200), new Rectangle(0, 0, 128, 128), Color.White);
 
             _spriteBatch.End();
 

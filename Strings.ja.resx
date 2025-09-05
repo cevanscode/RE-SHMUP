@@ -129,4 +129,13 @@
   <data name="KanjiTest" xml:space="preserve">
     <value>漢字</value>
   </data>
+  <data name="QuitButton" xml:space="preserve">
+    <value>終わる</value>
+  </data>
+  <data name="EnglishLabel" xml:space="preserve">
+    <value>英語</value>
+  </data>
+  <data name="JapaneseLabel" xml:space="preserve">
+    <value>日本語</value>
+  </data>
 </root>

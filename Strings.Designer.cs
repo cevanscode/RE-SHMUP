@@ -61,11 +61,29 @@ namespace RE_SHMUP {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to English.
+        /// </summary>
+        internal static string EnglishLabel {
+            get {
+                return ResourceManager.GetString("EnglishLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Hiragana.
         /// </summary>
         internal static string HiraganaTest {
             get {
                 return ResourceManager.GetString("HiraganaTest", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Japanese.
+        /// </summary>
+        internal static string JapaneseLabel {
+            get {
+                return ResourceManager.GetString("JapaneseLabel", resourceCulture);
             }
         }
         
@@ -88,7 +106,16 @@ namespace RE_SHMUP {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Start!.
+        ///   Looks up a localized string similar to Quit.
+        /// </summary>
+        internal static string QuitButton {
+            get {
+                return ResourceManager.GetString("QuitButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Start.
         /// </summary>
         internal static string StartButtonString {
             get {
