@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<XnaContent xmlns:Graphics="Microsoft.Xna.Framework.Content.Pipeline.Graphics">
+  <Asset Type="Graphics:FontDescription">
+    <FontName>Meiryo</FontName>
+    <Size>20</Size>
+    <Spacing>0</Spacing>
+    <UseKerning>true</UseKerning>
+    <Style>Regular</Style>
+    <CharacterRegions>
+      <!-- Basic Latin -->
+      <CharacterRegion>
+        <Start> </Start>
+        <End>~</End>
+      </CharacterRegion>
+      <!-- Basic Japanese characters -->
+      <CharacterRegion>
+        <Start>あ</Start>
+        <End>ん</End>
+      </CharacterRegion>
+      <CharacterRegion>
+        <Start>ア</Start>
+        <End>ン</End>
+      </CharacterRegion>
+      <CharacterRegion>
+        <Start>一</Start>
+        <End>龯</End>
+      </CharacterRegion>
+    </CharacterRegions>
+  </Asset>
+</XnaContent>

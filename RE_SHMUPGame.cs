@@ -33,7 +33,9 @@ namespace RE_SHMUP
 
             //Localization.SetLanguage("en");
 
-            _spriteFont = Content.Load<SpriteFont>("Arial");
+            //_spriteFont = Content.Load<SpriteFont>("Yu Gothic");
+            _spriteFont = Content.Load<SpriteFont>("Meiryo");
+
         }
 
         protected override void Update(GameTime gameTime)

@@ -117,7 +117,13 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="KatakanaTest" xml:space="preserve">
+    <value>カタカナ</value>
+  </data>
   <data name="StartButtonString" xml:space="preserve">
-    <value>始める！</value>
+    <value>始める</value>
+  </data>
+  <data name="Test" xml:space="preserve">
+    <value>こんにちは</value>
   </data>
 </root>

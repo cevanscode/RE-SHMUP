@@ -61,11 +61,29 @@ namespace RE_SHMUP {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Katakana.
+        /// </summary>
+        internal static string KatakanaTest {
+            get {
+                return ResourceManager.GetString("KatakanaTest", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Start!.
         /// </summary>
         internal static string StartButtonString {
             get {
                 return ResourceManager.GetString("StartButtonString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hello.
+        /// </summary>
+        internal static string Test {
+            get {
+                return ResourceManager.GetString("Test", resourceCulture);
             }
         }
     }

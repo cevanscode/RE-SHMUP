@@ -20,3 +20,17 @@
 /processorParam:TextureFormat=Compressed
 /build:Arial.spritefont
 
+#begin Meiryo.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:Meiryo.spritefont
+
+#begin Yu Gothic.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:Yu Gothic.spritefont
+
