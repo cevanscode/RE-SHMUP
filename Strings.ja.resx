@@ -123,7 +123,10 @@
   <data name="StartButtonString" xml:space="preserve">
     <value>始める</value>
   </data>
-  <data name="Test" xml:space="preserve">
-    <value>こんにちは</value>
+  <data name="HiraganaTest" xml:space="preserve">
+    <value>ひらがな</value>
+  </data>
+  <data name="KanjiTest" xml:space="preserve">
+    <value>漢字</value>
   </data>
 </root>

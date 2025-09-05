@@ -61,6 +61,24 @@ namespace RE_SHMUP {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Hiragana.
+        /// </summary>
+        internal static string HiraganaTest {
+            get {
+                return ResourceManager.GetString("HiraganaTest", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kanji.
+        /// </summary>
+        internal static string KanjiTest {
+            get {
+                return ResourceManager.GetString("KanjiTest", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Katakana.
         /// </summary>
         internal static string KatakanaTest {
@@ -75,15 +93,6 @@ namespace RE_SHMUP {
         internal static string StartButtonString {
             get {
                 return ResourceManager.GetString("StartButtonString", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Hello.
-        /// </summary>
-        internal static string Test {
-            get {
-                return ResourceManager.GetString("Test", resourceCulture);
             }
         }
     }
