@@ -8,6 +8,7 @@ namespace RE_SHMUP
     {
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
+        private SpriteFont _spriteFont;
 
         public RE_SHMUPGame()
         {
@@ -28,6 +29,11 @@ namespace RE_SHMUP
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
             // TODO: use this.Content to load your game content here
+            Localization.SetLanguage("ja");
+
+            //Localization.SetLanguage("en");
+
+            _spriteFont = Content.Load<SpriteFont>("Arial");
         }
 
         protected override void Update(GameTime gameTime)
@@ -45,6 +51,13 @@ namespace RE_SHMUP
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
             // TODO: Add your drawing code here
+            _spriteBatch.Begin();
+
+            string startTest = Localization.GetText("StartButtonString");
+
+            _spriteBatch.DrawString(_spriteFont, startTest, new Vector2(100, 100), Color.White);
+
+            _spriteBatch.End();
 
             base.Draw(gameTime);
         }
