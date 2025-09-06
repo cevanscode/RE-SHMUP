@@ -126,9 +126,9 @@ namespace RE_SHMUP {
         /// <summary>
         ///   Looks up a localized string similar to Start.
         /// </summary>
-        internal static string StartButtonString {
+        internal static string StartButton {
             get {
-                return ResourceManager.GetString("StartButtonString", resourceCulture);
+                return ResourceManager.GetString("StartButton", resourceCulture);
             }
         }
     }

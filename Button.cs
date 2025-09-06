@@ -80,7 +80,7 @@ namespace RE_SHMUP
             {
                 var x = ((ButtonRect.X + (ButtonRect.Width / 2)) - (_font.MeasureString(_buttonText).X / 2));
                 var y = ((ButtonRect.Y + (ButtonRect.Height / 2)) - (_font.MeasureString(_buttonText).Y / 2));
-                spriteBatch.DrawString(_font, _buttonText, new Vector2(x, y), Color.Black);
+                spriteBatch.DrawString(_font, _buttonText, new Vector2(x, y), Color.White);
             }
         }
         #endregion

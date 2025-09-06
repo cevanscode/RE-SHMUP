@@ -1,6 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using System;
+using System.Collections.Generic;
 
 namespace RE_SHMUP
 {
@@ -17,14 +19,17 @@ namespace RE_SHMUP
 
         private Texture2D moon;
         private Texture2D colony;
-        private Texture2D langButtonTexture;
         private Texture2D jupiter;
+        private Texture2D basicStar;
+        private List<Vector2> starPlacements;
+        private Texture2D langButtonTexture;
         private Texture2D menuButtonTexture;
         #endregion
 
         #region Buttons
         public Button languageButton;
         public Button quitButton;
+        public Button startButton;
         #endregion
 
         /// <summary>
@@ -62,10 +67,29 @@ namespace RE_SHMUP
             moon = Content.Load<Texture2D>("Moon");
             colony = Content.Load<Texture2D>("SpaceColony");
             jupiter = Content.Load<Texture2D>("jupiter-512x512");
+            basicStar = Content.Load<Texture2D>("BasicStar");
+
+            starPlacements = new List<Vector2>();
+
+            Random random = new Random();
+
+            for (int i = 0; i < 200; i++)
+            {
+                float x = random.Next(0, _graphics.PreferredBackBufferWidth);
+                float y = random.Next(0, _graphics.PreferredBackBufferHeight);
+                starPlacements.Add(new Vector2(x, y));
+            }
+
             menuButtonTexture = Content.Load<Texture2D>("MenuButton-Smaller");
             langButtonTexture = Content.Load<Texture2D>("LangButton");
 
             _spriteFont = Content.Load<SpriteFont>("Meiryo");
+
+            startButton = new Button(_spriteFont, menuButtonTexture);
+            startButton.buttonPosition = new Vector2(650, 260);
+            startButton._buttonText = Localization.GetText("StartButton");
+            //Do not have a game to start yet
+            //startButton.Click += ;
 
             languageButton = new Button(_spriteFont, menuButtonTexture);
             languageButton.buttonPosition = new Vector2(650, 330);
@@ -76,6 +100,8 @@ namespace RE_SHMUP
             quitButton.buttonPosition = new Vector2(650, 400);
             quitButton._buttonText = Localization.GetText("QuitButton");
             quitButton.Click += QuitButton_Click;
+
+
 
             base.LoadContent();
         }
@@ -88,6 +114,7 @@ namespace RE_SHMUP
             // TODO: Add your update logic here
             languageButton.Update(gameTime);
             quitButton.Update(gameTime);
+            startButton.Update(gameTime);
 
             base.Update(gameTime);
         }
@@ -99,22 +126,19 @@ namespace RE_SHMUP
             // TODO: Add your drawing code here
             _spriteBatch.Begin();
 
-            languageButton.Draw(gameTime, _spriteBatch);
+            foreach (Vector2 pos in starPlacements)
+            {
+                _spriteBatch.Draw(basicStar, pos, Color.White);
+                _spriteBatch.Draw(basicStar, pos, null, Color.White, 0, new Vector2(0, 0), 1, SpriteEffects.None, 2f);
+            }
 
-            //string startButtonString = Localization.GetText("StartButtonString");
-            //string quitButtonString = Localization.GetText("QuitButton");
-
+            startButton.Draw(gameTime, _spriteBatch);
             languageButton.Draw(gameTime, _spriteBatch);
             quitButton.Draw(gameTime, _spriteBatch);
 
             _spriteBatch.Draw(jupiter, new Vector2(-150, 0), null, Color.White, 0, new Vector2(64, 64), 1f, SpriteEffects.None, 1);
-            _spriteBatch.Draw(colony, new Vector2(200, 330), null, Color.White, 0, new Vector2(64, 64), 1f, SpriteEffects.None, 0f);
-            _spriteBatch.Draw(moon, new Vector2(200, 220), null, Color.White, 0, new Vector2(64, 64), 1f, SpriteEffects.None, 0f);
-
-
-
-            //_spriteBatch.DrawString(_spriteFont, startButtonString, new Vector2(100, 100), Color.White);
-            //_spriteBatch.DrawString(_spriteFont, quitButtonString, new Vector2(100, 100), Color.White);
+            _spriteBatch.Draw(colony, new Vector2(200, 330), null, Color.White, 0, new Vector2(64, 64), 0.4f, SpriteEffects.None, 0f);
+            _spriteBatch.Draw(moon, new Vector2(100, 220), null, Color.White, 0, new Vector2(64, 64), 0.5f, SpriteEffects.None, 0f);
 
             _spriteBatch.End();
 
@@ -133,7 +157,7 @@ namespace RE_SHMUP
                 Localization.SetLanguage("ja");
                 languageButton._buttonText = Localization.GetText("LanguageLabel");
             }
-            // Update button text so it refreshes immediately
+            startButton._buttonText = Localization.GetText("StartButton");
             quitButton._buttonText = Localization.GetText("QuitButton");
         }
 
