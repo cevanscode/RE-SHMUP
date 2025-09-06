@@ -141,4 +141,7 @@
   <data name="LanguageLabel" xml:space="preserve">
     <value>英語</value>
   </data>
+  <data name="TempTitleString" xml:space="preserve">
+    <value>深き宇宙</value>
+  </data>
 </root>

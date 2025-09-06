@@ -131,5 +131,14 @@ namespace RE_SHMUP {
                 return ResourceManager.GetString("StartButton", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The Deep of Space.
+        /// </summary>
+        internal static string TempTitleString {
+            get {
+                return ResourceManager.GetString("TempTitleString", resourceCulture);
+            }
+        }
     }
 }

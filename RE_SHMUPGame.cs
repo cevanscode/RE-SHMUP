@@ -14,6 +14,8 @@ namespace RE_SHMUP
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
         private SpriteFont _spriteFont;
+        private Vector2 _cometPosition;
+        private Vector2 _cometVelocity;
 
         #region Textures
 
@@ -24,6 +26,7 @@ namespace RE_SHMUP
         private List<Vector2> starPlacements;
         private Texture2D menuButtonTexture;
         private Texture2D mousePointer;
+        private Texture2D comet;
         #endregion
 
         #region Buttons
@@ -68,9 +71,12 @@ namespace RE_SHMUP
             colony = Content.Load<Texture2D>("SpaceColony");
             jupiter = Content.Load<Texture2D>("jupiter-512x512");
             basicStar = Content.Load<Texture2D>("BasicStar");
+            comet = Content.Load<Texture2D>("Comet");
+
+            _cometPosition = new Vector2(-10, 140);
+            _cometVelocity = new Vector2(5, 0);
 
             mousePointer = Content.Load<Texture2D>("Pointer");
-
 
             starPlacements = new List<Vector2>();
 
@@ -120,6 +126,8 @@ namespace RE_SHMUP
             quitButton.Update(gameTime);
             startButton.Update(gameTime);
 
+            _cometPosition += _cometVelocity;
+
             base.Update(gameTime);
         }
 
@@ -140,11 +148,14 @@ namespace RE_SHMUP
             languageButton.Draw(gameTime, _spriteBatch);
             quitButton.Draw(gameTime, _spriteBatch);
 
+            _spriteBatch.Draw(comet, _cometPosition, null, Color.White, 0, new Vector2(0, 0), 1f, SpriteEffects.None, 0);
+
             _spriteBatch.Draw(jupiter, new Vector2(-150, 0), null, Color.White, 0, new Vector2(64, 64), 1f, SpriteEffects.None, 1);
-            _spriteBatch.Draw(colony, new Vector2(200, 330), null, Color.White, 0, new Vector2(64, 64), 0.4f, SpriteEffects.None, 0f);
-            _spriteBatch.Draw(moon, new Vector2(100, 220), null, Color.White, 0, new Vector2(64, 64), 0.5f, SpriteEffects.None, 0f);
+            _spriteBatch.Draw(colony, new Vector2(200, 330), null, Color.White, 0, new Vector2(64, 64), 0.4f, SpriteEffects.None, 0);
+            _spriteBatch.Draw(moon, new Vector2(100, 220), null, Color.White, 0, new Vector2(64, 64), 0.5f, SpriteEffects.None, 0);
 
             _spriteBatch.Draw(mousePointer, new Vector2(_currentMouseState.X, _currentMouseState.Y), null, Color.White, 0, new Vector2(0, 0), 2f, SpriteEffects.None, 0f);
+            _spriteBatch.DrawString(_spriteFont, Localization.GetText("TempTitleString"), new Vector2(400, 100), Color.Red, 0f, new Vector2(0, 0), 2f, SpriteEffects.None, 0f);
 
             _spriteBatch.End();
 
