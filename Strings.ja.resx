@@ -138,4 +138,7 @@
   <data name="JapaneseLabel" xml:space="preserve">
     <value>日本語</value>
   </data>
+  <data name="LanguageLabel" xml:space="preserve">
+    <value>英語</value>
+  </data>
 </root>

@@ -130,12 +130,15 @@
     <value>Kanji</value>
   </data>
   <data name="QuitButton" xml:space="preserve">
-    <value>Quit</value>
+    <value>Quit (or ESC)</value>
   </data>
   <data name="EnglishLabel" xml:space="preserve">
     <value>English</value>
   </data>
   <data name="JapaneseLabel" xml:space="preserve">
+    <value>Japanese</value>
+  </data>
+  <data name="LanguageLabel" xml:space="preserve">
     <value>Japanese</value>
   </data>
 </root>
