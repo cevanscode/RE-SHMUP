@@ -45,7 +45,7 @@ namespace RE_SHMUP.Scenes
             _currentMouseState = Mouse.GetState();
 
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
-                //Exit();
+                Core.Instance.Exit();
 
             // TODO: Add your update logic here
             languageButton.Update(gameTime);
@@ -65,6 +65,7 @@ namespace RE_SHMUP.Scenes
             //English mode
             Localization.SetLanguage("en");
 
+            moon = Content.Load<Texture2D>("Moon");
             colony = Content.Load<Texture2D>("SpaceColony");
             jupiter = Content.Load<Texture2D>("jupiter-512x512");
             basicStar = Content.Load<Texture2D>("BasicStar");
@@ -106,7 +107,6 @@ namespace RE_SHMUP.Scenes
             quitButton.buttonPosition = new Vector2(650, 400);
             quitButton._buttonText = Localization.GetText("QuitButton");
             quitButton.Click += QuitButton_Click;
-
 
             base.LoadContent();
         }
@@ -172,7 +172,7 @@ namespace RE_SHMUP.Scenes
         /// <param name="e">Information about the event</param>
         private void QuitButton_Click(object sender, System.EventArgs e)
         {
-            //Exit();
+            Core.Instance.Exit();
         }
         #endregion
     }
