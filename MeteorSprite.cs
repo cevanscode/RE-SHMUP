@@ -32,7 +32,7 @@ namespace RE_SHMUP
         public MeteorSprite(Vector2 position)
         {
             this.position = position;
-            //this.bounds = new BoundingCircle(position - new Vector2(-16, -16), 8);
+            this.bounds = new BoundingCircle(position - new Vector2(-16, -16), 8);
         }
 
         /// <summary>

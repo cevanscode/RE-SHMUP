@@ -12,7 +12,7 @@ namespace RE_SHMUP
     {
         private Texture2D texture;
 
-        private Vector2 position = new Vector2(200, 200);
+        private Vector2 position = new Vector2(400, 400);
 
         private int frameLength = 32;
 
