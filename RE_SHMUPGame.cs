@@ -92,7 +92,7 @@ namespace RE_SHMUP
 
             menuButtonTexture = Content.Load<Texture2D>("MenuButton-Smaller");
 
-            _spriteFont = Content.Load<SpriteFont>("Meiryo");
+            _spriteFont = Content.Load<SpriteFont>("ArkPixel");
 
             startButton = new Button(_spriteFont, menuButtonTexture);
             startButton.buttonPosition = new Vector2(650, 260);
