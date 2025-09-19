@@ -13,10 +13,9 @@ namespace RE_SHMUP.Scenes
 {
     public class TestingScene : Scene
     {
-        private MeteorSprite[] meteors;
-        private List<Vector2> meteorPlacements;
+        private List<MeteorSprite> meteors;
         private PlayerSprite player;
-        private BulletSprite[] bullets;
+        private List<BulletSprite> bullets;
         private SpriteFont SpriteFont;
         private Texture2D basicStar;
         private List<Vector2> starPlacements;
@@ -25,8 +24,10 @@ namespace RE_SHMUP.Scenes
         {
             player = new PlayerSprite();
 
+            bullets = new List<BulletSprite>();
+
             System.Random rand = new System.Random();
-            meteors = new MeteorSprite[]
+            meteors = new List<MeteorSprite>
             {
                 new MeteorSprite(new Vector2((float)rand.NextDouble() * Core.Graphics.PreferredBackBufferWidth, (float)rand.NextDouble() * Core.Graphics.PreferredBackBufferHeight)),
                 new MeteorSprite(new Vector2((float)rand.NextDouble() * Core.Graphics.PreferredBackBufferWidth, (float)rand.NextDouble() * Core.Graphics.PreferredBackBufferHeight)),
@@ -43,6 +44,19 @@ namespace RE_SHMUP.Scenes
             if (Core.Input.GamePads[0].WasButtonJustPressed(Buttons.Back) || Core.Input.Keyboard.WasKeyJustPressed(Keys.Escape))
                 Core.Instance.Exit();
 
+            if (Core.Input.Keyboard.WasKeyJustPressed(Keys.Z) || Core.Input.Keyboard.IsKeyDown(Keys.Space) || Core.Input.GamePads[0].IsButtonDown(Buttons.A))
+            {
+                BulletSprite bullet = new BulletSprite(player.Bounds.Center + new Vector2(0, 16));
+                bullet.LoadContent(Content);
+
+                bullets.Add(bullet);
+            }
+
+            foreach (var bullet in bullets)
+            {
+                bullet.Update(gameTime);
+            }
+
             player.Update(gameTime);
 
             foreach (var meteor in meteors)
@@ -52,14 +66,17 @@ namespace RE_SHMUP.Scenes
                     Core.ChangeScene(new TestingScene());
                 }
 
-                //foreach (var bullet in bullets)
-                //{
-                //    if (!meteor.Destroyed && meteor.Bounds.CollidesWith(bullet.Bounds))
-                //    {
-                //        meteor.Destroyed = true;
-                //    }
-                //}
+                foreach (var bullet in bullets)
+                {
+                    if (!meteor.Destroyed && meteor.Bounds.CollidesWith(bullet.Bounds))
+                    {
+                        meteor.Destroyed = true;
+                        bullet.Hit = true;
+                    }
+                }
             }
+
+            bullets.RemoveAll(b => b.Hit || b.Bounds.Center.Y < 0);
 
             base.Update(gameTime);
         }
@@ -85,6 +102,11 @@ namespace RE_SHMUP.Scenes
                 m.LoadContent(Content);
             }
 
+            foreach (BulletSprite b in bullets)
+            {
+                b.LoadContent(Content);
+            }
+
             base.LoadContent();
         }
 
@@ -103,6 +125,11 @@ namespace RE_SHMUP.Scenes
             foreach (MeteorSprite m in meteors)
             {
                 m.Draw(gameTime, Core.SpriteBatch);
+            }
+
+            foreach (BulletSprite b in bullets)
+            {
+                b.Draw(gameTime, Core.SpriteBatch);
             }
 
             player.Draw(gameTime, Core.SpriteBatch);

@@ -2,12 +2,6 @@
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using MonoGameLibrary;
-using SharpDX.Direct2D1.Effects;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace RE_SHMUP
 {
@@ -19,9 +13,11 @@ namespace RE_SHMUP
 
         private BoundingCircle bounds;
 
-        private Texture2D circleTexture;
+        //private Texture2D circleTexture;
 
-
+        /// <summary>
+        /// If the meteor has been destroyed
+        /// </summary>
         public bool Destroyed { get; set; } = false;
 
         /// <summary>
@@ -36,13 +32,13 @@ namespace RE_SHMUP
         }
 
         /// <summary>
-        /// Loads the sprite texture using the provided ContentManager
+        /// Loads the content using the provided ContentManager
         /// </summary>
         /// <param name="content">The ContentManager to load with</param>
         public void LoadContent(ContentManager content)
         {
             texture = content.Load<Texture2D>("Meteor");
-            circleTexture = content.Load<Texture2D>("CircleHitbox");
+            //circleTexture = content.Load<Texture2D>("CircleHitbox");
         }
 
         /// <summary>
