@@ -1,9 +1,10 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System;
+using System.Collections.Generic;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using System;
-using System.Collections.Generic;
 using MonoGameLibrary;
+using MonoGameLibrary.Input;
 using RE_SHMUP.Scenes;
 
 namespace RE_SHMUP
