@@ -55,6 +55,9 @@ namespace RE_SHMUP
             base.Initialize();
         }
 
+        /// <summary>
+        /// Loads content
+        /// </summary>
         protected override void LoadContent()
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
@@ -113,6 +116,10 @@ namespace RE_SHMUP
             base.LoadContent();
         }
 
+        /// <summary>
+        /// Updates the game state repeatedly
+        /// </summary>
+        /// <param name="gameTime"></param>
         protected override void Update(GameTime gameTime)
         {
             _priorMouseState = _currentMouseState;
@@ -131,6 +138,10 @@ namespace RE_SHMUP
             base.Update(gameTime);
         }
 
+        /// <summary>
+        /// Draws onto the game canvas
+        /// </summary>
+        /// <param name="gameTime"></param>
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.Black);
