@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using MonoGameLibrary;
+using MonoGameLibrary.Input;
 using System;
 using System.Collections.Generic;
 
@@ -96,7 +97,7 @@ namespace RE_SHMUP.Scenes
             startButton.buttonPosition = new Vector2(650, 260);
             startButton._buttonText = Localization.GetText("StartButton");
             //Do not have a game to start yet
-            //startButton.Click += ;
+            startButton.Click += StartButton_Click;
 
             languageButton = new Button(_spriteFont, menuButtonTexture);
             languageButton.buttonPosition = new Vector2(650, 330);
@@ -139,11 +140,20 @@ namespace RE_SHMUP.Scenes
 
             Core.SpriteBatch.End();
 
-
             base.Draw(gameTime);
         }
 
         #region Event handling
+        /// <summary>
+        /// Sets the game state to the game scene
+        /// </summary>
+        /// <param name="sender">The object signaling the event</param>
+        /// <param name="e">Information about the event</param>
+        private void StartButton_Click(object sender, System.EventArgs e)
+        {
+            Core.ChangeScene(new TitleScene());
+        }
+
         /// <summary>
         /// Changes the language when connected button is clicked
         /// </summary>

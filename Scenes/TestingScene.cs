@@ -5,6 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using MonoGameLibrary;
+using MonoGameLibrary.Input;
+
 
 namespace RE_SHMUP.Scenes
 {
