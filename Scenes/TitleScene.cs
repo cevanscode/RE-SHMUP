@@ -116,7 +116,7 @@ namespace RE_SHMUP.Scenes
             foreach (Vector2 pos in starPlacements)
             {
                 Core.SpriteBatch.Draw(basicStar, pos, Color.White);
-                Core.SpriteBatch.Draw(basicStar, pos, null, Color.White, 0, new Vector2(0, 0), 1, SpriteEffects.None, 2f);
+                Core.SpriteBatch.Draw(basicStar, pos, null, Color.White * 0.6f, 0, new Vector2(0, 0), 1, SpriteEffects.None, 2f);
             }
 
             startButton.Draw(gameTime, Core.SpriteBatch);

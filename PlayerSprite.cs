@@ -107,8 +107,6 @@ namespace RE_SHMUP
         {
             Rectangle source = new Rectangle(animationFrame * frameLength, 0, frameLength, frameLength);
 
-            spriteBatch.Begin(SpriteSortMode.FrontToBack);
-
             if (Core.Input.Keyboard.IsKeyDown(Keys.LeftShift) || Core.Input.Keyboard.IsKeyDown(Keys.RightShift) || Core.Input.GamePads[0].IsButtonDown(Buttons.B))
             {
                 float scale = (bounds.Radius * 2f) / circleTexture.Width;
@@ -133,8 +131,6 @@ namespace RE_SHMUP
                                 drawScale,
                                 SpriteEffects.None,
                                 0f);
-            spriteBatch.End();
-
         }
     }
 }
