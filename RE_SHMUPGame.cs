@@ -7,13 +7,11 @@ using MonoGameLibrary;
 
 namespace RE_SHMUP
 {
-    public class RE_SHMUPGame : Game
+    public class RE_SHMUPGame : Core
     {
         MouseState _currentMouseState;
         MouseState _priorMouseState;
 
-        private GraphicsDeviceManager _graphics;
-        private SpriteBatch _spriteBatch;
         private SpriteFont _spriteFont;
         private Vector2 _cometPosition;
         private Vector2 _cometVelocity;
@@ -39,10 +37,8 @@ namespace RE_SHMUP
         /// <summary>
         /// Constructor
         /// </summary>
-        public RE_SHMUPGame()
+        public RE_SHMUPGame() : base("RE_SHMUP", 800, 480, false)
         {
-            _graphics = new GraphicsDeviceManager(this);
-            Content.RootDirectory = "Content";
             IsMouseVisible = false;
         }
 
@@ -61,8 +57,6 @@ namespace RE_SHMUP
         /// </summary>
         protected override void LoadContent()
         {
-            _spriteBatch = new SpriteBatch(GraphicsDevice);
-
             // TODO: use this.Content to load your game content here
 
             //Japanese mode
@@ -89,8 +83,8 @@ namespace RE_SHMUP
             //Randomly create star coordinates
             for (int i = 0; i < 200; i++)
             {
-                float x = random.Next(0, _graphics.PreferredBackBufferWidth);
-                float y = random.Next(0, _graphics.PreferredBackBufferHeight);
+                float x = random.Next(0, Graphics.PreferredBackBufferWidth);
+                float y = random.Next(0, Graphics.PreferredBackBufferHeight);
                 starPlacements.Add(new Vector2(x, y));
             }
 
@@ -148,28 +142,28 @@ namespace RE_SHMUP
             GraphicsDevice.Clear(Color.Black);
 
             // TODO: Add your drawing code here
-            _spriteBatch.Begin();
+            SpriteBatch.Begin();
 
             foreach (Vector2 pos in starPlacements)
             {
-                _spriteBatch.Draw(basicStar, pos, Color.White);
-                _spriteBatch.Draw(basicStar, pos, null, Color.White, 0, new Vector2(0, 0), 1, SpriteEffects.None, 2f);
+                SpriteBatch.Draw(basicStar, pos, Color.White);
+                SpriteBatch.Draw(basicStar, pos, null, Color.White, 0, new Vector2(0, 0), 1, SpriteEffects.None, 2f);
             }
 
-            startButton.Draw(gameTime, _spriteBatch);
-            languageButton.Draw(gameTime, _spriteBatch);
-            quitButton.Draw(gameTime, _spriteBatch);
+            startButton.Draw(gameTime, SpriteBatch);
+            languageButton.Draw(gameTime, SpriteBatch);
+            quitButton.Draw(gameTime, SpriteBatch);
 
-            _spriteBatch.Draw(comet, _cometPosition, null, Color.White, 0, new Vector2(0, 0), 1f, SpriteEffects.None, 0);
+            SpriteBatch.Draw(comet, _cometPosition, null, Color.White, 0, new Vector2(0, 0), 1f, SpriteEffects.None, 0);
 
-            _spriteBatch.Draw(jupiter, new Vector2(-150, 0), null, Color.White, 0, new Vector2(64, 64), 1f, SpriteEffects.None, 1);
-            _spriteBatch.Draw(colony, new Vector2(200, 330), null, Color.White, 0, new Vector2(64, 64), 0.4f, SpriteEffects.None, 0);
-            _spriteBatch.Draw(moon, new Vector2(100, 220), null, Color.White, 0, new Vector2(64, 64), 0.5f, SpriteEffects.None, 0);
+            SpriteBatch.Draw(jupiter, new Vector2(-150, 0), null, Color.White, 0, new Vector2(64, 64), 1f, SpriteEffects.None, 1);
+            SpriteBatch.Draw(colony, new Vector2(200, 330), null, Color.White, 0, new Vector2(64, 64), 0.4f, SpriteEffects.None, 0);
+            SpriteBatch.Draw(moon, new Vector2(100, 220), null, Color.White, 0, new Vector2(64, 64), 0.5f, SpriteEffects.None, 0);
 
-            _spriteBatch.Draw(mousePointer, new Vector2(_currentMouseState.X, _currentMouseState.Y), null, Color.White, 0, new Vector2(0, 0), 2f, SpriteEffects.None, 0f);
-            _spriteBatch.DrawString(_spriteFont, Localization.GetText("TempTitleString"), new Vector2(400, 100), Color.Red, 0f, new Vector2(0, 0), 2f, SpriteEffects.None, 0f);
+            SpriteBatch.Draw(mousePointer, new Vector2(_currentMouseState.X, _currentMouseState.Y), null, Color.White, 0, new Vector2(0, 0), 2f, SpriteEffects.None, 0f);
+            SpriteBatch.DrawString(_spriteFont, Localization.GetText("TempTitleString"), new Vector2(400, 100), Color.Red, 0f, new Vector2(0, 0), 2f, SpriteEffects.None, 0f);
 
-            _spriteBatch.End();
+            SpriteBatch.End();
 
             base.Draw(gameTime);
         }

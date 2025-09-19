@@ -6,11 +6,12 @@ using System.Threading.Tasks;
 using System.Threading.Tasks.Sources;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
+using MonoGameLibrary;
 
 
 namespace RE_SHMUP
 {
-    public abstract class Scenes : IDisposable
+    public abstract class Scene : IDisposable
     {
         /// <summary>
         /// Gets content manager to load a scene's assets
@@ -22,14 +23,14 @@ namespace RE_SHMUP
         /// </summary>
         public bool IsDisposed { get; private set; }
         
-        public Scenes()
+        public Scene()
         {
-            Content = new ContentManager(Content.ServiceProvider);
+            Content = new ContentManager(Core.Content.ServiceProvider);
 
-            Content.RootDirectory = Content.RootDirectory;
+            Content.RootDirectory = Core.Content.RootDirectory;
         }
 
-        ~Scenes() => Dispose(false);
+        ~Scene() => Dispose(false);
 
         public virtual void Initialize()
         {
