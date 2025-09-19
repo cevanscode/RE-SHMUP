@@ -56,7 +56,7 @@ namespace RE_SHMUP
             float radius = (frameLength * drawScale) / 8f;
             bounds = new BoundingCircle(position, radius);
 
-            circleTexture = content.Load<Texture2D>("Jupiter");
+            circleTexture = content.Load<Texture2D>("CircleHitbox");
         }
 
         /// <summary>
@@ -107,6 +107,16 @@ namespace RE_SHMUP
         {
             Rectangle source = new Rectangle(animationFrame * frameLength, 0, frameLength, frameLength);
 
+            spriteBatch.Draw(texture,
+                    position,
+                    source,
+                    Color,
+                    0f,
+                    origin,
+                    drawScale,
+                    SpriteEffects.None,
+                    1f);
+
             if (Core.Input.Keyboard.IsKeyDown(Keys.LeftShift) || Core.Input.Keyboard.IsKeyDown(Keys.RightShift) || Core.Input.GamePads[0].IsButtonDown(Buttons.B))
             {
                 float scale = (bounds.Radius * 2f) / circleTexture.Width;
@@ -114,23 +124,13 @@ namespace RE_SHMUP
                 spriteBatch.Draw(circleTexture,
                                  bounds.Center,
                                  null,
-                                 Color.Red * 0.6f,
+                                 Color.Gold * 0.4f,
                                  0f,
                                  new Vector2(circleTexture.Width / 2f, circleTexture.Height / 2f),
                                  scale,
                                  SpriteEffects.None,
-                                 1f);
+                                 0f);
             }
-
-            spriteBatch.Draw(texture,
-                                position,
-                                source,
-                                Color,
-                                0f,
-                                origin,
-                                drawScale,
-                                SpriteEffects.None,
-                                0f);
         }
     }
 }
