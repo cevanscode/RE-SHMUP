@@ -11,8 +11,6 @@ namespace RE_SHMUP.Scenes
     public class TitleScene : Scene
     {
         #region For_Calcs
-        MouseState _currentMouseState;
-        MouseState _priorMouseState;
         private Vector2 _cometPosition;
         private Vector2 _cometVelocity;
         #endregion
@@ -42,9 +40,6 @@ namespace RE_SHMUP.Scenes
 
         public override void Update(GameTime gameTime)
         {
-            _priorMouseState = _currentMouseState;
-            _currentMouseState = Mouse.GetState();
-
             if (Core.Input.GamePads[0].WasButtonJustPressed(Buttons.Back) || Core.Input.Keyboard.WasKeyJustPressed(Keys.Escape))
                 Core.Instance.Exit();
 
@@ -96,7 +91,6 @@ namespace RE_SHMUP.Scenes
             startButton = new Button(_spriteFont, menuButtonTexture);
             startButton.buttonPosition = new Vector2(650, 260);
             startButton._buttonText = Localization.GetText("StartButton");
-            //Do not have a game to start yet
             startButton.Click += StartButton_Click;
 
             languageButton = new Button(_spriteFont, menuButtonTexture);
@@ -135,7 +129,7 @@ namespace RE_SHMUP.Scenes
             Core.SpriteBatch.Draw(colony, new Vector2(200, 330), null, Color.White, 0, new Vector2(64, 64), 0.4f, SpriteEffects.None, 0);
             Core.SpriteBatch.Draw(moon, new Vector2(100, 220), null, Color.White, 0, new Vector2(64, 64), 0.5f, SpriteEffects.None, 0);
 
-            Core.SpriteBatch.Draw(mousePointer, new Vector2(_currentMouseState.X, _currentMouseState.Y), null, Color.White, 0, new Vector2(0, 0), 2f, SpriteEffects.None, 0f);
+            Core.SpriteBatch.Draw(mousePointer, new Vector2(Core.Input.Mouse.Position.X, Core.Input.Mouse.Position.Y), null, Color.White, 0, new Vector2(0, 0), 2f, SpriteEffects.None, 0f);
             Core.SpriteBatch.DrawString(_spriteFont, Localization.GetText("TempTitleString"), new Vector2(400, 100), Color.Red, 0f, new Vector2(0, 0), 2f, SpriteEffects.None, 0f);
 
             Core.SpriteBatch.End();
@@ -151,7 +145,7 @@ namespace RE_SHMUP.Scenes
         /// <param name="e">Information about the event</param>
         private void StartButton_Click(object sender, System.EventArgs e)
         {
-            Core.ChangeScene(new TitleScene());
+            Core.ChangeScene(new TestingScene());
         }
 
         /// <summary>
