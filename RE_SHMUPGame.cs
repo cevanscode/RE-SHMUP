@@ -4,20 +4,21 @@ using Microsoft.Xna.Framework.Input;
 using System;
 using System.Collections.Generic;
 using MonoGameLibrary;
+using RE_SHMUP.Scenes;
 
 namespace RE_SHMUP
 {
     public class RE_SHMUPGame : Core
     {
+        #region For_Calcs
         MouseState _currentMouseState;
         MouseState _priorMouseState;
-
-        private SpriteFont _spriteFont;
         private Vector2 _cometPosition;
         private Vector2 _cometVelocity;
+        #endregion
 
         #region Textures
-
+        private SpriteFont _spriteFont;
         private Texture2D moon;
         private Texture2D colony;
         private Texture2D jupiter;
@@ -50,6 +51,8 @@ namespace RE_SHMUP
             // TODO: Add your initialization logic here
 
             base.Initialize();
+
+            ChangeScene(new TitleScene());
         }
 
         /// <summary>
