@@ -1,6 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using MonoGameLibrary;
+using SharpDX.Direct2D1.Effects;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,12 +19,21 @@ namespace RE_SHMUP
 
         private BoundingCircle bounds;
 
+        private Texture2D circleTexture;
+
+
         public bool Destroyed { get; set; } = false;
 
         /// <summary>
         /// The bounding volume of the sprite
         /// </summary>
         public BoundingCircle Bounds => bounds;
+
+        public MeteorSprite(Vector2 position)
+        {
+            this.position = position;
+            //this.bounds = new BoundingCircle(position - new Vector2(-16, -16), 8);
+        }
 
         /// <summary>
         /// Loads the sprite texture using the provided ContentManager
@@ -31,6 +42,7 @@ namespace RE_SHMUP
         public void LoadContent(ContentManager content)
         {
             texture = content.Load<Texture2D>("Meteor");
+            circleTexture = content.Load<Texture2D>("CircleHitbox");
         }
 
         /// <summary>
@@ -41,17 +53,21 @@ namespace RE_SHMUP
         public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
             if (Destroyed) return;
-            //animationTimer += gameTime.ElapsedGameTime.TotalSeconds;
 
-            //if (animationTimer > ANIMATION_SPEED)
-            //{
-            //    animationFrame++;
-            //    if (animationFrame > 7) animationFrame = 0;
-            //    animationTimer -= ANIMATION_SPEED;
-            //}
+            Core.SpriteBatch.Draw(texture, position, null, Color.White);
 
-            //var source = new Rectangle(animationFrame * 16, 0, 16, 16);
-            //spriteBatch.Draw(texture, position, source, Color.White);
+            //float scale = (bounds.Radius * 2f) / circleTexture.Width;
+
+            //Core.SpriteBatch.Draw(circleTexture,
+            //     bounds.Center,
+            //     null,
+            //     Color.Gold * 0.4f,
+            //     0f,
+            //     new Vector2(circleTexture.Width / 2f, circleTexture.Height / 2f),
+            //     scale,
+            //     SpriteEffects.None,
+            //     0f);
+
         }
     }
 }

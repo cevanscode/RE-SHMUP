@@ -107,7 +107,7 @@ namespace RE_SHMUP
         {
             Rectangle source = new Rectangle(animationFrame * frameLength, 0, frameLength, frameLength);
 
-            spriteBatch.Draw(texture,
+            Core.SpriteBatch.Draw(texture,
                     position,
                     source,
                     Color,
@@ -117,11 +117,12 @@ namespace RE_SHMUP
                     SpriteEffects.None,
                     1f);
 
+            // Focus mode
             if (Core.Input.Keyboard.IsKeyDown(Keys.LeftShift) || Core.Input.Keyboard.IsKeyDown(Keys.RightShift) || Core.Input.GamePads[0].IsButtonDown(Buttons.B))
             {
                 float scale = (bounds.Radius * 2f) / circleTexture.Width;
 
-                spriteBatch.Draw(circleTexture,
+                Core.SpriteBatch.Draw(circleTexture,
                                  bounds.Center,
                                  null,
                                  Color.Gold * 0.4f,
