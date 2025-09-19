@@ -17,6 +17,8 @@ namespace RE_SHMUP.Scenes
 
         public override void Initialize()
         {
+            player = new PlayerSprite();
+
             base.Initialize();
         }
 
@@ -25,12 +27,22 @@ namespace RE_SHMUP.Scenes
             if (Core.Input.GamePads[0].WasButtonJustPressed(Buttons.Back) || Core.Input.Keyboard.WasKeyJustPressed(Keys.Escape))
                 Core.Instance.Exit();
 
+            player.Update(gameTime);
+
+            foreach (var meteor in meteors)
+            {
+                if (!meteor.Destroyed && meteor.Bounds.CollidesWith(player.Bounds))
+                {
+                    Core.ChangeScene(new TestingScene());
+                }
+            }
+
             base.Update(gameTime);
         }
 
         public override void LoadContent()
         {
-
+            player.LoadContent(Content);
 
             base.LoadContent();
         }
@@ -39,10 +51,11 @@ namespace RE_SHMUP.Scenes
         {
             Core.GraphicsDevice.Clear(Color.Black);
 
-            Core.SpriteBatch.Begin();
+            //Core.SpriteBatch.Begin();
 
+            player.Draw(gameTime, Core.SpriteBatch);
 
-            Core.SpriteBatch.End();
+            //Core.SpriteBatch.End();
 
             base.Draw(gameTime);
         }

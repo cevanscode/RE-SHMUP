@@ -79,7 +79,7 @@ namespace RE_SHMUP.Scenes
             //Randomly create star coordinates
             for (int i = 0; i < 200; i++)
             {
-                float x = random.Next(0, Core.Graphics.PreferredBackBufferWidth); //this may not work
+                float x = random.Next(0, Core.Graphics.PreferredBackBufferWidth);
                 float y = random.Next(0, Core.Graphics.PreferredBackBufferHeight);
                 starPlacements.Add(new Vector2(x, y));
             }
