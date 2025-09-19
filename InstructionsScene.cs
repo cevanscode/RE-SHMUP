@@ -8,7 +8,7 @@ namespace RE_SHMUP
 {
     public class InstructionsScene : Scene
     {
-        private SpriteFont SpriteFont;
+        private SpriteFont _spriteFont;
 
         public override void Initialize()
         {
@@ -26,6 +26,8 @@ namespace RE_SHMUP
 
         public override void LoadContent()
         {
+            _spriteFont = Content.Load<SpriteFont>("ArkPixel");
+
             base.LoadContent();
         }
 

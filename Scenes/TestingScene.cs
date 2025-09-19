@@ -46,13 +46,17 @@ namespace RE_SHMUP.Scenes
 
         public override void Update(GameTime gameTime)
         {
-            if (Core.Input.GamePads[0].WasButtonJustPressed(Buttons.Back) || Core.Input.Keyboard.WasKeyJustPressed(Keys.Escape))
+            if (Core.Input.GamePads[0].WasButtonJustPressed(Buttons.Back) || 
+                Core.Input.Keyboard.WasKeyJustPressed(Keys.Escape))
                 Core.Instance.Exit();
 
-            if (Core.Input.GamePads[0].WasButtonJustPressed(Buttons.Y) || Core.Input.Keyboard.WasKeyJustPressed(Keys.R))
+            if (Core.Input.GamePads[0].WasButtonJustPressed(Buttons.Y) || 
+                Core.Input.Keyboard.WasKeyJustPressed(Keys.R))
                 Core.ChangeScene(new TitleScene());
 
-            if (Core.Input.Keyboard.WasKeyJustPressed(Keys.Z) || Core.Input.Keyboard.WasKeyJustPressed(Keys.Space) || Core.Input.GamePads[0].IsButtonDown(Buttons.A))
+            if (Core.Input.Keyboard.WasKeyJustPressed(Keys.Z) || 
+                Core.Input.Keyboard.WasKeyJustPressed(Keys.Space) || 
+                Core.Input.GamePads[0].IsButtonDown(Buttons.A))
             {
                 BulletSprite bullet = new BulletSprite(player.Bounds.Center + new Vector2(0, 16));
                 bullet.LoadContent(Content);
@@ -127,7 +131,15 @@ namespace RE_SHMUP.Scenes
             foreach (Vector2 pos in starPlacements)
             {
                 Core.SpriteBatch.Draw(basicStar, pos, Color.White);
-                Core.SpriteBatch.Draw(basicStar, pos, null, Color.White * 0.6f, 0, new Vector2(0, 0), 1, SpriteEffects.None, 2f);
+                Core.SpriteBatch.Draw(basicStar, 
+                    pos, 
+                    null, 
+                    Color.White * 0.6f, 
+                    0, 
+                    new Vector2(0, 0), 
+                    1, 
+                    SpriteEffects.None, 
+                    2f);
             }
 
             foreach (MeteorSprite m in meteors)
