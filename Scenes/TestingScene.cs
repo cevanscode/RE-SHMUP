@@ -34,6 +34,11 @@ namespace RE_SHMUP.Scenes
                 new MeteorSprite(new Vector2((float)rand.NextDouble() * Core.Graphics.PreferredBackBufferWidth, (float)rand.NextDouble() * Core.Graphics.PreferredBackBufferHeight)),
                 new MeteorSprite(new Vector2((float)rand.NextDouble() * Core.Graphics.PreferredBackBufferWidth, (float)rand.NextDouble() * Core.Graphics.PreferredBackBufferHeight)),
                 new MeteorSprite(new Vector2((float)rand.NextDouble() * Core.Graphics.PreferredBackBufferWidth, (float)rand.NextDouble() * Core.Graphics.PreferredBackBufferHeight)),
+                new MeteorSprite(new Vector2((float)rand.NextDouble() * Core.Graphics.PreferredBackBufferWidth, (float)rand.NextDouble() * Core.Graphics.PreferredBackBufferHeight)),
+                new MeteorSprite(new Vector2((float)rand.NextDouble() * Core.Graphics.PreferredBackBufferWidth, (float)rand.NextDouble() * Core.Graphics.PreferredBackBufferHeight)),
+                new MeteorSprite(new Vector2((float)rand.NextDouble() * Core.Graphics.PreferredBackBufferWidth, (float)rand.NextDouble() * Core.Graphics.PreferredBackBufferHeight)),
+                new MeteorSprite(new Vector2((float)rand.NextDouble() * Core.Graphics.PreferredBackBufferWidth, (float)rand.NextDouble() * Core.Graphics.PreferredBackBufferHeight)),
+                new MeteorSprite(new Vector2((float)rand.NextDouble() * Core.Graphics.PreferredBackBufferWidth, (float)rand.NextDouble() * Core.Graphics.PreferredBackBufferHeight))
             };
 
             base.Initialize();
@@ -44,7 +49,10 @@ namespace RE_SHMUP.Scenes
             if (Core.Input.GamePads[0].WasButtonJustPressed(Buttons.Back) || Core.Input.Keyboard.WasKeyJustPressed(Keys.Escape))
                 Core.Instance.Exit();
 
-            if (Core.Input.Keyboard.WasKeyJustPressed(Keys.Z) || Core.Input.Keyboard.IsKeyDown(Keys.Space) || Core.Input.GamePads[0].IsButtonDown(Buttons.A))
+            if (Core.Input.GamePads[0].WasButtonJustPressed(Buttons.Y) || Core.Input.Keyboard.WasKeyJustPressed(Keys.R))
+                Core.ChangeScene(new TitleScene());
+
+            if (Core.Input.Keyboard.WasKeyJustPressed(Keys.Z) || Core.Input.Keyboard.WasKeyJustPressed(Keys.Space) || Core.Input.GamePads[0].IsButtonDown(Buttons.A))
             {
                 BulletSprite bullet = new BulletSprite(player.Bounds.Center + new Vector2(0, 16));
                 bullet.LoadContent(Content);

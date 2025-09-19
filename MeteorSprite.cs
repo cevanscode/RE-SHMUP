@@ -52,6 +52,8 @@ namespace RE_SHMUP
 
             Core.SpriteBatch.Draw(texture, position, null, Color.White);
 
+            //Show hitbox for testing
+
             //float scale = (bounds.Radius * 2f) / circleTexture.Width;
 
             //Core.SpriteBatch.Draw(circleTexture,

@@ -144,4 +144,22 @@
   <data name="TempTitleString" xml:space="preserve">
     <value>The Deep of Space</value>
   </data>
+  <data name="PlotString" xml:space="preserve">
+    <value>Test Lysithea Unit 1 by blasting meteors!</value>
+  </data>
+  <data name="StartGameString" xml:space="preserve">
+    <value>Start with (A) or Space</value>
+  </data>
+  <data name="MovementControlsString" xml:space="preserve">
+    <value>Left Stick or WASD/Arrows to move</value>
+  </data>
+  <data name="ShootControlsString" xml:space="preserve">
+    <value>(A) or Z/Space to Shoot!</value>
+  </data>
+  <data name="FocusControlsString" xml:space="preserve">
+    <value>(X) or Shift to Focus - See your hitbox and move carefully!</value>
+  </data>
+  <data name="ResetControlsString" xml:space="preserve">
+    <value>(Y) or R to Reset</value>
+  </data>
 </root>

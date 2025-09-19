@@ -70,6 +70,15 @@ namespace RE_SHMUP {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to (X) or Shift to Focus - See your hitbox and move carefully!.
+        /// </summary>
+        internal static string FocusControlsString {
+            get {
+                return ResourceManager.GetString("FocusControlsString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Hiragana.
         /// </summary>
         internal static string HiraganaTest {
@@ -115,6 +124,24 @@ namespace RE_SHMUP {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Left Stick or WASD/Arrows to move.
+        /// </summary>
+        internal static string MovementControlsString {
+            get {
+                return ResourceManager.GetString("MovementControlsString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Test Lysithea Unit 1 by blasting meteors!.
+        /// </summary>
+        internal static string PlotString {
+            get {
+                return ResourceManager.GetString("PlotString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Quit (or ESC).
         /// </summary>
         internal static string QuitButton {
@@ -124,11 +151,38 @@ namespace RE_SHMUP {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to (Y) or R to Reset.
+        /// </summary>
+        internal static string ResetControlsString {
+            get {
+                return ResourceManager.GetString("ResetControlsString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to (A) or Z/Space to Shoot!.
+        /// </summary>
+        internal static string ShootControlsString {
+            get {
+                return ResourceManager.GetString("ShootControlsString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Start.
         /// </summary>
         internal static string StartButton {
             get {
                 return ResourceManager.GetString("StartButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Start with (A) or Space.
+        /// </summary>
+        internal static string StartGameString {
+            get {
+                return ResourceManager.GetString("StartGameString", resourceCulture);
             }
         }
         

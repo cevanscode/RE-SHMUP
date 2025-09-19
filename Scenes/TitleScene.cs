@@ -43,6 +43,9 @@ namespace RE_SHMUP.Scenes
             if (Core.Input.GamePads[0].WasButtonJustPressed(Buttons.Back) || Core.Input.Keyboard.WasKeyJustPressed(Keys.Escape))
                 Core.Instance.Exit();
 
+            if (Core.Input.GamePads[0].WasButtonJustPressed(Buttons.A) || Core.Input.Keyboard.WasKeyJustPressed(Keys.Space))
+                Core.ChangeScene(new InstructionsScene());
+
             // TODO: Add your update logic here
             languageButton.Update(gameTime);
             quitButton.Update(gameTime);
@@ -145,7 +148,7 @@ namespace RE_SHMUP.Scenes
         /// <param name="e">Information about the event</param>
         private void StartButton_Click(object sender, System.EventArgs e)
         {
-            Core.ChangeScene(new TestingScene());
+            Core.ChangeScene(new InstructionsScene());
         }
 
         /// <summary>
