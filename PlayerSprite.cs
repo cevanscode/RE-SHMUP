@@ -95,6 +95,9 @@ namespace RE_SHMUP
             if (Core.Input.Keyboard.IsKeyDown(Keys.Left) || Core.Input.Keyboard.IsKeyDown(Keys.A)) position += new Vector2(-moveSpeed, 0);
             if (Core.Input.Keyboard.IsKeyDown(Keys.Right) || Core.Input.Keyboard.IsKeyDown(Keys.D)) position += new Vector2(moveSpeed, 0);
 
+            position.X = Math.Clamp(position.X, bounds.Radius, Core.Graphics.PreferredBackBufferWidth - bounds.Radius);
+            position.Y = Math.Clamp(position.Y, bounds.Radius, Core.Graphics.PreferredBackBufferHeight - bounds.Radius);
+
             bounds.Center = position;
         }
 
