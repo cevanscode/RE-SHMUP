@@ -31,9 +31,9 @@ namespace RE_SHMUP.Scenes
 
             meteors = new List<MeteorSprite>();
 
-            for (int i = 0; i < 10; i++)
+            for (int i = 0; i < 8; i++)
             {
-                Vector2 randPos = new Vector2((float)rand.NextDouble() * Core.Graphics.PreferredBackBufferWidth - 100,
+                Vector2 randPos = new Vector2((float)rand.NextDouble() * Core.Graphics.PreferredBackBufferWidth,
                     (float)rand.NextDouble() * Core.Graphics.PreferredBackBufferHeight);
                 Vector2 randVelocity = new Vector2(rand.Next(1, 3), 
                     rand.Next(1, 3));

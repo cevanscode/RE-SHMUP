@@ -34,7 +34,7 @@ namespace RE_SHMUP
         public MeteorSprite(Vector2 position, Vector2 velocity)
         {
             this.position = position;
-            this.bounds = new BoundingCircle(position - new Vector2(-16, -16), 8);
+            //this.bounds = new BoundingCircle(position - new Vector2(-16, -16), 8);
             this.velocity = velocity;
         }
 
@@ -46,6 +46,9 @@ namespace RE_SHMUP
         {
             texture = content.Load<Texture2D>("Meteor");
             circleTexture = content.Load<Texture2D>("CircleHitbox");
+
+            float radius = texture.Width / 2f;
+            this.bounds = new BoundingCircle(position + new Vector2(radius, radius), radius);
         }
 
         public void Update(GameTime gameTime)
@@ -53,16 +56,18 @@ namespace RE_SHMUP
             position += velocity;
             bounds.Center += velocity;
 
-            if (position.X <= 0|| position.X >= Core.Graphics.PreferredBackBufferWidth)
+            if (position.X <= 0 || position.X + texture.Width >= Core.Graphics.PreferredBackBufferWidth)
             {
-                velocity *= -1;
-                position.X = Math.Clamp(position.X, 0, Core.Graphics.PreferredBackBufferWidth);
+                velocity.X *= -1;
+                position.X = Math.Clamp(position.X, 0, Core.Graphics.PreferredBackBufferWidth - texture.Width);
             }
-            if (position.Y <= 0 || position.Y >= Core.Graphics.PreferredBackBufferHeight)
+
+            if (position.Y <= 0 || position.Y + texture.Height >= Core.Graphics.PreferredBackBufferHeight)
             {
-                velocity *= -1;
-                position.Y = Math.Clamp(position.Y, 0, Core.Graphics.PreferredBackBufferHeight);
+                velocity.Y *= -1;
+                position.Y = Math.Clamp(position.Y, 0, Core.Graphics.PreferredBackBufferHeight - texture.Height);
             }
+
         }
 
         /// <summary>
