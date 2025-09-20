@@ -144,25 +144,25 @@
   <data name="TempTitleString" xml:space="preserve">
     <value>The Deep of Space</value>
   </data>
-  <data name="PlotString" xml:space="preserve">
+  <data name="StartGameString" xml:space="preserve">
+    <value>Start with (A) or Space</value>
+  </data>
+  <data name="LysitheaPlotString" xml:space="preserve">
     <value>Test Lysithea Unit 1 by blasting meteors!</value>
-  </data>
-  <data name="MovementControlsString" xml:space="preserve">
-    <value>Move: Left Stick or WASD/Arrow Keys</value>
-  </data>
-  <data name="ShootControlsString" xml:space="preserve">
-    <value>Shoot: (A) or Z/Space</value>
-  </data>
-  <data name="FocusControlsString" xml:space="preserve">
-    <value>Focus: (X) or Shift</value>
   </data>
   <data name="ResetControlsString" xml:space="preserve">
     <value>Reset: (Y) or R</value>
   </data>
-  <data name="QuitControlsString" xml:space="preserve">
-    <value>Quit Game: BACK or ESC</value>
+  <data name="MoveControlsString" xml:space="preserve">
+    <value>Move: Left Stick or WASD/Arrow Keys</value>
   </data>
-  <data name="StartGameString" xml:space="preserve">
-    <value>Start with (A) or Space</value>
+  <data name="QuitControlsString" xml:space="preserve">
+    <value>Quit Game: (BACK) or ESC</value>
+  </data>
+  <data name="FocusControlsString" xml:space="preserve">
+    <value>Focus: (X) or Shift</value>
+  </data>
+  <data name="ShootControlsString" xml:space="preserve">
+    <value>Shoot: (A) or Z/Space</value>
   </data>
 </root>

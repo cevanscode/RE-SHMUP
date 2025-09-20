@@ -22,6 +22,10 @@ namespace RE_SHMUP
                 Core.Input.Keyboard.WasKeyJustPressed(Keys.Escape))
                 Core.Instance.Exit();
 
+            if (Core.Input.GamePads[0].WasButtonJustPressed(Buttons.Y) ||
+                Core.Input.Keyboard.WasKeyJustPressed(Keys.R))
+                Core.ChangeScene(new TitleScene());
+
             if (Core.Input.GamePads[0].WasButtonJustPressed(Buttons.A) || 
                 Core.Input.Keyboard.WasKeyJustPressed(Keys.Space))
                 Core.ChangeScene(new TestingScene());
@@ -45,7 +49,57 @@ namespace RE_SHMUP
             //Instruction strings follow here
 
             Core.SpriteBatch.DrawString(_spriteFont,
-                Localization.GetText(""),
+                Localization.GetText("LysitheaPlotString"),
+                new Vector2(100, 100),
+                Color.White,
+                0f,
+                new Vector2(0, 0),
+                2f,
+                SpriteEffects.None,
+                0f);
+
+            Core.SpriteBatch.DrawString(_spriteFont,
+                Localization.GetText("MoveControlsString"),
+                new Vector2(100, 150),
+                Color.White,
+                0f,
+                new Vector2(0, 0),
+                1f,
+                SpriteEffects.None,
+                0f);
+
+            Core.SpriteBatch.DrawString(_spriteFont,
+                Localization.GetText("ShootControlsString"),
+                new Vector2(100, 200),
+                Color.White,
+                0f,
+                new Vector2(0, 0),
+                1f,
+                SpriteEffects.None,
+                0f);
+
+            Core.SpriteBatch.DrawString(_spriteFont,
+                Localization.GetText("FocusControlsString"),
+                new Vector2(100, 250),
+                Color.White,
+                0f,
+                new Vector2(0, 0),
+                1f,
+                SpriteEffects.None,
+                0f);
+
+            Core.SpriteBatch.DrawString(_spriteFont,
+                Localization.GetText("ResetControlsString"),
+                new Vector2(100, 300),
+                Color.White,
+                0f,
+                new Vector2(0, 0),
+                1f,
+                SpriteEffects.None,
+                0f);
+
+            Core.SpriteBatch.DrawString(_spriteFont,
+                Localization.GetText("QuitControlsString"),
                 new Vector2(100, 350),
                 Color.White,
                 0f,

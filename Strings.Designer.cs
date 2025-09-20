@@ -124,20 +124,20 @@ namespace RE_SHMUP {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Move: Left Stick or WASD/Arrow Keys.
+        ///   Looks up a localized string similar to Test Lysithea Unit 1 by blasting meteors!.
         /// </summary>
-        internal static string MovementControlsString {
+        internal static string LysitheaPlotString {
             get {
-                return ResourceManager.GetString("MovementControlsString", resourceCulture);
+                return ResourceManager.GetString("LysitheaPlotString", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Test Lysithea Unit 1 by blasting meteors!.
+        ///   Looks up a localized string similar to Move: Left Stick or WASD/Arrow Keys.
         /// </summary>
-        internal static string PlotString {
+        internal static string MoveControlsString {
             get {
-                return ResourceManager.GetString("PlotString", resourceCulture);
+                return ResourceManager.GetString("MoveControlsString", resourceCulture);
             }
         }
         
@@ -151,7 +151,7 @@ namespace RE_SHMUP {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Quit Game: BACK or ESC.
+        ///   Looks up a localized string similar to Quit Game: (BACK) or ESC.
         /// </summary>
         internal static string QuitControlsString {
             get {
