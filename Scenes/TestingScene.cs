@@ -5,22 +5,29 @@ using MonoGameLibrary;
 using MonoGameLibrary.Input;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics.Metrics;
-using System.Reflection.Metadata.Ecma335;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.Rebar;
-
 
 namespace RE_SHMUP.Scenes
 {
+    /// <summary>
+    /// A scene for testing basic gameplay mechinics (collisions, sprite animation, etc.)
+    /// </summary>
     public class TestingScene : Scene
     {
         private List<MeteorSprite> meteors;
+
         private PlayerSprite player;
+
         private List<BulletSprite> bullets;
+
         private SpriteFont _spriteFont;
+
         private Texture2D basicStar;
+
         private List<Vector2> starPlacements;
 
+        /// <summary>
+        /// Initializes content
+        /// </summary>
         public override void Initialize()
         {
             player = new PlayerSprite();
@@ -43,19 +50,26 @@ namespace RE_SHMUP.Scenes
             base.Initialize();
         }
 
+        /// <summary>
+        /// The updater
+        /// </summary>
+        /// <param name="gameTime">The game time</param>
         public override void Update(GameTime gameTime)
         {
+            //exit program 
             if (Core.Input.GamePads[0].WasButtonJustPressed(Buttons.Back) || 
                 Core.Input.Keyboard.WasKeyJustPressed(Keys.Escape))
                 Core.Instance.Exit();
 
+            //reset to title
             if (Core.Input.GamePads[0].WasButtonJustPressed(Buttons.Y) || 
                 Core.Input.Keyboard.WasKeyJustPressed(Keys.R))
                 Core.ChangeScene(new TitleScene());
 
+            //menu forwards
             if (Core.Input.Keyboard.WasKeyJustPressed(Keys.Z) || 
                 Core.Input.Keyboard.WasKeyJustPressed(Keys.Space) || 
-                Core.Input.GamePads[0].IsButtonDown(Buttons.A))
+                Core.Input.GamePads[0].WasButtonJustPressed(Buttons.A))
             {
                 BulletSprite bullet = new BulletSprite(player.Bounds.Center + new Vector2(0, 16));
                 bullet.LoadContent(Content);
@@ -75,6 +89,7 @@ namespace RE_SHMUP.Scenes
 
             player.Update(gameTime);
 
+            //meteor x bullet x player
             foreach (var meteor in meteors)
             {
                 if (!meteor.Destroyed && meteor.Bounds.CollidesWith(player.Bounds))
@@ -92,11 +107,60 @@ namespace RE_SHMUP.Scenes
                 }
             }
 
+            //meteor x meteor
+            for (int i = 0; i < meteors.Count; i++)
+            {
+                for (int j = i + 1; j < meteors.Count; j++)
+                {
+                    var m1 = meteors[i];
+                    var m2 = meteors[j];
+
+                    if (m1.Destroyed || m2.Destroyed) continue;
+
+                    if (!m1.Bounds.CollidesWith(m2.Bounds)) continue;
+
+                    Vector2 normal = m2.Bounds.Center - m1.Bounds.Center;
+                    float distance = normal.Length();
+
+                    if (distance < 0.0001f)
+                    {
+                        normal = new Vector2(1f, 0f);
+                        distance = 0.0001f;
+                    }
+                    normal /= distance;
+
+                    float overlap = (m1.Bounds.Radius + m2.Bounds.Radius) - distance;
+                    if (overlap > 0f)
+                    {
+                        m1.ChangeHelper(-normal * overlap * 0.5f);
+                        m2.ChangeHelper(normal * overlap * 0.5f);
+                    }
+
+                    Vector2 relativeVelocity = m1.velocity - m2.velocity;
+                    float velocityOfNormal = Vector2.Dot(relativeVelocity, normal);
+
+                    if (velocityOfNormal > 0) continue;
+
+                    float the_bouncer = 1f;
+
+                    float impulse = -(1f + the_bouncer) * velocityOfNormal / 2f;
+
+                    Vector2 impulseVector = impulse * normal;
+
+                    m1.velocity += impulseVector;
+                    m2.velocity -= impulseVector;
+                }
+            }
+
+            //kill bullets that are dead (hit something or went off top)
             bullets.RemoveAll(b => b.Hit || b.Bounds.Center.Y < 0);
 
             base.Update(gameTime);
         }
 
+        /// <summary>
+        /// Loads content
+        /// </summary>
         public override void LoadContent()
         {
             player.LoadContent(Content);
@@ -127,6 +191,10 @@ namespace RE_SHMUP.Scenes
             base.LoadContent();
         }
 
+        /// <summary>
+        /// Draws content
+        /// </summary>
+        /// <param name="gameTime">The game time</param>
         public override void Draw(GameTime gameTime)
         {
             Core.GraphicsDevice.Clear(Color.Black);

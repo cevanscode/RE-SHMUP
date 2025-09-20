@@ -132,7 +132,7 @@
   <data name="QuitButton" xml:space="preserve">
     <value>Quit (or ESC)</value>
   </data>
-  <data name="EnglishLabel" xml:space="preserve">
+  <data name="よ" xml:space="preserve">
     <value>English</value>
   </data>
   <data name="JapaneseLabel" xml:space="preserve">
@@ -164,5 +164,8 @@
   </data>
   <data name="ShootControlsString" xml:space="preserve">
     <value>Shoot: (A) or Z/Space</value>
+  </data>
+  <data name="GoodJobString" xml:space="preserve">
+    <value>Nice Job! Press (Y)/R!</value>
   </data>
 </root>

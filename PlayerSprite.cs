@@ -8,6 +8,9 @@ using static System.Windows.Forms.VisualStyles.VisualStyleElement.Window;
 
 namespace RE_SHMUP
 {
+    /// <summary>
+    /// A sprite representing the player object (a space fighter)
+    /// </summary>
     public class PlayerSprite
     {
         private Texture2D texture;
@@ -102,7 +105,7 @@ namespace RE_SHMUP
         }
 
         /// <summary>
-        /// Draws the sprite using the supplied SpriteBatch
+        /// Draws the sprite using the given SpriteBatch
         /// </summary>
         /// <param name="gameTime">The game time</param>
         /// <param name="spriteBatch">The spritebatch to render with</param>

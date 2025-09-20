@@ -61,20 +61,20 @@ namespace RE_SHMUP {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to English.
-        /// </summary>
-        internal static string EnglishLabel {
-            get {
-                return ResourceManager.GetString("EnglishLabel", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Focus: (X) or Shift.
         /// </summary>
         internal static string FocusControlsString {
             get {
                 return ResourceManager.GetString("FocusControlsString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Nice Job! Press (Y)/R!.
+        /// </summary>
+        internal static string GoodJobString {
+            get {
+                return ResourceManager.GetString("GoodJobString", resourceCulture);
             }
         }
         
@@ -201,6 +201,15 @@ namespace RE_SHMUP {
         internal static string TempTitleString {
             get {
                 return ResourceManager.GetString("TempTitleString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to English.
+        /// </summary>
+        internal static string よ {
+            get {
+                return ResourceManager.GetString("よ", resourceCulture);
             }
         }
     }

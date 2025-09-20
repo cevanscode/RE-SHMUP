@@ -9,6 +9,9 @@ using RE_SHMUP.Scenes;
 
 namespace RE_SHMUP
 {
+    /// <summary>
+    /// The base game. Has mostly been separated out due to the MonoGameLibrary
+    /// </summary>
     public class RE_SHMUPGame : Core
     {
         /// <summary>

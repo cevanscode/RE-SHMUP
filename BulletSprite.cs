@@ -7,6 +7,9 @@ using SharpDX.Direct2D1.Effects;
 
 namespace RE_SHMUP
 {
+    /// <summary>
+    /// Sprite representing player's bullet
+    /// </summary>
     public class BulletSprite
     {
         private Vector2 position;
@@ -73,6 +76,8 @@ namespace RE_SHMUP
                  0.1f,
                  SpriteEffects.None,
                  0f);
+
+            //test code to see hitbox
 
             //float scale = (bounds.Radius * 2f) / circleTexture.Width;
 

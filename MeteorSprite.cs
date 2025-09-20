@@ -8,6 +8,9 @@ using static System.Windows.Forms.VisualStyles.VisualStyleElement.Rebar;
 
 namespace RE_SHMUP
 {
+    /// <summary>
+    /// Sprite for a meteor object (evil)
+    /// </summary>
     public class MeteorSprite
     {
         private Vector2 position;
@@ -15,7 +18,6 @@ namespace RE_SHMUP
         private Texture2D texture;
 
         private BoundingCircle bounds;
-
 
         private Texture2D circleTexture;
 
@@ -31,6 +33,11 @@ namespace RE_SHMUP
         /// </summary>
         public BoundingCircle Bounds => bounds;
 
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        /// <param name="position">Position of a meteor</param>
+        /// <param name="velocity">Velocity of a meteor</param>
         public MeteorSprite(Vector2 position, Vector2 velocity)
         {
             this.position = position;
@@ -51,6 +58,10 @@ namespace RE_SHMUP
             this.bounds = new BoundingCircle(position + new Vector2(radius, radius), radius);
         }
 
+        /// <summary>
+        /// The updater
+        /// </summary>
+        /// <param name="gameTime">The game time</param>
         public void Update(GameTime gameTime)
         {
             position += velocity;
@@ -95,6 +106,16 @@ namespace RE_SHMUP
                  SpriteEffects.None,
                  0f);
 
+        }
+
+        /// <summary>
+        /// Helps in calculating change for meteor collisions
+        /// </summary>
+        /// <param name="delta">The vector change</param>
+        public void ChangeHelper(Vector2 delta)
+        {
+            position += delta;
+            bounds.Center += delta;
         }
     }
 }

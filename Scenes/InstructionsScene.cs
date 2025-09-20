@@ -2,20 +2,28 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using MonoGameLibrary;
-using RE_SHMUP.Scenes;
 
-namespace RE_SHMUP
+namespace RE_SHMUP.Scenes
 {
+    /// <summary>
+    /// A scene which provides instructions on how to play the game
+    /// </summary>
     public class InstructionsScene : Scene
     {
         private SpriteFont _spriteFont;
 
+        /// <summary>
+        /// Initializes content
+        /// </summary>
         public override void Initialize()
         {
-            
             base.Initialize();
         }
 
+        /// <summary>
+        /// The updater
+        /// </summary>
+        /// <param name="gameTime">The game time</param>
         public override void Update(GameTime gameTime)
         {
             if (Core.Input.GamePads[0].WasButtonJustPressed(Buttons.Back) ||
@@ -33,6 +41,9 @@ namespace RE_SHMUP
             base.Update(gameTime);
         }
 
+        /// <summary>
+        /// Loads content
+        /// </summary>
         public override void LoadContent()
         {
             _spriteFont = Content.Load<SpriteFont>("ArkPixel");
@@ -40,6 +51,10 @@ namespace RE_SHMUP
             base.LoadContent();
         }
 
+        /// <summary>
+        /// Draws content
+        /// </summary>
+        /// <param name="gameTime">The game time</param>
         public override void Draw(GameTime gameTime)
         {
             Core.SpriteBatch.Begin();
