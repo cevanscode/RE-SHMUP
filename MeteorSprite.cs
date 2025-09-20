@@ -78,7 +78,6 @@ namespace RE_SHMUP
                 velocity.Y *= -1;
                 position.Y = Math.Clamp(position.Y, 0, Core.Graphics.PreferredBackBufferHeight - texture.Height);
             }
-
         }
 
         /// <summary>
@@ -105,7 +104,6 @@ namespace RE_SHMUP
                  scale,
                  SpriteEffects.None,
                  0f);
-
         }
 
         /// <summary>

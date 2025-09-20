@@ -166,6 +166,6 @@
     <value>ショット: (A)/Z/Space</value>
   </data>
   <data name="GoodJobString" xml:space="preserve">
-    <value>よかった！リセット: (Y)/R</value>
+    <value>すごい: リセット: (Y)/R</value>
   </data>
 </root>

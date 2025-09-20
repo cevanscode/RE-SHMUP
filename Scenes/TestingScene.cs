@@ -25,6 +25,8 @@ namespace RE_SHMUP.Scenes
 
         private List<Vector2> starPlacements;
 
+        private int meteorCount = 10;
+
         /// <summary>
         /// Initializes content
         /// </summary>
@@ -38,7 +40,7 @@ namespace RE_SHMUP.Scenes
 
             meteors = new List<MeteorSprite>();
 
-            for (int i = 0; i < 8; i++)
+            for (int i = 0; i < meteorCount; i++)
             {
                 Vector2 randPos = new Vector2((float)rand.NextDouble() * Core.Graphics.PreferredBackBufferWidth,
                     (float)rand.NextDouble() * Core.Graphics.PreferredBackBufferHeight);
@@ -103,6 +105,7 @@ namespace RE_SHMUP.Scenes
                     {
                         meteor.Destroyed = true;
                         bullet.Hit = true;
+                        meteorCount--;
                     }
                 }
             }
@@ -112,8 +115,8 @@ namespace RE_SHMUP.Scenes
             {
                 for (int j = i + 1; j < meteors.Count; j++)
                 {
-                    var m1 = meteors[i];
-                    var m2 = meteors[j];
+                    MeteorSprite m1 = meteors[i];
+                    MeteorSprite m2 = meteors[j];
 
                     if (m1.Destroyed || m2.Destroyed) continue;
 
@@ -223,6 +226,19 @@ namespace RE_SHMUP.Scenes
             foreach (BulletSprite b in bullets)
             {
                 b.Draw(gameTime, Core.SpriteBatch);
+            }
+
+            if (meteorCount == 0)
+            {
+                Core.SpriteBatch.DrawString(_spriteFont,
+                    Localization.GetText("GoodJobString"),
+                    new Vector2(100, 100),
+                    Color.White,
+                    0f,
+                    new Vector2(0, 0),
+                    2f,
+                    SpriteEffects.None,
+                    0f);
             }
 
             player.Draw(gameTime, Core.SpriteBatch);
