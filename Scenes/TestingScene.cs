@@ -5,6 +5,7 @@ using MonoGameLibrary;
 using MonoGameLibrary.Input;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.Metrics;
 using System.Reflection.Metadata.Ecma335;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.Rebar;
 
@@ -16,7 +17,7 @@ namespace RE_SHMUP.Scenes
         private List<MeteorSprite> meteors;
         private PlayerSprite player;
         private List<BulletSprite> bullets;
-        private SpriteFont SpriteFont;
+        private SpriteFont _spriteFont;
         private Texture2D basicStar;
         private List<Vector2> starPlacements;
 
@@ -27,19 +28,17 @@ namespace RE_SHMUP.Scenes
             bullets = new List<BulletSprite>();
 
             System.Random rand = new System.Random();
-            meteors = new List<MeteorSprite>
+
+            meteors = new List<MeteorSprite>();
+
+            for (int i = 0; i < 10; i++)
             {
-                new MeteorSprite(new Vector2((float)rand.NextDouble() * Core.Graphics.PreferredBackBufferWidth, (float)rand.NextDouble() * Core.Graphics.PreferredBackBufferHeight)),
-                new MeteorSprite(new Vector2((float)rand.NextDouble() * Core.Graphics.PreferredBackBufferWidth, (float)rand.NextDouble() * Core.Graphics.PreferredBackBufferHeight)),
-                new MeteorSprite(new Vector2((float)rand.NextDouble() * Core.Graphics.PreferredBackBufferWidth, (float)rand.NextDouble() * Core.Graphics.PreferredBackBufferHeight)),
-                new MeteorSprite(new Vector2((float)rand.NextDouble() * Core.Graphics.PreferredBackBufferWidth, (float)rand.NextDouble() * Core.Graphics.PreferredBackBufferHeight)),
-                new MeteorSprite(new Vector2((float)rand.NextDouble() * Core.Graphics.PreferredBackBufferWidth, (float)rand.NextDouble() * Core.Graphics.PreferredBackBufferHeight)),
-                new MeteorSprite(new Vector2((float)rand.NextDouble() * Core.Graphics.PreferredBackBufferWidth, (float)rand.NextDouble() * Core.Graphics.PreferredBackBufferHeight)),
-                new MeteorSprite(new Vector2((float)rand.NextDouble() * Core.Graphics.PreferredBackBufferWidth, (float)rand.NextDouble() * Core.Graphics.PreferredBackBufferHeight)),
-                new MeteorSprite(new Vector2((float)rand.NextDouble() * Core.Graphics.PreferredBackBufferWidth, (float)rand.NextDouble() * Core.Graphics.PreferredBackBufferHeight)),
-                new MeteorSprite(new Vector2((float)rand.NextDouble() * Core.Graphics.PreferredBackBufferWidth, (float)rand.NextDouble() * Core.Graphics.PreferredBackBufferHeight)),
-                new MeteorSprite(new Vector2((float)rand.NextDouble() * Core.Graphics.PreferredBackBufferWidth, (float)rand.NextDouble() * Core.Graphics.PreferredBackBufferHeight))
-            };
+                Vector2 randPos = new Vector2((float)rand.NextDouble() * Core.Graphics.PreferredBackBufferWidth - 100,
+                    (float)rand.NextDouble() * Core.Graphics.PreferredBackBufferHeight);
+                Vector2 randVelocity = new Vector2(rand.Next(1, 3), 
+                    rand.Next(1, 3));
+                meteors.Add(new MeteorSprite(randPos, randVelocity));
+            }
 
             base.Initialize();
         }
@@ -67,6 +66,11 @@ namespace RE_SHMUP.Scenes
             foreach (var bullet in bullets)
             {
                 bullet.Update(gameTime);
+            }
+
+            foreach (var meteor in meteors)
+            {
+                meteor.Update(gameTime);
             }
 
             player.Update(gameTime);
@@ -98,6 +102,7 @@ namespace RE_SHMUP.Scenes
             player.LoadContent(Content);
             basicStar = Content.Load<Texture2D>("BasicStar");
             starPlacements = new List<Vector2>();
+            _spriteFont = Content.Load<SpriteFont>("ArkPixel");
 
             Random random = new Random();
 

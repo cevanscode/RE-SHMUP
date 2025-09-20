@@ -148,9 +148,6 @@
   <data name="PlotString" type="System.Resources.ResXNullRef, System.Windows.Forms">
     <value />
   </data>
-  <data name="StartGameString" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
-  </data>
   <data name="MovementControlsString" type="System.Resources.ResXNullRef, System.Windows.Forms">
     <value />
   </data>
@@ -162,5 +159,11 @@
   </data>
   <data name="ResetControlsString" type="System.Resources.ResXNullRef, System.Windows.Forms">
     <value />
+  </data>
+  <data name="QuitControlsString" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
+  <data name="StartGameString" xml:space="preserve">
+    <value>始める: (A)/Space</value>
   </data>
 </root>

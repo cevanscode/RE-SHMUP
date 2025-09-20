@@ -70,7 +70,7 @@ namespace RE_SHMUP {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to (X) or Shift to Focus - See your hitbox and move carefully!.
+        ///   Looks up a localized string similar to Focus: (X) or Shift.
         /// </summary>
         internal static string FocusControlsString {
             get {
@@ -124,7 +124,7 @@ namespace RE_SHMUP {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Left Stick or WASD/Arrows to move.
+        ///   Looks up a localized string similar to Move: Left Stick or WASD/Arrow Keys.
         /// </summary>
         internal static string MovementControlsString {
             get {
@@ -151,7 +151,16 @@ namespace RE_SHMUP {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to (Y) or R to Reset.
+        ///   Looks up a localized string similar to Quit Game: BACK or ESC.
+        /// </summary>
+        internal static string QuitControlsString {
+            get {
+                return ResourceManager.GetString("QuitControlsString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Reset: (Y) or R.
         /// </summary>
         internal static string ResetControlsString {
             get {
@@ -160,7 +169,7 @@ namespace RE_SHMUP {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to (A) or Z/Space to Shoot!.
+        ///   Looks up a localized string similar to Shoot: (A) or Z/Space.
         /// </summary>
         internal static string ShootControlsString {
             get {

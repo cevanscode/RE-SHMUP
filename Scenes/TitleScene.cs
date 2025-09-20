@@ -186,11 +186,11 @@ namespace RE_SHMUP.Scenes
 
             Core.SpriteBatch.DrawString(_spriteFont, 
                 Localization.GetText("TempTitleString"), 
-                new Vector2(400, 100), 
+                new Vector2(350, 80), 
                 Color.Red, 
                 0f, 
                 new Vector2(0, 0), 
-                2f, 
+                3f, 
                 SpriteEffects.None, 
                 0f);
 
