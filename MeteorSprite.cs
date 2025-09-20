@@ -93,17 +93,17 @@ namespace RE_SHMUP
 
             //Show hitbox for testing
 
-            float scale = (bounds.Radius * 2f) / circleTexture.Width;
+            //float scale = (bounds.Radius * 2f) / circleTexture.Width;
 
-            Core.SpriteBatch.Draw(circleTexture,
-                 bounds.Center,
-                 null,
-                 Color.Gold * 0.4f,
-                 0f,
-                 new Vector2(circleTexture.Width / 2f, circleTexture.Height / 2f),
-                 scale,
-                 SpriteEffects.None,
-                 0f);
+            //Core.SpriteBatch.Draw(circleTexture,
+            //     bounds.Center,
+            //     null,
+            //     Color.Gold * 0.4f,
+            //     0f,
+            //     new Vector2(circleTexture.Width / 2f, circleTexture.Height / 2f),
+            //     scale,
+            //     SpriteEffects.None,
+            //     0f);
         }
 
         /// <summary>
