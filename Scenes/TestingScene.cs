@@ -5,6 +5,8 @@ using MonoGameLibrary;
 using MonoGameLibrary.Input;
 using System;
 using System.Collections.Generic;
+using Microsoft.Xna.Framework.Audio;
+using Microsoft.Xna.Framework.Media;
 
 namespace RE_SHMUP.Scenes
 {
@@ -26,6 +28,10 @@ namespace RE_SHMUP.Scenes
         private List<Vector2> starPlacements;
 
         private int meteorCount = 10;
+
+        private SoundEffect _shootSoundEffect;
+        private SoundEffect _explodeSoundEffect;
+        private SoundEffect _beamShotSoundEffect;
 
         /// <summary>
         /// Initializes content
@@ -68,13 +74,14 @@ namespace RE_SHMUP.Scenes
                 Core.Input.Keyboard.WasKeyJustPressed(Keys.R))
                 Core.ChangeScene(new TitleScene());
 
-            //menu forwards
+            //Shoot
             if (Core.Input.Keyboard.WasKeyJustPressed(Keys.Z) || 
                 Core.Input.Keyboard.WasKeyJustPressed(Keys.Space) || 
                 Core.Input.GamePads[0].WasButtonJustPressed(Buttons.A))
             {
                 BulletSprite bullet = new BulletSprite(player.Bounds.Center + new Vector2(0, 16));
                 bullet.LoadContent(Content);
+                _shootSoundEffect.Play();
 
                 bullets.Add(bullet);
             }
@@ -106,6 +113,7 @@ namespace RE_SHMUP.Scenes
                         meteor.Destroyed = true;
                         bullet.Hit = true;
                         meteorCount--;
+                        _explodeSoundEffect.Play();
                     }
                 }
             }
@@ -170,6 +178,10 @@ namespace RE_SHMUP.Scenes
             basicStar = Content.Load<Texture2D>("BasicStar");
             starPlacements = new List<Vector2>();
             _spriteFont = Content.Load<SpriteFont>("ArkPixel");
+
+            _beamShotSoundEffect = Content.Load<SoundEffect>("beam_weapon");
+            _explodeSoundEffect = Content.Load<SoundEffect>("explode");
+            _shootSoundEffect = Content.Load<SoundEffect>("shoot");
 
             Random random = new Random();
 

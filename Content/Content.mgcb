@@ -39,6 +39,12 @@
 /processorParam:TextureFormat=Color
 /build:BasicStar.png
 
+#begin beam_weapon.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:beam_weapon.wav
+
 #begin CircleHitbox.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -62,6 +68,12 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Comet.png
+
+#begin explode.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:explode.wav
 
 #begin jupiter-2048x2048.png
 /importer:TextureImporter
@@ -213,6 +225,12 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Pointer.png
+
+#begin shoot.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:shoot.wav
 
 #begin SpaceColony.png
 /importer:TextureImporter
