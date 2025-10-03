@@ -183,6 +183,17 @@ namespace RE_SHMUP.Scenes
             _explodeSoundEffect = Content.Load<SoundEffect>("explode");
             _shootSoundEffect = Content.Load<SoundEffect>("shoot");
 
+            Song noisy = Content.Load<Song>("noisy_battle");
+
+            if (MediaPlayer.State == MediaState.Playing)
+            {
+                MediaPlayer.Stop();
+            }
+
+            MediaPlayer.Play(noisy);
+
+            MediaPlayer.IsRepeating = true;
+
             Random random = new Random();
 
             //Randomly create star coordinates

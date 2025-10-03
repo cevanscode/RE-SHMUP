@@ -6,7 +6,10 @@ Collision Basis: https://docs.monogame.net/articles/tutorials/building_2d_games/
 Scenes Tutorial: https://docs.monogame.net/articles/tutorials/building_2d_games/17_scenes/
 Localization Basis - https://docs.monogame.net/articles/getting_started/content_pipeline/localization.html
 
+Sound Effects - Me in Pico-8
 
 Button Tutorial - https://www.youtube.com/watch?v=lcrgj26G5Hg&list=PLV27bZtgVIJqoeHrQq6Mt_S1-Fvq_zzGZ&index=12
 Ark Pixel Font (By TakWolf) - https://github.com/TakWolf/ark-pixel-font
 	Usage permitted under Open Font License.
+Testing Scene Music - Noisy Battle by Some Weirdo - https://opengameart.org/content/noisy-battle
+	Usage permitted under CC0 1.0 Universal - https://creativecommons.org/publicdomain/zero/1.0/

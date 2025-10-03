@@ -202,6 +202,12 @@
 /processorParam:TextureFormat=Color
 /build:Moon.png
 
+#begin noisy_battle.ogg
+/importer:OggImporter
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:noisy_battle.ogg
+
 #begin PlayerSprite.png
 /importer:TextureImporter
 /processor:TextureProcessor

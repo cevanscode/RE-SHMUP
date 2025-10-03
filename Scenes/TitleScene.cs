@@ -1,10 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Media;
 using MonoGameLibrary;
 using MonoGameLibrary.Input;
+using System;
+using System.Collections.Generic;
 
 namespace RE_SHMUP.Scenes
 {
@@ -63,6 +64,11 @@ namespace RE_SHMUP.Scenes
 
             //English mode
             Localization.SetLanguage("en");
+
+            if (MediaPlayer.State == MediaState.Playing)
+            {
+                MediaPlayer.Stop();
+            }
 
             moon = Content.Load<Texture2D>("Moon");
             colony = Content.Load<Texture2D>("SpaceColony");
