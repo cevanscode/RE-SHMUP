@@ -70,7 +70,7 @@ namespace RE_SHMUP
             Core.SpriteBatch.Draw(texture,
                  bounds.Center,
                  null,
-                 Color.Pink * 0.4f,
+                 Color.HotPink * 0.5f,
                  0f,
                  new Vector2(texture.Width / 2f, texture.Height / 2f),
                  0.1f,

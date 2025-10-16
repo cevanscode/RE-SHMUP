@@ -13,11 +13,15 @@ namespace RE_SHMUP
     /// </summary>
     public class MeteorSprite
     {
-        private Vector2 position;
+        public Vector2 position;
+
+        private Vector2 spriteOrigin;
 
         private Texture2D texture;
 
         private BoundingCircle bounds;
+
+        private float rotationAngle;
 
         private Texture2D circleTexture;
 
@@ -54,6 +58,9 @@ namespace RE_SHMUP
             texture = content.Load<Texture2D>("Meteor");
             circleTexture = content.Load<Texture2D>("CircleHitbox");
 
+            spriteOrigin.X = texture.Width / 2;
+            spriteOrigin.Y = texture.Height / 2;
+
             float radius = texture.Width / 2f;
             this.bounds = new BoundingCircle(position + new Vector2(radius, radius), radius);
         }
@@ -64,19 +71,26 @@ namespace RE_SHMUP
         /// <param name="gameTime">The game time</param>
         public void Update(GameTime gameTime)
         {
+            float elapsed = (float)gameTime.ElapsedGameTime.TotalSeconds;
             position += velocity;
             bounds.Center += velocity;
+
+            rotationAngle += elapsed;
+            float circle = MathHelper.Pi * 2;
+            rotationAngle %= circle;
 
             if (position.X <= 0 || position.X + texture.Width >= Core.Graphics.PreferredBackBufferWidth)
             {
                 velocity.X *= -1;
                 position.X = Math.Clamp(position.X, 0, Core.Graphics.PreferredBackBufferWidth - texture.Width);
+                rotationAngle *= -1;
             }
 
             if (position.Y <= 0 || position.Y + texture.Height >= Core.Graphics.PreferredBackBufferHeight)
             {
                 velocity.Y *= -1;
                 position.Y = Math.Clamp(position.Y, 0, Core.Graphics.PreferredBackBufferHeight - texture.Height);
+                rotationAngle *= -1;
             }
         }
 
@@ -89,7 +103,7 @@ namespace RE_SHMUP
         {
             if (Destroyed) return;
 
-            Core.SpriteBatch.Draw(texture, position, null, Color.White);
+            Core.SpriteBatch.Draw(texture, position, null, Color.White, rotationAngle, spriteOrigin, 1.0f, SpriteEffects.None, 0f);
 
             //Show hitbox for testing
 

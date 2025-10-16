@@ -28,11 +28,18 @@ namespace RE_SHMUP.Scenes
         private Texture2D comet;
         #endregion
 
+        public Game _theGame;
+
         #region Buttons
         public Button languageButton;
         public Button quitButton;
         public Button startButton;
         #endregion
+
+        public TitleScene(Game game)
+        {
+            _theGame = game;
+        }
 
         public override void Initialize()
         {
@@ -45,7 +52,7 @@ namespace RE_SHMUP.Scenes
                 Core.Instance.Exit();
 
             if (Core.Input.GamePads[0].WasButtonJustPressed(Buttons.A) || Core.Input.Keyboard.WasKeyJustPressed(Keys.Space))
-                Core.ChangeScene(new InstructionsScene());
+                Core.ChangeScene(new InstructionsScene(_theGame));
 
             // TODO: Add your update logic here
             languageButton.Update(gameTime);
@@ -213,7 +220,7 @@ namespace RE_SHMUP.Scenes
         /// <param name="e">Information about the event</param>
         private void StartButton_Click(object sender, System.EventArgs e)
         {
-            Core.ChangeScene(new InstructionsScene());
+            Core.ChangeScene(new InstructionsScene(_theGame));
         }
 
         /// <summary>

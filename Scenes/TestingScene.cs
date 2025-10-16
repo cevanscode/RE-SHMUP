@@ -1,19 +1,19 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Media;
 using MonoGameLibrary;
 using MonoGameLibrary.Input;
 using System;
 using System.Collections.Generic;
-using Microsoft.Xna.Framework.Audio;
-using Microsoft.Xna.Framework.Media;
 
 namespace RE_SHMUP.Scenes
 {
     /// <summary>
     /// A scene for testing basic gameplay mechinics (collisions, sprite animation, etc.)
     /// </summary>
-    public class TestingScene : Scene
+    public class TestingScene : Scene, IParticleEmitter
     {
         private List<MeteorSprite> meteors;
 
@@ -29,9 +29,21 @@ namespace RE_SHMUP.Scenes
 
         private int meteorCount = 10;
 
+        ExplosionParticleSystem _explosions;
+
+        public Vector2 Position {  get; set; }
+        public Vector2 Velocity {  get; set; }
+
         private SoundEffect _shootSoundEffect;
         private SoundEffect _explodeSoundEffect;
         private SoundEffect _beamShotSoundEffect;
+
+        public Game _theGame;
+
+        public TestingScene(Game game)
+        {
+            _theGame = game;
+        }
 
         /// <summary>
         /// Initializes content
@@ -45,6 +57,9 @@ namespace RE_SHMUP.Scenes
             System.Random rand = new System.Random();
 
             meteors = new List<MeteorSprite>();
+
+            _explosions = new ExplosionParticleSystem(_theGame, 20);
+            _theGame.Components.Add(_explosions);
 
             for (int i = 0; i < meteorCount; i++)
             {
@@ -72,7 +87,7 @@ namespace RE_SHMUP.Scenes
             //reset to title
             if (Core.Input.GamePads[0].WasButtonJustPressed(Buttons.Y) || 
                 Core.Input.Keyboard.WasKeyJustPressed(Keys.R))
-                Core.ChangeScene(new TitleScene());
+                Core.ChangeScene(new TitleScene(_theGame));
 
             //Shoot
             if (Core.Input.Keyboard.WasKeyJustPressed(Keys.Z) || 
@@ -103,7 +118,7 @@ namespace RE_SHMUP.Scenes
             {
                 if (!meteor.Destroyed && meteor.Bounds.CollidesWith(player.Bounds))
                 {
-                    Core.ChangeScene(new TestingScene());
+                    Core.ChangeScene(new TestingScene(_theGame));
                 }
 
                 foreach (var bullet in bullets)
@@ -114,6 +129,7 @@ namespace RE_SHMUP.Scenes
                         bullet.Hit = true;
                         meteorCount--;
                         _explodeSoundEffect.Play();
+                        _explosions.PlaceExplosion(meteor.position);
                     }
                 }
             }
