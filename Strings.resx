@@ -132,9 +132,6 @@
   <data name="QuitButton" xml:space="preserve">
     <value>Quit (or ESC)</value>
   </data>
-  <data name="よ" xml:space="preserve">
-    <value>English</value>
-  </data>
   <data name="JapaneseLabel" xml:space="preserve">
     <value>Japanese</value>
   </data>
@@ -167,5 +164,8 @@
   </data>
   <data name="GoodJobString" xml:space="preserve">
     <value>Nice Job! Press (Y)/R!</value>
+  </data>
+  <data name="FullScreenButton" xml:space="preserve">
+    <value>Change Display</value>
   </data>
 </root>

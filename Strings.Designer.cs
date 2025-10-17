@@ -70,6 +70,15 @@ namespace RE_SHMUP {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Change Display.
+        /// </summary>
+        internal static string FullScreenButton {
+            get {
+                return ResourceManager.GetString("FullScreenButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Nice Job! Press (Y)/R!.
         /// </summary>
         internal static string GoodJobString {
@@ -201,15 +210,6 @@ namespace RE_SHMUP {
         internal static string TempTitleString {
             get {
                 return ResourceManager.GetString("TempTitleString", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to English.
-        /// </summary>
-        internal static string よ {
-            get {
-                return ResourceManager.GetString("よ", resourceCulture);
             }
         }
     }

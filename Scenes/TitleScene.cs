@@ -30,7 +30,7 @@ namespace RE_SHMUP.Scenes
         #endregion
 
         public Game _theGame;
-        private Button[] _theButtons = new Button[3];
+        private Button[] _theButtons = new Button[4];
         private ButtonHelper _buttonHelper = new ButtonHelper();
         private float prevStickY = 0;
         private float currStickY = 0;
@@ -38,6 +38,7 @@ namespace RE_SHMUP.Scenes
         #region Buttons
         public Button languageButton;
         public Button quitButton;
+        public Button screenButton;
         public Button startButton;
         #endregion
 
@@ -78,6 +79,7 @@ namespace RE_SHMUP.Scenes
             languageButton.Update(gameTime);
             quitButton.Update(gameTime);
             startButton.Update(gameTime);
+            screenButton.Update(gameTime);
 
             _cometPosition += _cometVelocity;
 
@@ -127,23 +129,28 @@ namespace RE_SHMUP.Scenes
             _spriteFont = Content.Load<SpriteFont>("ArkPixel");
 
             startButton = new Button(_spriteFont, menuButtonTexture);
-            startButton.buttonPosition = new Vector2(650, 260);
+            startButton.buttonPosition = new Vector2(650, 190);
             startButton._buttonText = Localization.GetText("StartButton");
             startButton.Click += StartButton_Click;
             _theButtons[0] = startButton;
 
             languageButton = new Button(_spriteFont, menuButtonTexture);
-            languageButton.buttonPosition = new Vector2(650, 330);
+            languageButton.buttonPosition = new Vector2(650, 260);
             languageButton._buttonText = Localization.GetText("LanguageLabel");
             languageButton.Click += LanguageButton_Click;
             _theButtons[1] = languageButton;
 
+            screenButton = new Button(_spriteFont, menuButtonTexture);
+            screenButton.buttonPosition = new Vector2(650, 330);
+            screenButton._buttonText = Localization.GetText("FullScreenButton");
+            screenButton.Click += ScreenButton_Click;
+            _theButtons[2] = screenButton;
 
             quitButton = new Button(_spriteFont, menuButtonTexture);
             quitButton.buttonPosition = new Vector2(650, 400);
             quitButton._buttonText = Localization.GetText("QuitButton");
             quitButton.Click += QuitButton_Click;
-            _theButtons[2] = quitButton;
+            _theButtons[3] = quitButton;
 
             _theButtons[0].Selected = true;
             _buttonHelper.Buttons = _theButtons;
@@ -174,6 +181,7 @@ namespace RE_SHMUP.Scenes
 
             startButton.Draw(gameTime, Core.SpriteBatch);
             languageButton.Draw(gameTime, Core.SpriteBatch);
+            screenButton.Draw(gameTime, Core.SpriteBatch);
             quitButton.Draw(gameTime, Core.SpriteBatch);
 
             Core.SpriteBatch.Draw(comet, 
@@ -263,14 +271,26 @@ namespace RE_SHMUP.Scenes
             {
                 Localization.SetLanguage("en");
                 languageButton._buttonText = Localization.GetText("LanguageLabel");
+                screenButton._buttonText = Localization.GetText("FullScreenButton");
             }
             else
             {
                 Localization.SetLanguage("ja");
                 languageButton._buttonText = Localization.GetText("LanguageLabel");
+                screenButton._buttonText = Localization.GetText("FullScreenButton");
             }
             startButton._buttonText = Localization.GetText("StartButton");
             quitButton._buttonText = Localization.GetText("QuitButton");
+        }
+
+        /// <summary>
+        /// Sets the game to full screen or windowed mode
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ScreenButton_Click(object sender, System.EventArgs e)
+        {
+            //Does nothing yet
         }
 
         /// <summary>

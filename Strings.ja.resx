@@ -132,9 +132,6 @@
   <data name="QuitButton" xml:space="preserve">
     <value>やめる</value>
   </data>
-  <data name="よ" xml:space="preserve">
-    <value>英語</value>
-  </data>
   <data name="JapaneseLabel" xml:space="preserve">
     <value>日本語</value>
   </data>
@@ -167,5 +164,8 @@
   </data>
   <data name="GoodJobString" xml:space="preserve">
     <value>すごい: リセット: (Y)/R</value>
+  </data>
+  <data name="FullScreenButton" xml:space="preserve">
+    <value>大小になる</value>
   </data>
 </root>
