@@ -31,7 +31,7 @@ namespace RE_SHMUP
 
             base.Initialize();
 
-            ChangeScene(new TitleScene(this));
+            ChangeScene(new TitleScene());
         }
 
         /// <summary>

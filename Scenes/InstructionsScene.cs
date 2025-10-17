@@ -14,11 +14,6 @@ namespace RE_SHMUP.Scenes
 
         public Game _theGame;
 
-        public InstructionsScene(Game game)
-        {
-            _theGame = game;
-        }
-
         /// <summary>
         /// Initializes content
         /// </summary>
@@ -39,11 +34,11 @@ namespace RE_SHMUP.Scenes
 
             if (Core.Input.GamePads[0].WasButtonJustPressed(Buttons.Y) ||
                 Core.Input.Keyboard.WasKeyJustPressed(Keys.R))
-                Core.ChangeScene(new TitleScene(_theGame));
+                Core.ChangeScene(new TitleScene());
 
             if (Core.Input.GamePads[0].WasButtonJustPressed(Buttons.A) || 
                 Core.Input.Keyboard.WasKeyJustPressed(Keys.Space))
-                Core.ChangeScene(new TestingScene(_theGame));
+                Core.ChangeScene(new TestingScene());
 
             base.Update(gameTime);
         }

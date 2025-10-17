@@ -29,7 +29,6 @@ namespace RE_SHMUP.Scenes
         private Texture2D comet;
         #endregion
 
-        public Game _theGame;
         private Button[] _theButtons = new Button[4];
         private ButtonHelper _buttonHelper = new ButtonHelper();
         private float prevStickY = 0;
@@ -41,11 +40,6 @@ namespace RE_SHMUP.Scenes
         public Button screenButton;
         public Button startButton;
         #endregion
-
-        public TitleScene(Game game)
-        {
-            _theGame = game;
-        }
 
         public override void Initialize()
         {
@@ -257,7 +251,7 @@ namespace RE_SHMUP.Scenes
         /// <param name="e">Information about the event</param>
         private void StartButton_Click(object sender, System.EventArgs e)
         {
-            Core.ChangeScene(new InstructionsScene(_theGame));
+            Core.ChangeScene(new InstructionsScene());
         }
 
         /// <summary>

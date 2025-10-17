@@ -38,13 +38,6 @@ namespace RE_SHMUP.Scenes
         private SoundEffect _explodeSoundEffect;
         private SoundEffect _beamShotSoundEffect;
 
-        public Game _theGame;
-
-        public TestingScene(Game game)
-        {
-            _theGame = game;
-        }
-
         /// <summary>
         /// Initializes content
         /// </summary>
@@ -58,8 +51,8 @@ namespace RE_SHMUP.Scenes
 
             meteors = new List<MeteorSprite>();
 
-            _explosions = new ExplosionParticleSystem(_theGame, 20);
-            _theGame.Components.Add(_explosions);
+            _explosions = new ExplosionParticleSystem(Core.Instance, 20);
+            Core.Instance.Components.Add(_explosions);
 
             for (int i = 0; i < meteorCount; i++)
             {
@@ -87,7 +80,7 @@ namespace RE_SHMUP.Scenes
             //reset to title
             if (Core.Input.GamePads[0].WasButtonJustPressed(Buttons.Y) || 
                 Core.Input.Keyboard.WasKeyJustPressed(Keys.R))
-                Core.ChangeScene(new TitleScene(_theGame));
+                Core.ChangeScene(new TitleScene());
 
             //Shoot
             if (Core.Input.Keyboard.WasKeyJustPressed(Keys.Z) || 
@@ -118,7 +111,7 @@ namespace RE_SHMUP.Scenes
             {
                 if (!meteor.Destroyed && meteor.Bounds.CollidesWith(player.Bounds))
                 {
-                    Core.ChangeScene(new TestingScene(_theGame));
+                    Core.ChangeScene(new TestingScene());
                 }
 
                 foreach (var bullet in bullets)
