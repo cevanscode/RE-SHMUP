@@ -139,7 +139,7 @@ namespace RE_SHMUP.Scenes
             if (readyForMissiles && missileCount > 0)
             {
                 System.Random rand = new System.Random();
-                MissileSprite missile = new MissileSprite(new Vector2(rand.Next(0, Core.Graphics.PreferredBackBufferWidth), -200));
+                MissileSprite missile = new MissileSprite(new Vector2(rand.Next(0, Core.Graphics.PreferredBackBufferWidth), -500));
                 missile.LoadContent(Content);
                 missiles.Add(missile);
             }
@@ -380,9 +380,6 @@ namespace RE_SHMUP.Scenes
                     readyForMissiles = true;
                 }
             }
-
-
-
 
             player.Draw(gameTime, Core.SpriteBatch);
 

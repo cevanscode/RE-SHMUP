@@ -1,4 +1,6 @@
 # RE-SHMUP
+Inspired by ZUN's TOUHOU Project
+
 From MonoGame Documentation:
 Class Library Tutorial: https://docs.monogame.net/articles/tutorials/building_2d_games/04_creating_a_class_library/index.html?tabs=vscode
 Input Management: https://docs.monogame.net/articles/tutorials/building_2d_games/11_input_management/
@@ -6,8 +8,8 @@ Collision Basis: https://docs.monogame.net/articles/tutorials/building_2d_games/
 Scenes Tutorial: https://docs.monogame.net/articles/tutorials/building_2d_games/17_scenes/
 Localization Basis - https://docs.monogame.net/articles/getting_started/content_pipeline/localization.html
 
-Art Assets - Me in Aseprite
-Sound Effects - Me in Pico-8
+Art Assets if not otherwise listed here - Me in Aseprite
+Sound Effects if not otherwise listed here - Me in Pico-8
 
 Button Tutorial (just the clicking functionality, controller/keyboard support by me) 
 	- https://www.youtube.com/watch?v=lcrgj26G5Hg&list=PLV27bZtgVIJqoeHrQq6Mt_S1-Fvq_zzGZ&index=12

@@ -45,7 +45,8 @@ namespace RE_SHMUP
         public MeteorSprite(Vector2 position, Vector2 velocity)
         {
             this.position = position;
-            //this.bounds = new BoundingCircle(position - new Vector2(-16, -16), 8);
+            float radius = 8;
+            this.bounds = new BoundingCircle(position - new Vector2(radius, radius), 8);
             this.velocity = velocity;
         }
 
@@ -107,17 +108,16 @@ namespace RE_SHMUP
 
             //Show hitbox for testing
 
-            //float scale = (bounds.Radius * 2f) / circleTexture.Width;
-
-            //Core.SpriteBatch.Draw(circleTexture,
-            //     bounds.Center,
-            //     null,
-            //     Color.Gold * 0.4f,
-            //     0f,
-            //     new Vector2(circleTexture.Width / 2f, circleTexture.Height / 2f),
-            //     scale,
-            //     SpriteEffects.None,
-            //     0f);
+            float scale = (bounds.Radius * 1f) / circleTexture.Width;
+            Core.SpriteBatch.Draw(circleTexture,
+                 bounds.Center,
+                 null,
+                 Color.Gold * 0.4f,
+                 0f,
+                 new Vector2(circleTexture.Width / 2f, circleTexture.Height / 2f),
+                 scale,
+                 SpriteEffects.None,
+                 0f);
         }
 
         /// <summary>

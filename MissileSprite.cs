@@ -12,11 +12,25 @@ namespace RE_SHMUP
     /// </summary>
     public class MissileSprite
     {
-        public Vector2 position;
-
         private Texture2D texture;
 
         private BoundingCircle bounds;
+
+        private int frameLength = 32;
+
+        private int frameCount = 4;
+
+        private const float ANIMATION_SPEED = 0.1f;
+
+        private double animationTimer;
+
+        private int animationFrame;
+
+        private Vector2 origin;
+
+        private float drawScale = 1f;
+
+        public Vector2 position;
 
         public ProjectileType projectileType = ProjectileType.Kinetic;
 
@@ -51,6 +65,17 @@ namespace RE_SHMUP
         {
                 position += new Vector2(0, 5); //these missiles travel downwards
                 bounds.Center = position;
+
+            animationTimer += gameTime.ElapsedGameTime.TotalSeconds;
+
+            if (animationTimer > ANIMATION_SPEED)
+            {
+                animationFrame++;
+                if (animationFrame >= frameCount)
+                    animationFrame = 0;
+
+                animationTimer -= ANIMATION_SPEED;
+            }
         }
 
         /// <summary>
@@ -59,7 +84,10 @@ namespace RE_SHMUP
         /// <param name="content">The ContentManager to load with</param>
         public void LoadContent(ContentManager content)
         {
-            texture = content.Load<Texture2D>("CircleHitbox");
+            texture = content.Load<Texture2D>("missile-Sheet");
+
+            origin = new Vector2(frameLength / 2f, frameLength / 2f);
+            float radius = (frameLength * drawScale) / 8f;
             //circleTexture = content.Load<Texture2D>("CircleHitbox");
         }
 
@@ -74,15 +102,28 @@ namespace RE_SHMUP
             if (Destroyed) return;
             //Core.SpriteBatch.Draw(texture, position, null, Color.Pink);
 
+            Rectangle source = new Rectangle(animationFrame * frameLength, 0, frameLength, frameLength);
+
+
+            //Core.SpriteBatch.Draw(texture,
+            //     bounds.Center,
+            //     null,
+            //     Color.Red * 0.5f,
+            //     0f,
+            //     new Vector2(texture.Width / 2f, texture.Height / 2f),
+            //     0.1f,
+            //     SpriteEffects.None,
+            //     0f);
+
             Core.SpriteBatch.Draw(texture,
-                 bounds.Center,
-                 null,
-                 Color.Red * 0.5f,
-                 0f,
-                 new Vector2(texture.Width / 2f, texture.Height / 2f),
-                 0.1f,
-                 SpriteEffects.None,
-                 0f);
+                position,
+                source,
+                Color.Red,
+                0f,
+                origin,
+                drawScale,
+                SpriteEffects.None,
+                1f);
 
             //test code to see hitbox
 
