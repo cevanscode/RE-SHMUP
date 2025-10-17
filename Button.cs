@@ -7,6 +7,8 @@ using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using MonoGameLibrary;
+using SharpDX.XInput;
 
 namespace RE_SHMUP
 {
@@ -23,6 +25,8 @@ namespace RE_SHMUP
         #region Properties
         public event EventHandler Click;
         //public bool Clicked { get; private set; }
+
+        public bool Selected { get; set; } = false;
 
         public Color ButtonFontColor { get; set; }
         
@@ -53,6 +57,11 @@ namespace RE_SHMUP
 
             _touch = false;
 
+            if (Selected == true && (Core.Input.Keyboard.WasKeyJustPressed(Keys.Space) || Core.Input.GamePads[0].WasButtonJustPressed(Buttons.A)))
+            {
+                Click?.Invoke(this, new EventArgs());
+            }
+
             if (mouseRect.Intersects(ButtonRect))
             {
                 _touch = true;
@@ -70,6 +79,11 @@ namespace RE_SHMUP
             Color color = Color.White;
 
             if (_touch)
+            {
+                color = Color.Red;
+            }
+
+            if (Selected == true)
             {
                 color = Color.Red;
             }

@@ -46,7 +46,7 @@ namespace RE_SHMUP
             float normalizedLifetime = particle.TimeSinceStart / particle.Lifetime;
 
             float alpha = 4 * normalizedLifetime * (1 - normalizedLifetime);
-            particle.Color = Color.White * alpha;
+            particle.Color = Color.HotPink * alpha;
 
             particle.Scale = 0.1f + 0.25f + normalizedLifetime;
         }

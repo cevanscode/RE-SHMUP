@@ -10,6 +10,7 @@ Art Assets - Me in Aseprite
 Sound Effects - Me in Pico-8
 
 Button Tutorial - https://www.youtube.com/watch?v=lcrgj26G5Hg&list=PLV27bZtgVIJqoeHrQq6Mt_S1-Fvq_zzGZ&index=12
+Particle System and Explosion From Nathan Bean - https://www.youtube.com/watch?v=dLz6556Xkso&feature=youtu.be
 Ark Pixel Font (By TakWolf) - https://github.com/TakWolf/ark-pixel-font
 	Usage permitted under Open Font License.
 Testing Scene Music - Noisy Battle by Some Weirdo - https://opengameart.org/content/noisy-battle

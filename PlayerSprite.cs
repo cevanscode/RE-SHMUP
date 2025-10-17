@@ -93,10 +93,10 @@ namespace RE_SHMUP
             position += Core.Input.GamePads[0].LeftThumbStick * new Vector2(moveSpeed, -moveSpeed);
 
             // Keyboard movement
-            if (Core.Input.Keyboard.IsKeyDown(Keys.Up) || Core.Input.Keyboard.IsKeyDown(Keys.W)) position += new Vector2(0, -moveSpeed);
-            if (Core.Input.Keyboard.IsKeyDown(Keys.Down) || Core.Input.Keyboard.IsKeyDown(Keys.S)) position += new Vector2(0, moveSpeed);
-            if (Core.Input.Keyboard.IsKeyDown(Keys.Left) || Core.Input.Keyboard.IsKeyDown(Keys.A)) position += new Vector2(-moveSpeed, 0);
-            if (Core.Input.Keyboard.IsKeyDown(Keys.Right) || Core.Input.Keyboard.IsKeyDown(Keys.D)) position += new Vector2(moveSpeed, 0);
+            if (Core.Input.Keyboard.IsKeyDown(Keys.Up) || Core.Input.Keyboard.IsKeyDown(Keys.W) || Core.Input.GamePads[0].IsButtonDown(Buttons.DPadUp)) position += new Vector2(0, -moveSpeed);
+            if (Core.Input.Keyboard.IsKeyDown(Keys.Down) || Core.Input.Keyboard.IsKeyDown(Keys.S) || Core.Input.GamePads[0].IsButtonDown(Buttons.DPadDown)) position += new Vector2(0, moveSpeed);
+            if (Core.Input.Keyboard.IsKeyDown(Keys.Left) || Core.Input.Keyboard.IsKeyDown(Keys.A) || Core.Input.GamePads[0].IsButtonDown(Buttons.DPadLeft)) position += new Vector2(-moveSpeed, 0);
+            if (Core.Input.Keyboard.IsKeyDown(Keys.Right) || Core.Input.Keyboard.IsKeyDown(Keys.D) || Core.Input.GamePads[0].IsButtonDown(Buttons.DPadRight)) position += new Vector2(moveSpeed, 0);
 
             position.X = Math.Clamp(position.X, bounds.Radius, Core.Graphics.PreferredBackBufferWidth - bounds.Radius);
             position.Y = Math.Clamp(position.Y, bounds.Radius, Core.Graphics.PreferredBackBufferHeight - bounds.Radius);

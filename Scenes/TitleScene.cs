@@ -6,6 +6,7 @@ using MonoGameLibrary;
 using MonoGameLibrary.Input;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace RE_SHMUP.Scenes
 {
@@ -29,6 +30,8 @@ namespace RE_SHMUP.Scenes
         #endregion
 
         public Game _theGame;
+        private Button[] _theButtons = new Button[3];
+        private ButtonHelper _buttonHelper = new ButtonHelper();
 
         #region Buttons
         public Button languageButton;
@@ -51,8 +54,18 @@ namespace RE_SHMUP.Scenes
             if (Core.Input.GamePads[0].WasButtonJustPressed(Buttons.Back) || Core.Input.Keyboard.WasKeyJustPressed(Keys.Escape))
                 Core.Instance.Exit();
 
-            if (Core.Input.GamePads[0].WasButtonJustPressed(Buttons.A) || Core.Input.Keyboard.WasKeyJustPressed(Keys.Space))
-                Core.ChangeScene(new InstructionsScene(_theGame));
+            //if (Core.Input.GamePads[0].WasButtonJustPressed(Buttons.A) || Core.Input.Keyboard.WasKeyJustPressed(Keys.Space))
+            //    Core.ChangeScene(new InstructionsScene(_theGame));
+
+            if (Core.Input.Keyboard.WasKeyJustPressed(Keys.Down) || Core.Input.GamePads[0].WasButtonJustPressed(Buttons.DPadDown) || Core.Input.GamePads[0].WasButtonJustPressed(Buttons.DPadDown))
+            {
+                _buttonHelper.IncrementSelection();
+            }
+
+            if (Core.Input.Keyboard.WasKeyJustPressed(Keys.Up) || Core.Input.GamePads[0].WasButtonJustPressed(Buttons.DPadUp) || Core.Input.GamePads[0].WasButtonJustPressed(Buttons.DPadDown))
+            {
+                _buttonHelper.DecrementSelection();
+            }
 
             // TODO: Add your update logic here
             languageButton.Update(gameTime);
@@ -108,16 +121,23 @@ namespace RE_SHMUP.Scenes
             startButton.buttonPosition = new Vector2(650, 260);
             startButton._buttonText = Localization.GetText("StartButton");
             startButton.Click += StartButton_Click;
+            _theButtons[0] = startButton;
 
             languageButton = new Button(_spriteFont, menuButtonTexture);
             languageButton.buttonPosition = new Vector2(650, 330);
             languageButton._buttonText = Localization.GetText("LanguageLabel");
             languageButton.Click += LanguageButton_Click;
+            _theButtons[1] = languageButton;
+
 
             quitButton = new Button(_spriteFont, menuButtonTexture);
             quitButton.buttonPosition = new Vector2(650, 400);
             quitButton._buttonText = Localization.GetText("QuitButton");
             quitButton.Click += QuitButton_Click;
+            _theButtons[2] = quitButton;
+
+            _theButtons[0].Selected = true;
+            _buttonHelper.Buttons = _theButtons;
 
             base.LoadContent();
         }
