@@ -177,4 +177,7 @@
   <data name="BestTimeString" xml:space="preserve">
     <value>Best Time</value>
   </data>
+  <data name="BombControlsString" xml:space="preserve">
+    <value>Bomb: (B) or X</value>
+  </data>
 </root>

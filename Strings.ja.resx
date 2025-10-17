@@ -177,4 +177,7 @@
   <data name="BestTimeString" xml:space="preserve">
     <value>一番時間</value>
   </data>
+  <data name="BombControlsString" xml:space="preserve">
+    <value>爆発: (B)/X</value>
+  </data>
 </root>

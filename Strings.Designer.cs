@@ -70,6 +70,15 @@ namespace RE_SHMUP {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Bomb: (B) or X.
+        /// </summary>
+        internal static string BombControlsString {
+            get {
+                return ResourceManager.GetString("BombControlsString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Focus: Right Trigger or Shift.
         /// </summary>
         internal static string FocusControlsString {
