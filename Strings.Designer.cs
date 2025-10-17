@@ -214,7 +214,7 @@ namespace RE_SHMUP {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Watch out!.
+        ///   Looks up a localized string similar to Intercept missiles!.
         /// </summary>
         internal static string WatchOutString {
             get {
