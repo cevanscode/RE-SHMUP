@@ -8,6 +8,7 @@ using MonoGameLibrary.Input;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.IO;
 
 namespace RE_SHMUP.Scenes
 {
@@ -58,6 +59,16 @@ namespace RE_SHMUP.Scenes
 
         #endregion
 
+        private float _survivalTime = 0f;
+
+        private float _lastSurvivalTime = 0f;
+
+        public static float _bestSurvivalTime = 0f;
+
+        private bool _playerDead = false;
+
+        private bool _timerStart = false;
+
         public bool readyForMissiles = false;
 
         ExplosionParticleSystem _explosions;
@@ -100,6 +111,25 @@ namespace RE_SHMUP.Scenes
             }
 
             bombWaveMaxRadius = MathF.Max(Core.Graphics.PreferredBackBufferWidth, Core.Graphics.PreferredBackBufferHeight);
+
+            //get best time
+            try
+            {
+                string savePath = Path.Combine(
+                    Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
+                    "RE_SHMUP",
+                    "bestTime.txt");
+
+                if (File.Exists(savePath))
+                {
+                    string content = File.ReadAllText(savePath);
+                    float.TryParse(content, out _bestSurvivalTime);
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine("Error loading best time: " + ex.Message);
+            }
 
             base.Initialize();
         }
@@ -151,6 +181,7 @@ namespace RE_SHMUP.Scenes
                         if (distance < bombWaveRadius)
                         {
                             meteor.Destroyed = true;
+                            meteorCount--;
                             _explodeSoundEffect.Play();
                             _explosions.PlaceExplosion(meteor.position);
                         }
@@ -165,7 +196,6 @@ namespace RE_SHMUP.Scenes
                         if (distance < bombWaveRadius)
                         {
                             missile.Destroyed = true;
-                            //missileCount--;
                             _explodeSoundEffect.Play();
                             _explosions.PlaceExplosion(missile.position);
                         }
@@ -219,7 +249,6 @@ namespace RE_SHMUP.Scenes
                     Core.ChangeScene(new TestingScene()); //this will change to destroy an Orbiter when they are added
                 }
 
-
                 foreach (var bullet in bullets)
                 {
                     if (!meteor.Destroyed && meteor.Bounds.CollidesWith(bullet.Bounds))
@@ -239,13 +268,42 @@ namespace RE_SHMUP.Scenes
             {
                 if (!missile.Destroyed && missile.Bounds.CollidesWith(player.Bounds))
                 {
+                    _playerDead = true;
+                    _lastSurvivalTime = _survivalTime;
+                    if (_lastSurvivalTime > _bestSurvivalTime)
+                    {
+                        _bestSurvivalTime = _lastSurvivalTime;
+
+                        //saving the best time
+                        try
+                        {
+                            string savePath = Path.Combine(
+                                Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
+                                "RE_SHMUP");
+
+                            Directory.CreateDirectory(savePath);
+
+                            string filePath = Path.Combine(savePath, "bestTime.txt");
+
+                            using (StreamWriter sw = new StreamWriter(filePath))
+                            {
+                                sw.WriteLine(_bestSurvivalTime);
+                            }
+
+                            System.Diagnostics.Debug.WriteLine($"Best time saved to: {filePath}");
+                        }
+                        catch (Exception ex)
+                        {
+                            System.Diagnostics.Debug.WriteLine("Error writing best time: " + ex.Message);
+                        }
+                    }
+
                     Core.ChangeScene(new TestingScene()); //this will change to destroy an Orbiter when they are added
                 }
 
                 if (missile.position.Y > Core.Graphics.PreferredBackBufferHeight && !missile.Destroyed)
                 {
                     missile.Destroyed = true;
-                    //missileCount--;
                 }
 
                 foreach (var bullet in bullets)
@@ -254,7 +312,6 @@ namespace RE_SHMUP.Scenes
                     {
                         missile.Destroyed = true;
                         bullet.Hit = true;
-                        //missileCount--;
                         _explodeSoundEffect.Play();
                         _explosions.PlaceExplosion(missile.position);
                         _shakeTime = 0;
@@ -322,6 +379,11 @@ namespace RE_SHMUP.Scenes
 
             //kill all missiles that are dead (destroyed by bomb/bullet or went off bottom
             missiles.RemoveAll(m => m.Destroyed);
+
+            if (!_playerDead && _timerStart)
+            {
+                _survivalTime += (float)gameTime.ElapsedGameTime.TotalSeconds;
+            }
 
             base.Update(gameTime);
         }
@@ -436,25 +498,13 @@ namespace RE_SHMUP.Scenes
             bool allMissilesDestroyed = missiles.All(m => m.Destroyed);
 
             Core.SpriteBatch.DrawString(_spriteFont,
-                $"Missiles Remaining: {maxMissileCount - missiles.Count}",
+                Localization.GetText("BestTimeString") + $": {_bestSurvivalTime:F2}s",
                 new Vector2(10, 30),
                 Color.White);
 
             if (meteorCount == 0)
             {
-                if (allMissilesDestroyed)
-                {
-                    Core.SpriteBatch.DrawString(_spriteFont,
-                        Localization.GetText("GoodJobString"),
-                        new Vector2(100, 100),
-                        Color.White,
-                        0f,
-                        new Vector2(0, 0),
-                        2f,
-                        SpriteEffects.None,
-                        0f);
-                }
-                else
+                if (_survivalTime < 5)
                 {
                     Core.SpriteBatch.DrawString(_spriteFont,
                         Localization.GetText("WatchOutString"),
@@ -465,8 +515,15 @@ namespace RE_SHMUP.Scenes
                         2f,
                         SpriteEffects.None,
                         0f);
-                    readyForMissiles = true;
                 }
+
+                readyForMissiles = true;
+                _timerStart = true;
+
+                Core.SpriteBatch.DrawString(_spriteFont,
+                    Localization.GetText("TimeString") + $": {_survivalTime:F2}s",
+                    new Vector2(10, 50),
+                    Color.White);
             }
 
             if (bombActive && bombTimer > bombDuration - 0.1f)
@@ -490,7 +547,6 @@ namespace RE_SHMUP.Scenes
                     SpriteEffects.None,
                     0f);
             }
-
 
             player.Draw(gameTime, Core.SpriteBatch);
 

@@ -171,4 +171,10 @@
   <data name="WatchOutString" xml:space="preserve">
     <value> ミサイルを迎撃して!</value>
   </data>
+  <data name="TimeString" xml:space="preserve">
+    <value>時間</value>
+  </data>
+  <data name="BestTimeString" xml:space="preserve">
+    <value>一番時間</value>
+  </data>
 </root>

@@ -14,6 +14,7 @@ Sound Effects if not otherwise listed here - Me in Pico-8
 Button Tutorial (just the clicking functionality, controller/keyboard support by me) 
 	- https://www.youtube.com/watch?v=lcrgj26G5Hg&list=PLV27bZtgVIJqoeHrQq6Mt_S1-Fvq_zzGZ&index=12
 Particle System and Explosion From Nathan Bean - https://www.youtube.com/watch?v=dLz6556Xkso&feature=youtu.be
+Special Effects (ScreenBatch Transform) From Nathan Bean - https://github.com/zombiepaladin/spritebatch-transform-special-effects
 Ark Pixel Font (By TakWolf) - https://github.com/TakWolf/ark-pixel-font
 	Usage permitted under Open Font License.
 Testing Scene Music - Noisy Battle by Some Weirdo - https://opengameart.org/content/noisy-battle

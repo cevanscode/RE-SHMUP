@@ -61,6 +61,15 @@ namespace RE_SHMUP {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Best Time.
+        /// </summary>
+        internal static string BestTimeString {
+            get {
+                return ResourceManager.GetString("BestTimeString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Focus: Right Trigger or Shift.
         /// </summary>
         internal static string FocusControlsString {
@@ -210,6 +219,15 @@ namespace RE_SHMUP {
         internal static string TempTitleString {
             get {
                 return ResourceManager.GetString("TempTitleString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Time.
+        /// </summary>
+        internal static string TimeString {
+            get {
+                return ResourceManager.GetString("TimeString", resourceCulture);
             }
         }
         
