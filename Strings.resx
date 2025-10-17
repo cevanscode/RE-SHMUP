@@ -142,7 +142,7 @@
     <value>The Deep of Space</value>
   </data>
   <data name="StartGameString" xml:space="preserve">
-    <value>Start with (A) or Space</value>
+    <value>Start with (A), Space or Z</value>
   </data>
   <data name="LysitheaPlotString" xml:space="preserve">
     <value>Test Lysithea Unit 1 by blasting meteors!</value>

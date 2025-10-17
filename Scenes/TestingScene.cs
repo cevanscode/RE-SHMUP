@@ -7,10 +7,7 @@ using MonoGameLibrary;
 using MonoGameLibrary.Input;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics.Eventing.Reader;
-using System.Diagnostics.Metrics;
 using System.Linq;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.Rebar;
 
 namespace RE_SHMUP.Scenes
 {
@@ -27,7 +24,7 @@ namespace RE_SHMUP.Scenes
 
         private List<MissileSprite> missiles;
 
-        private int missileCount = 200;
+        private int maxMissileCount = 100;
 
         private SpriteFont _spriteFont;
 
@@ -38,6 +35,28 @@ namespace RE_SHMUP.Scenes
         private int meteorCount = 10;
 
         private bool _meteorsDestroyed = false;
+
+        #region Bomb fields
+
+        private int bombCount = 3;
+
+        private bool bombActive = false;
+
+        private float bombDuration = 2f; // iframes
+
+        private float bombTimer = 0f;
+
+        private bool bombWaveActive = false;
+
+        private float bombWaveRadius = 0f;
+
+        private float bombWaveMaxRadius;
+
+        private Vector2 bombWaveCenter;
+
+        private float bombWaveSpeed = 800f;
+
+        #endregion
 
         public bool readyForMissiles = false;
 
@@ -80,6 +99,8 @@ namespace RE_SHMUP.Scenes
                 meteors.Add(new MeteorSprite(randPos, randVelocity));
             }
 
+            bombWaveMaxRadius = MathF.Max(Core.Graphics.PreferredBackBufferWidth, Core.Graphics.PreferredBackBufferHeight);
+
             base.Initialize();
         }
 
@@ -111,6 +132,52 @@ namespace RE_SHMUP.Scenes
                 bullets.Add(bullet);
             }
 
+            if ((Core.Input.Keyboard.WasKeyJustPressed(Keys.X) ||
+                 Core.Input.GamePads[0].WasButtonJustPressed(Buttons.B)) &&
+                 bombCount > 0 && !bombActive)
+            {
+                ActivateBomb();
+            }
+
+            if (bombWaveActive)
+            {
+                bombWaveRadius += bombWaveSpeed * (float)gameTime.ElapsedGameTime.TotalSeconds;
+
+                foreach (MeteorSprite meteor in meteors)
+                {
+                    if (!meteor.Destroyed)
+                    {
+                        float distance = Vector2.Distance(bombWaveCenter, meteor.position);
+                        if (distance < bombWaveRadius)
+                        {
+                            meteor.Destroyed = true;
+                            _explodeSoundEffect.Play();
+                            _explosions.PlaceExplosion(meteor.position);
+                        }
+                    }
+                }
+
+                foreach(MissileSprite missile in missiles)
+                {
+                    if (!missile.Destroyed)
+                    {
+                        float distance = Vector2.Distance(bombWaveCenter, missile.position);
+                        if (distance < bombWaveRadius)
+                        {
+                            missile.Destroyed = true;
+                            //missileCount--;
+                            _explodeSoundEffect.Play();
+                            _explosions.PlaceExplosion(missile.position);
+                        }
+                    }
+                }
+
+                if (bombWaveRadius >= bombWaveMaxRadius)
+                {
+                    bombWaveActive = false;
+                }
+            }
+
             foreach (var bullet in bullets)
             {
                 bullet.Update(gameTime);
@@ -136,10 +203,10 @@ namespace RE_SHMUP.Scenes
                 readyForMissiles = true;
             }
 
-            if (readyForMissiles && missileCount > 0)
+            if (readyForMissiles && missiles.Count < maxMissileCount)
             {
                 System.Random rand = new System.Random();
-                MissileSprite missile = new MissileSprite(new Vector2(rand.Next(0, Core.Graphics.PreferredBackBufferWidth), -500));
+                MissileSprite missile = new MissileSprite(new Vector2(rand.Next(0, Core.Graphics.PreferredBackBufferWidth), -400));
                 missile.LoadContent(Content);
                 missiles.Add(missile);
             }
@@ -147,10 +214,11 @@ namespace RE_SHMUP.Scenes
             //meteor x bullet x player
             foreach (var meteor in meteors)
             {
-                if (!meteor.Destroyed && meteor.Bounds.CollidesWith(player.Bounds))
+                if (!bombActive && !meteor.Destroyed && meteor.Bounds.CollidesWith(player.Bounds))
                 {
                     Core.ChangeScene(new TestingScene()); //this will change to destroy an Orbiter when they are added
                 }
+
 
                 foreach (var bullet in bullets)
                 {
@@ -177,7 +245,7 @@ namespace RE_SHMUP.Scenes
                 if (missile.position.Y > Core.Graphics.PreferredBackBufferHeight && !missile.Destroyed)
                 {
                     missile.Destroyed = true;
-                    missileCount--;
+                    //missileCount--;
                 }
 
                 foreach (var bullet in bullets)
@@ -186,7 +254,7 @@ namespace RE_SHMUP.Scenes
                     {
                         missile.Destroyed = true;
                         bullet.Hit = true;
-                        missileCount--;
+                        //missileCount--;
                         _explodeSoundEffect.Play();
                         _explosions.PlaceExplosion(missile.position);
                         _shakeTime = 0;
@@ -240,8 +308,20 @@ namespace RE_SHMUP.Scenes
                 }
             }
 
+            if (bombActive)
+            {
+                bombTimer -= (float)gameTime.ElapsedGameTime.TotalSeconds;
+                if (bombTimer <= 0)
+                {
+                    bombActive = false;
+                }
+            }
+
             //kill bullets that are dead (hit something or went off top)
             bullets.RemoveAll(b => b.Hit || b.Bounds.Center.Y < 0);
+
+            //kill all missiles that are dead (destroyed by bomb/bullet or went off bottom
+            missiles.RemoveAll(m => m.Destroyed);
 
             base.Update(gameTime);
         }
@@ -319,6 +399,11 @@ namespace RE_SHMUP.Scenes
 
             Core.SpriteBatch.Begin(transformMatrix: shakeTransform);
 
+            Core.SpriteBatch.DrawString(_spriteFont,
+                $"Bombs: {bombCount}",
+                new Vector2(10, 10),
+                Color.White);
+
             foreach (Vector2 pos in starPlacements)
             {
                 Core.SpriteBatch.Draw(basicStar, pos, Color.White);
@@ -348,9 +433,12 @@ namespace RE_SHMUP.Scenes
                 m.Draw(gameTime, Core.SpriteBatch);
             }
 
-
             bool allMissilesDestroyed = missiles.All(m => m.Destroyed);
 
+            Core.SpriteBatch.DrawString(_spriteFont,
+                $"Missiles Remaining: {maxMissileCount - missiles.Count}",
+                new Vector2(10, 30),
+                Color.White);
 
             if (meteorCount == 0)
             {
@@ -381,11 +469,53 @@ namespace RE_SHMUP.Scenes
                 }
             }
 
+            if (bombActive && bombTimer > bombDuration - 0.1f)
+            {
+                Core.SpriteBatch.Draw(basicStar,
+                    new Rectangle(0, 0, Core.Graphics.PreferredBackBufferWidth, Core.Graphics.PreferredBackBufferHeight),
+                    Color.White * 0.5f);
+            }
+
+            if (bombWaveActive)
+            {
+                float scale = bombWaveRadius / (basicStar.Width / 2f);
+
+                Core.SpriteBatch.Draw(basicStar,
+                    bombWaveCenter,
+                    null,
+                    Color.Cyan * 0.25f,
+                    0f,
+                    new Vector2(basicStar.Width / 2f, basicStar.Height / 2f),
+                    scale,
+                    SpriteEffects.None,
+                    0f);
+            }
+
+
             player.Draw(gameTime, Core.SpriteBatch);
 
             Core.SpriteBatch.End();
 
             base.Draw(gameTime);
+        }
+
+        /// <summary>
+        /// Makes a bomb go off, sending out its wave
+        /// </summary>
+        private void ActivateBomb()
+        {
+            bombActive = true;
+            bombTimer = bombDuration;
+            bombCount--;
+
+            bombWaveActive = true;
+            bombWaveRadius = 0f;
+            bombWaveCenter = new Vector2(
+                Core.Graphics.PreferredBackBufferWidth / 2f,
+                Core.Graphics.PreferredBackBufferHeight / 2f
+            );
+
+            bullets.Clear();
         }
     }
 }

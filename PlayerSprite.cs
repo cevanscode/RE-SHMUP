@@ -4,7 +4,6 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using MonoGameLibrary;
 using System;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.Window;
 
 namespace RE_SHMUP
 {

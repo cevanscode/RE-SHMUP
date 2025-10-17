@@ -196,7 +196,7 @@ namespace RE_SHMUP {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Start with (A) or Space.
+        ///   Looks up a localized string similar to Start with (A), Space or Z.
         /// </summary>
         internal static string StartGameString {
             get {

@@ -142,7 +142,7 @@
     <value>深き宇宙</value>
   </data>
   <data name="StartGameString" xml:space="preserve">
-    <value>始める: (A)/Space</value>
+    <value>始める: (A)/Space/Z</value>
   </data>
   <data name="LysitheaPlotString" xml:space="preserve">
     <value>リシテアで流星を撃破する!</value>

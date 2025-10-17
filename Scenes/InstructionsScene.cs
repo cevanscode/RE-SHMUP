@@ -37,7 +37,8 @@ namespace RE_SHMUP.Scenes
                 Core.ChangeScene(new TitleScene());
 
             if (Core.Input.GamePads[0].WasButtonJustPressed(Buttons.A) || 
-                Core.Input.Keyboard.WasKeyJustPressed(Keys.Space))
+                Core.Input.Keyboard.WasKeyJustPressed(Keys.Space) ||
+                Core.Input.Keyboard.WasKeyJustPressed(Keys.Z))
                 Core.ChangeScene(new TestingScene());
 
             base.Update(gameTime);
