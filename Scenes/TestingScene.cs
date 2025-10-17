@@ -7,6 +7,7 @@ using MonoGameLibrary;
 using MonoGameLibrary.Input;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.Eventing.Reader;
 
 namespace RE_SHMUP.Scenes
 {
@@ -30,6 +31,9 @@ namespace RE_SHMUP.Scenes
         private int meteorCount = 10;
 
         ExplosionParticleSystem _explosions;
+
+        private bool _shaking;
+        private float _shakeTime;
 
         public Vector2 Position {  get; set; }
         public Vector2 Velocity {  get; set; }
@@ -123,6 +127,8 @@ namespace RE_SHMUP.Scenes
                         meteorCount--;
                         _explodeSoundEffect.Play();
                         _explosions.PlaceExplosion(meteor.position);
+                        _shakeTime = 0;
+                        _shaking = true;
                     }
                 }
             }
@@ -234,7 +240,17 @@ namespace RE_SHMUP.Scenes
         {
             Core.GraphicsDevice.Clear(Color.Black);
 
-            Core.SpriteBatch.Begin();
+            Matrix shakeTransform = Matrix.Identity;
+            if (_shaking)
+            {
+                _shakeTime += (float)gameTime.ElapsedGameTime.TotalMilliseconds;
+                // Matrix shakeRotation = Matrix.CreateRotationZ(MathF.Cos(_shakeTime));
+                Matrix shakeTranslation = Matrix.CreateTranslation(10 * MathF.Sin(_shakeTime), 10 * MathF.Cos(_shakeTime), 0);
+                shakeTransform = shakeTranslation;
+                if (_shakeTime > 500) _shaking = false;
+            }
+
+            Core.SpriteBatch.Begin(transformMatrix: shakeTransform);
 
             foreach (Vector2 pos in starPlacements)
             {
