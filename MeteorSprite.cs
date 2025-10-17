@@ -45,8 +45,8 @@ namespace RE_SHMUP
         public MeteorSprite(Vector2 position, Vector2 velocity)
         {
             this.position = position;
-            float radius = 8;
-            this.bounds = new BoundingCircle(position - new Vector2(radius, radius), 8);
+            float radius = 16;
+            this.bounds = new BoundingCircle(position, radius);
             this.velocity = velocity;
         }
 
@@ -59,12 +59,12 @@ namespace RE_SHMUP
             texture = content.Load<Texture2D>("Meteor");
             circleTexture = content.Load<Texture2D>("CircleHitbox");
 
-            spriteOrigin.X = texture.Width / 2;
-            spriteOrigin.Y = texture.Height / 2;
+            spriteOrigin = new Vector2(texture.Width / 2f, texture.Height / 2f);
 
             float radius = texture.Width / 2f;
-            this.bounds = new BoundingCircle(position + new Vector2(radius, radius), radius);
+            this.bounds = new BoundingCircle(position, radius);
         }
+
 
         /// <summary>
         /// The updater
@@ -74,7 +74,7 @@ namespace RE_SHMUP
         {
             float elapsed = (float)gameTime.ElapsedGameTime.TotalSeconds;
             position += velocity;
-            bounds.Center += velocity;
+            bounds.Center = position;
 
             rotationAngle += elapsed;
             float circle = MathHelper.Pi * 2;
