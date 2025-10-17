@@ -212,5 +212,14 @@ namespace RE_SHMUP {
                 return ResourceManager.GetString("TempTitleString", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Watch out!.
+        /// </summary>
+        internal static string WatchOutString {
+            get {
+                return ResourceManager.GetString("WatchOutString", resourceCulture);
+            }
+        }
     }
 }

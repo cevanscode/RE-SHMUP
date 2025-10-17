@@ -168,4 +168,7 @@
   <data name="FullScreenButton" xml:space="preserve">
     <value>大小になる</value>
   </data>
+  <data name="WatchOutString" xml:space="preserve">
+    <value>危ない！</value>
+  </data>
 </root>

@@ -8,6 +8,9 @@ using MonoGameLibrary.Input;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.Eventing.Reader;
+using System.Diagnostics.Metrics;
+using System.Linq;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.Rebar;
 
 namespace RE_SHMUP.Scenes
 {
@@ -22,6 +25,10 @@ namespace RE_SHMUP.Scenes
 
         private List<BulletSprite> bullets;
 
+        private List<MissileSprite> missiles;
+
+        private int missileCount = 200;
+
         private SpriteFont _spriteFont;
 
         private Texture2D basicStar;
@@ -29,6 +36,10 @@ namespace RE_SHMUP.Scenes
         private List<Vector2> starPlacements;
 
         private int meteorCount = 10;
+
+        private bool _meteorsDestroyed = false;
+
+        public bool readyForMissiles = false;
 
         ExplosionParticleSystem _explosions;
 
@@ -50,6 +61,8 @@ namespace RE_SHMUP.Scenes
             player = new PlayerSprite();
 
             bullets = new List<BulletSprite>();
+
+            missiles = new List<MissileSprite>();
 
             System.Random rand = new System.Random();
 
@@ -108,14 +121,35 @@ namespace RE_SHMUP.Scenes
                 meteor.Update(gameTime);
             }
 
+            foreach (var missile in missiles)
+            {
+                missile.Update(gameTime);
+            }
+
             player.Update(gameTime);
+
+            _meteorsDestroyed = meteors.All(m => m.Destroyed);
+
+            if (_meteorsDestroyed && !readyForMissiles)
+            {
+                // Enable missile spawning
+                readyForMissiles = true;
+            }
+
+            if (readyForMissiles && missileCount > 0)
+            {
+                System.Random rand = new System.Random();
+                MissileSprite missile = new MissileSprite(new Vector2(rand.Next(0, Core.Graphics.PreferredBackBufferWidth), -200));
+                missile.LoadContent(Content);
+                missiles.Add(missile);
+            }
 
             //meteor x bullet x player
             foreach (var meteor in meteors)
             {
                 if (!meteor.Destroyed && meteor.Bounds.CollidesWith(player.Bounds))
                 {
-                    Core.ChangeScene(new TestingScene());
+                    Core.ChangeScene(new TestingScene()); //this will change to destroy an Orbiter when they are added
                 }
 
                 foreach (var bullet in bullets)
@@ -127,6 +161,34 @@ namespace RE_SHMUP.Scenes
                         meteorCount--;
                         _explodeSoundEffect.Play();
                         _explosions.PlaceExplosion(meteor.position);
+                        _shakeTime = 0;
+                        _shaking = true;
+                    }
+                }
+            }
+
+            foreach (var missile in missiles)
+            {
+                if (!missile.Destroyed && missile.Bounds.CollidesWith(player.Bounds))
+                {
+                    Core.ChangeScene(new TestingScene()); //this will change to destroy an Orbiter when they are added
+                }
+
+                if (missile.position.Y > Core.Graphics.PreferredBackBufferHeight && !missile.Destroyed)
+                {
+                    missile.Destroyed = true;
+                    missileCount--;
+                }
+
+                foreach (var bullet in bullets)
+                {
+                    if (!missile.Destroyed && missile.Bounds.CollidesWith(bullet.Bounds))
+                    {
+                        missile.Destroyed = true;
+                        bullet.Hit = true;
+                        missileCount--;
+                        _explodeSoundEffect.Play();
+                        _explosions.PlaceExplosion(missile.position);
                         _shakeTime = 0;
                         _shaking = true;
                     }
@@ -224,6 +286,11 @@ namespace RE_SHMUP.Scenes
                 m.LoadContent(Content);
             }
 
+            foreach (MissileSprite m in missiles)
+            {
+                m.LoadContent(Content);
+            }
+
             foreach (BulletSprite b in bullets)
             {
                 b.LoadContent(Content);
@@ -276,18 +343,46 @@ namespace RE_SHMUP.Scenes
                 b.Draw(gameTime, Core.SpriteBatch);
             }
 
+            foreach (MissileSprite m in missiles)
+            {
+                m.Draw(gameTime, Core.SpriteBatch);
+            }
+
+
+            bool allMissilesDestroyed = missiles.All(m => m.Destroyed);
+
+
             if (meteorCount == 0)
             {
-                Core.SpriteBatch.DrawString(_spriteFont,
-                    Localization.GetText("GoodJobString"),
-                    new Vector2(100, 100),
-                    Color.White,
-                    0f,
-                    new Vector2(0, 0),
-                    2f,
-                    SpriteEffects.None,
-                    0f);
+                if (allMissilesDestroyed)
+                {
+                    Core.SpriteBatch.DrawString(_spriteFont,
+                        Localization.GetText("GoodJobString"),
+                        new Vector2(100, 100),
+                        Color.White,
+                        0f,
+                        new Vector2(0, 0),
+                        2f,
+                        SpriteEffects.None,
+                        0f);
+                }
+                else
+                {
+                    Core.SpriteBatch.DrawString(_spriteFont,
+                        Localization.GetText("WatchOutString"),
+                        new Vector2(100, 100),
+                        Color.White,
+                        0f,
+                        new Vector2(0, 0),
+                        2f,
+                        SpriteEffects.None,
+                        0f);
+                    readyForMissiles = true;
+                }
             }
+
+
+
 
             player.Draw(gameTime, Core.SpriteBatch);
 

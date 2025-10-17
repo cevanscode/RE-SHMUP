@@ -168,4 +168,7 @@
   <data name="FullScreenButton" xml:space="preserve">
     <value>Change Display</value>
   </data>
+  <data name="WatchOutString" xml:space="preserve">
+    <value>Watch out!</value>
+  </data>
 </root>
