@@ -157,7 +157,7 @@
     <value>やめる: (BACK)/ESC</value>
   </data>
   <data name="FocusControlsString" xml:space="preserve">
-    <value>集中: (X)/Shift</value>
+    <value>集中: 右トリガ/Shift</value>
   </data>
   <data name="ShootControlsString" xml:space="preserve">
     <value>ショット: (A)/Z/Space</value>

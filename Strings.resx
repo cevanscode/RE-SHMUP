@@ -157,7 +157,7 @@
     <value>Quit Game: (BACK) or ESC</value>
   </data>
   <data name="FocusControlsString" xml:space="preserve">
-    <value>Focus: (X) or Shift</value>
+    <value>Focus: Right Trigger or Shift</value>
   </data>
   <data name="ShootControlsString" xml:space="preserve">
     <value>Shoot: (A) or Z/Space</value>

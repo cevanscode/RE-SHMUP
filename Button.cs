@@ -57,7 +57,7 @@ namespace RE_SHMUP
 
             _touch = false;
 
-            if (Selected == true && (Core.Input.Keyboard.WasKeyJustPressed(Keys.Space) || Core.Input.GamePads[0].WasButtonJustPressed(Buttons.A)))
+            if (Selected == true && (Core.Input.Keyboard.WasKeyJustPressed(Keys.Space) || (Core.Input.Keyboard.WasKeyJustPressed(Keys.Z) || Core.Input.GamePads[0].WasButtonJustPressed(Buttons.A))))
             {
                 Click?.Invoke(this, new EventArgs());
             }

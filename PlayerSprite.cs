@@ -80,7 +80,7 @@ namespace RE_SHMUP
             }
 
             // Focus mode (slower speed, show hitbox) enabling
-            if (Core.Input.Keyboard.IsKeyDown(Keys.LeftShift) || Core.Input.Keyboard.IsKeyDown(Keys.RightShift) || Core.Input.GamePads[0].IsButtonDown(Buttons.B))
+            if (Core.Input.Keyboard.IsKeyDown(Keys.LeftShift) || Core.Input.Keyboard.IsKeyDown(Keys.RightShift) || Core.Input.GamePads[0].IsButtonDown(Buttons.RightShoulder))
             {
                 moveSpeed = 1;
             }

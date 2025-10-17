@@ -61,7 +61,7 @@ namespace RE_SHMUP {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Focus: (X) or Shift.
+        ///   Looks up a localized string similar to Focus: Right Trigger or Shift.
         /// </summary>
         internal static string FocusControlsString {
             get {
