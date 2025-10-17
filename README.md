@@ -9,7 +9,8 @@ Localization Basis - https://docs.monogame.net/articles/getting_started/content_
 Art Assets - Me in Aseprite
 Sound Effects - Me in Pico-8
 
-Button Tutorial - https://www.youtube.com/watch?v=lcrgj26G5Hg&list=PLV27bZtgVIJqoeHrQq6Mt_S1-Fvq_zzGZ&index=12
+Button Tutorial (just the clicking functionality, controller/keyboard support by me) 
+	- https://www.youtube.com/watch?v=lcrgj26G5Hg&list=PLV27bZtgVIJqoeHrQq6Mt_S1-Fvq_zzGZ&index=12
 Particle System and Explosion From Nathan Bean - https://www.youtube.com/watch?v=dLz6556Xkso&feature=youtu.be
 Ark Pixel Font (By TakWolf) - https://github.com/TakWolf/ark-pixel-font
 	Usage permitted under Open Font License.

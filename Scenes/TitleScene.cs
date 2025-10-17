@@ -32,6 +32,8 @@ namespace RE_SHMUP.Scenes
         public Game _theGame;
         private Button[] _theButtons = new Button[3];
         private ButtonHelper _buttonHelper = new ButtonHelper();
+        private float prevStickY = 0;
+        private float currStickY = 0;
 
         #region Buttons
         public Button languageButton;
@@ -51,18 +53,23 @@ namespace RE_SHMUP.Scenes
 
         public override void Update(GameTime gameTime)
         {
+            currStickY = Core.Input.GamePads[0].LeftThumbStick.Y;
+
             if (Core.Input.GamePads[0].WasButtonJustPressed(Buttons.Back) || Core.Input.Keyboard.WasKeyJustPressed(Keys.Escape))
                 Core.Instance.Exit();
 
-            //if (Core.Input.GamePads[0].WasButtonJustPressed(Buttons.A) || Core.Input.Keyboard.WasKeyJustPressed(Keys.Space))
-            //    Core.ChangeScene(new InstructionsScene(_theGame));
-
-            if (Core.Input.Keyboard.WasKeyJustPressed(Keys.Down) || Core.Input.GamePads[0].WasButtonJustPressed(Buttons.DPadDown) || Core.Input.GamePads[0].WasButtonJustPressed(Buttons.DPadDown))
+            if (Core.Input.Keyboard.WasKeyJustPressed(Keys.Down) 
+                || Core.Input.GamePads[0].WasButtonJustPressed(Buttons.DPadDown) 
+                || Core.Input.GamePads[0].WasButtonJustPressed(Buttons.DPadDown)
+                || (currStickY < -0.5f && prevStickY >= -0.5f))
             {
                 _buttonHelper.IncrementSelection();
             }
 
-            if (Core.Input.Keyboard.WasKeyJustPressed(Keys.Up) || Core.Input.GamePads[0].WasButtonJustPressed(Buttons.DPadUp) || Core.Input.GamePads[0].WasButtonJustPressed(Buttons.DPadDown))
+            if (Core.Input.Keyboard.WasKeyJustPressed(Keys.Up) 
+                || Core.Input.GamePads[0].WasButtonJustPressed(Buttons.DPadUp) 
+                || Core.Input.GamePads[0].WasButtonJustPressed(Buttons.DPadDown)
+                || (currStickY < 0.5f && prevStickY >= 0.5f))
             {
                 _buttonHelper.DecrementSelection();
             }
@@ -73,6 +80,8 @@ namespace RE_SHMUP.Scenes
             startButton.Update(gameTime);
 
             _cometPosition += _cometVelocity;
+
+            prevStickY = currStickY;
 
             base.Update(gameTime);
         }
