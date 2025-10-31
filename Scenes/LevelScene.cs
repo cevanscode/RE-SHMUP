@@ -6,6 +6,7 @@ using Microsoft.Xna.Framework.Media;
 using MonoGameLibrary;
 using MonoGameLibrary.Input;
 using RE_SHMUP.Scenes;
+using SharpDX.Direct2D1;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -17,6 +18,7 @@ namespace RE_SHMUP
     {
         #region Important fields for making stuff
         private SpriteFont _spriteFont;
+        private BasicTilemap _tilemap;
         #endregion
 
         #region Particle Stuff
@@ -436,6 +438,8 @@ namespace RE_SHMUP
                 b.LoadContent(Content);
             }
 
+            _tilemap = Content.Load<BasicTilemap>("Tilemap");
+
             base.LoadContent();
         }
 
@@ -446,6 +450,8 @@ namespace RE_SHMUP
         public override void Draw(GameTime gameTime)
         {
             Core.GraphicsDevice.Clear(Color.Black);
+
+            _tilemap.Draw(gameTime, Core.SpriteBatch);
 
             Matrix shakeTransform = Matrix.Identity;
             if (_shaking)

@@ -10,6 +10,7 @@
 
 #-------------------------------- References --------------------------------#
 
+/reference:..\..\BasicTilemapPipeline\bin\Debug\net6.0\BasicTilemapPipeline.dll
 
 #---------------------------------- Content ---------------------------------#
 
@@ -110,6 +111,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:explosionpink.png
+
+#begin guimap.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:guimap.png
 
 #begin jupiter-2048x2048.png
 /importer:TextureImporter
@@ -297,6 +310,12 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:SpaceColony.png
+
+#begin Tilemap.tmap
+/importer:BasicTilemapImporter
+/processor:BasicTilemapProcessor
+/processorParam:Scale=1
+/build:Tilemap.tmap
 
 #begin Yu Gothic.spritefont
 /importer:FontDescriptionImporter
