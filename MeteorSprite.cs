@@ -102,17 +102,21 @@ namespace RE_SHMUP
             }
             else if (_sceneSpawnedOn is LevelScene)
             {
+                float minX = 48 + bounds.Radius;
+                float maxX = 600 - bounds.Radius;
                 if (position.X <= 48 || position.X + texture.Width >= 600)
                 {
                     velocity.X *= -1;
-                    position.X = Math.Clamp(position.X, 48, 600);
+                    position.X = Math.Clamp(position.X, minX, maxX);
                     rotationAngle *= -1;
                 }
 
+                float minY = 48 + bounds.Radius;
+                float maxY = 432 - bounds.Radius;
                 if (position.Y <= 48 || position.Y + texture.Height >= 432)
                 {
                     velocity.Y *= -1;
-                    position.Y = Math.Clamp(position.Y, 48, 432);
+                    position.Y = Math.Clamp(position.Y, minY, maxY);
                     rotationAngle *= -1;
                 }
             }
