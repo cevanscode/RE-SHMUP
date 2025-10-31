@@ -246,7 +246,7 @@ namespace RE_SHMUP
             {
                 if (!bombActive && !meteor.Destroyed && meteor.Bounds.CollidesWith(player.Bounds))
                 {
-                    Core.ChangeScene(new TestingScene()); //this will change to destroy an Orbiter when they are added
+                    Core.ChangeScene(new LevelScene()); //this will change to destroy an Orbiter when they are added
                 }
 
                 foreach (var bullet in bullets)
@@ -298,7 +298,7 @@ namespace RE_SHMUP
                         }
                     }
 
-                    Core.ChangeScene(new TestingScene()); //this will change to destroy an Orbiter when they are added
+                    Core.ChangeScene(new LevelScene()); //this will change to destroy an Orbiter when they are added
                 }
 
                 if (missile.position.Y > Core.Graphics.PreferredBackBufferHeight && !missile.Destroyed)

@@ -53,6 +53,8 @@ namespace RE_SHMUP
         /// <param name="spriteBatch">a spritebatch to draw with</param>
         public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
+            spriteBatch.Begin();
+
             for (int y = 0; y < MapHeight; y++)
             {
                 for (int x = 0; x < MapWidth; x++)
@@ -77,7 +79,7 @@ namespace RE_SHMUP
                         );
                 }
             }
-
+            spriteBatch.End();
         }
     }
 }
