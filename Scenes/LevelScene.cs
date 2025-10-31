@@ -78,7 +78,7 @@ namespace RE_SHMUP
         #region Score Saving
         private float _survivalTime = 0f;
 
-        private float _lastSurvivalTime = 0f;
+        //private float _lastSurvivalTime = 0f;
 
         public static float _bestSurvivalTime = 0f;
 

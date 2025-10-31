@@ -104,7 +104,7 @@ namespace RE_SHMUP
             {
                 float minX = 48 + bounds.Radius;
                 float maxX = 600 - bounds.Radius;
-                if (position.X <= 48 || position.X + texture.Width >= 600)
+                if (position.X - bounds.Radius <= 48 || position.X + bounds.Radius >= 600)
                 {
                     velocity.X *= -1;
                     position.X = Math.Clamp(position.X, minX, maxX);
@@ -113,13 +113,14 @@ namespace RE_SHMUP
 
                 float minY = 48 + bounds.Radius;
                 float maxY = 432 - bounds.Radius;
-                if (position.Y <= 48 || position.Y + texture.Height >= 432)
+                if (position.Y - bounds.Radius <= 48 || position.Y + bounds.Radius >= 432)
                 {
                     velocity.Y *= -1;
                     position.Y = Math.Clamp(position.Y, minY, maxY);
                     rotationAngle *= -1;
                 }
             }
+
         }
 
         /// <summary>
