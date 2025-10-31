@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using MonoGameLibrary;
+using RE_SHMUP.Scenes;
 using System;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.Rebar;
 
@@ -83,18 +84,37 @@ namespace RE_SHMUP
             float circle = MathHelper.Pi * 2;
             rotationAngle %= circle;
 
-            if (position.X <= 48 || position.X + texture.Width >= 600)
+            if (_sceneSpawnedOn is TestingScene)
             {
-                velocity.X *= -1;
-                position.X = Math.Clamp(position.X, 48, 600);
-                rotationAngle *= -1;
-            }
+                if (position.X <= 0 || position.X + texture.Width >= Core.Graphics.PreferredBackBufferWidth)
+                {
+                    velocity.X *= -1;
+                    position.X = Math.Clamp(position.X, 0, Core.Graphics.PreferredBackBufferWidth - texture.Width);
+                    rotationAngle *= -1;
+                }
 
-            if (position.Y <= 48 || position.Y + texture.Height >= 432)
+                if (position.Y <= 0 || position.Y + texture.Height >= Core.Graphics.PreferredBackBufferHeight)
+                {
+                    velocity.Y *= -1;
+                    position.Y = Math.Clamp(position.Y, 0, Core.Graphics.PreferredBackBufferHeight - texture.Height);
+                    rotationAngle *= -1;
+                }
+            }
+            else if (_sceneSpawnedOn is LevelScene)
             {
-                velocity.Y *= -1;
-                position.Y = Math.Clamp(position.Y, 48, 432);
-                rotationAngle *= -1;
+                if (position.X <= 48 || position.X + texture.Width >= 600)
+                {
+                    velocity.X *= -1;
+                    position.X = Math.Clamp(position.X, 48, 600);
+                    rotationAngle *= -1;
+                }
+
+                if (position.Y <= 48 || position.Y + texture.Height >= 432)
+                {
+                    velocity.Y *= -1;
+                    position.Y = Math.Clamp(position.Y, 48, 432);
+                    rotationAngle *= -1;
+                }
             }
         }
 

@@ -222,7 +222,6 @@ namespace RE_SHMUP
                 }
             }
 
-
             foreach (var bullet in bullets)
             {
                 bullet.Update(gameTime);
@@ -463,11 +462,6 @@ namespace RE_SHMUP
 
             Core.SpriteBatch.Begin(transformMatrix: shakeTransform);
 
-            Core.SpriteBatch.DrawString(_spriteFont,
-                $"Bombs: {bombCount}",
-                new Vector2(10, 10),
-                Color.White);
-
             foreach (Vector2 pos in starPlacements)
             {
                 Core.SpriteBatch.Draw(basicStar, pos, Color.White);
@@ -501,7 +495,12 @@ namespace RE_SHMUP
 
             Core.SpriteBatch.DrawString(_spriteFont,
                 Localization.GetText("BestTimeString") + $": {_bestSurvivalTime:F2}s",
-                new Vector2(10, 30),
+                new Vector2(630, 60),
+                Color.White);
+
+            Core.SpriteBatch.DrawString(_spriteFont,
+                $"Bombs: {bombCount}",
+                new Vector2(630, 30),
                 Color.White);
 
             if (meteorCount == 0)
