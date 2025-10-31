@@ -189,4 +189,16 @@
   <data name="GoToLevelString" xml:space="preserve">
     <value> ストーリー </value>
   </data>
+  <data name="BestScoreString" xml:space="preserve">
+    <value>一番スコア:</value>
+  </data>
+  <data name="ScoreString" xml:space="preserve">
+    <value> スコア:</value>
+  </data>
+  <data name="GoToBalloonString" xml:space="preserve">
+    <value> ダミー の試し</value>
+  </data>
+  <data name="DestroyDummyString" xml:space="preserve">
+    <value> ダミー バルーンを壊して!</value>
+  </data>
 </root>

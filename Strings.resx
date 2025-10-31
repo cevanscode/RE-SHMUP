@@ -189,4 +189,16 @@
   <data name="GoToLevelString" xml:space="preserve">
     <value>Story</value>
   </data>
+  <data name="BestScoreString" xml:space="preserve">
+    <value>Best Score:</value>
+  </data>
+  <data name="ScoreString" xml:space="preserve">
+    <value>Score:</value>
+  </data>
+  <data name="GoToBalloonString" xml:space="preserve">
+    <value>Dummy Test</value>
+  </data>
+  <data name="DestroyDummyString" xml:space="preserve">
+    <value>Destroy Dummy Balloons!</value>
+  </data>
 </root>

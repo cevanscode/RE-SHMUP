@@ -61,6 +61,15 @@ namespace RE_SHMUP {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Best Score:.
+        /// </summary>
+        internal static string BestScoreString {
+            get {
+                return ResourceManager.GetString("BestScoreString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Best Time.
         /// </summary>
         internal static string BestTimeString {
@@ -88,6 +97,15 @@ namespace RE_SHMUP {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Destroy Dummy Balloons!.
+        /// </summary>
+        internal static string DestroyDummyString {
+            get {
+                return ResourceManager.GetString("DestroyDummyString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Focus: Right Trigger or Shift.
         /// </summary>
         internal static string FocusControlsString {
@@ -111,6 +129,15 @@ namespace RE_SHMUP {
         internal static string GoodJobString {
             get {
                 return ResourceManager.GetString("GoodJobString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Dummy Test.
+        /// </summary>
+        internal static string GoToBalloonString {
+            get {
+                return ResourceManager.GetString("GoToBalloonString", resourceCulture);
             }
         }
         
@@ -219,6 +246,15 @@ namespace RE_SHMUP {
         internal static string ResetControlsString {
             get {
                 return ResourceManager.GetString("ResetControlsString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Score:.
+        /// </summary>
+        internal static string ScoreString {
+            get {
+                return ResourceManager.GetString("ScoreString", resourceCulture);
             }
         }
         

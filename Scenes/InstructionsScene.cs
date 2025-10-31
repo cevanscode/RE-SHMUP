@@ -90,7 +90,7 @@ namespace RE_SHMUP.Scenes
 
             levelButton = new Button(_spriteFont, menuButtonTexture);
             levelButton.buttonPosition = new Vector2(650, 320);
-            levelButton._buttonText = Localization.GetText("GoToLevelString");
+            levelButton._buttonText = Localization.GetText("GoToBalloonString");
             levelButton.Click += LevelButton_Click;
             _theButtons[1] = levelButton;
 

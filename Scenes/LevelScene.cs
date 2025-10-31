@@ -84,6 +84,8 @@ namespace RE_SHMUP
 
         private int _score = 0;
 
+        private static int _bestScore = 0;
+
         /// <summary>
         /// Name of the player who achieved a score
         /// </summary>
@@ -129,12 +131,12 @@ namespace RE_SHMUP
                 string savePath = Path.Combine(
                     Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
                     "RE_SHMUP",
-                    "bestTime.txt");
+                    "bestScore.txt");
 
                 if (File.Exists(savePath))
                 {
                     string content = File.ReadAllText(savePath);
-                    float.TryParse(content, out _bestSurvivalTime);
+                    int.TryParse(content, out _bestScore);
                 }
             }
             catch (Exception ex)
@@ -193,13 +195,14 @@ namespace RE_SHMUP
                         if (distance < bombWaveRadius)
                         {
                             meteor.Destroyed = true;
+                            _score += 50;
+                            SerializeScore();
                             meteorCount--;
                             _explodeSoundEffect.Play();
                             _explosions.PlaceExplosion(meteor.position);
                         }
                     }
                 }
-
 
                 foreach (MissileSprite missile in missiles)
                 {
@@ -210,6 +213,7 @@ namespace RE_SHMUP
                         {
                             missile.Destroyed = true;
                             _score += 100;
+                            SerializeScore();
                             _explodeSoundEffect.Play();
                             _explosions.PlaceExplosion(missile.position);
                         }
@@ -245,6 +249,12 @@ namespace RE_SHMUP
             {
                 if (!bombActive && !meteor.Destroyed && meteor.Bounds.CollidesWith(player.Bounds))
                 {
+                    meteorCount--;
+                    meteor.Destroyed = true;
+                    _score /= 2;
+                    SerializeScore();
+                    _explodeSoundEffect.Play();
+                    _explosions.PlaceExplosion(meteor.position);
                     Core.ChangeScene(new LevelScene()); //this will change to destroy an Orbiter when they are added
                 }
 
@@ -253,6 +263,8 @@ namespace RE_SHMUP
                     if (!meteor.Destroyed && meteor.Bounds.CollidesWith(bullet.Bounds))
                     {
                         meteor.Destroyed = true;
+                        _score += 50;
+                        SerializeScore();
                         bullet.Hit = true;
                         meteorCount--;
                         _explodeSoundEffect.Play();
@@ -268,34 +280,8 @@ namespace RE_SHMUP
                 if (!missile.Destroyed && missile.Bounds.CollidesWith(player.Bounds))
                 {
                     _playerDead = true;
-                    _lastSurvivalTime = _survivalTime;
-                    if (_lastSurvivalTime > _bestSurvivalTime)
-                    {
-                        _bestSurvivalTime = _lastSurvivalTime;
-
-                        //saving the best time
-                        try
-                        {
-                            string savePath = Path.Combine(
-                                Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
-                                "RE_SHMUP");
-
-                            Directory.CreateDirectory(savePath);
-
-                            string filePath = Path.Combine(savePath, "bestTime.txt");
-
-                            using (StreamWriter sw = new StreamWriter(filePath))
-                            {
-                                sw.WriteLine(_bestSurvivalTime);
-                            }
-
-                            System.Diagnostics.Debug.WriteLine($"Best time saved to: {filePath}");
-                        }
-                        catch (Exception ex)
-                        {
-                            System.Diagnostics.Debug.WriteLine("Error writing best time: " + ex.Message);
-                        }
-                    }
+                    _score /= 2;
+                    SerializeScore();
 
                     Core.ChangeScene(new LevelScene()); //this will change to destroy an Orbiter when they are added
                 }
@@ -494,13 +480,18 @@ namespace RE_SHMUP
             _tilemap.Draw(gameTime, Core.SpriteBatch);
 
             Core.SpriteBatch.DrawString(_spriteFont,
-                Localization.GetText("BestTimeString") + $": {_bestSurvivalTime:F2}s",
-                new Vector2(630, 60),
+                Localization.GetText("ScoreString") + $": {_score}",
+                new Vector2(640, 60),
+                Color.White);
+
+            Core.SpriteBatch.DrawString(_spriteFont,
+                Localization.GetText("BestScoreString") + $": {_bestScore}",
+                new Vector2(640, 90),
                 Color.White);
 
             Core.SpriteBatch.DrawString(_spriteFont,
                 $"Bombs: {bombCount}",
-                new Vector2(630, 30),
+                new Vector2(640, 30),
                 Color.White);
 
             if (meteorCount == 0)
@@ -508,7 +499,7 @@ namespace RE_SHMUP
                 if (_survivalTime < 5)
                 {
                     Core.SpriteBatch.DrawString(_spriteFont,
-                        Localization.GetText("DefeatPiratesString"),
+                        Localization.GetText("DestroyDummyString"),
                         new Vector2(100, 100),
                         Color.White,
                         0f,
@@ -518,11 +509,6 @@ namespace RE_SHMUP
                         0f);
                 }
                 _timerStart = true;
-
-                Core.SpriteBatch.DrawString(_spriteFont,
-                    Localization.GetText("TimeString") + $": {_survivalTime:F2}s",
-                    new Vector2(10, 50),
-                    Color.White);
             }
 
             if (bombActive && bombTimer > bombDuration - 0.1f)
@@ -571,6 +557,37 @@ namespace RE_SHMUP
             );
 
             bullets.Clear();
+        }
+
+        private void SerializeScore()
+        {
+            if (_score > _bestScore)
+            {
+                _bestScore = _score;
+
+                //saving the best score
+                try
+                {
+                    string savePath = Path.Combine(
+                        Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
+                        "RE_SHMUP");
+
+                    Directory.CreateDirectory(savePath);
+
+                    string filePath = Path.Combine(savePath, "bestScore.txt");
+
+                    using (StreamWriter sw = new StreamWriter(filePath))
+                    {
+                        sw.WriteLine(_bestScore);
+                    }
+
+                    System.Diagnostics.Debug.WriteLine($"Best time saved to: {filePath}");
+                }
+                catch (Exception ex)
+                {
+                    System.Diagnostics.Debug.WriteLine("Error writing best time: " + ex.Message);
+                }
+            }
         }
     }
 }
