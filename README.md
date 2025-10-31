@@ -1,5 +1,5 @@
 # RE-SHMUP
-Inspired by ZUN's TOUHOU Project
+Inspired by ZUN's TOUHOU Project.
 
 From MonoGame Documentation:
 Class Library Tutorial: https://docs.monogame.net/articles/tutorials/building_2d_games/04_creating_a_class_library/index.html?tabs=vscode
