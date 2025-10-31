@@ -47,9 +47,21 @@ namespace RE_SHMUP
         private List<BulletSprite> bullets;
 
         private List<MissileSprite> missiles;
+
+        private List<DummyBalloonSprite> balloons;
         
         private Texture2D basicStar;
         private List<Vector2> starPlacements;
+        #endregion
+
+        #region Phase 2 Fields
+        private bool _meteorsDestroyed = false;
+        private int maxMissileCount = 5;
+        public bool readyForMissiles = false;
+        private int _maxBalloonCount = 3;
+        private float _balloonWaveTimer = 0f;
+        private float _balloonWaveInterval = 8f;
+        private Random _rand = new Random();
         #endregion
 
 
@@ -106,6 +118,8 @@ namespace RE_SHMUP
             bullets = new List<BulletSprite>();
 
             missiles = new List<MissileSprite>();
+
+            balloons = new List<DummyBalloonSprite>();
 
             System.Random rand = new System.Random();
 
@@ -194,10 +208,9 @@ namespace RE_SHMUP
                         float distance = Vector2.Distance(bombWaveCenter, meteor.position);
                         if (distance < bombWaveRadius)
                         {
-                            meteor.Destroyed = true;
-                            _score += 50;
-                            SerializeScore();
+                            meteor.Destroyed = true; //no point for bombs because it makes everything suck. Do it the hard way :3
                             meteorCount--;
+                            SerializeScore();
                             _explodeSoundEffect.Play();
                             _explosions.PlaceExplosion(meteor.position);
                         }
@@ -212,13 +225,28 @@ namespace RE_SHMUP
                         if (distance < bombWaveRadius)
                         {
                             missile.Destroyed = true;
-                            _score += 100;
                             SerializeScore();
                             _explodeSoundEffect.Play();
                             _explosions.PlaceExplosion(missile.position);
                         }
                     }
                 }
+
+                foreach (DummyBalloonSprite balloon in balloons)
+                {
+                    if (!balloon.Destroyed)
+                    {
+                        float distance = Vector2.Distance(bombWaveCenter, balloon.position);
+                        if (distance < bombWaveRadius)
+                        {
+                            balloon.Destroyed = true;
+                            _explodeSoundEffect.Play();
+                            _explosions.PlaceExplosion(balloon.position);
+                        }
+                    }
+                }
+
+
 
                 if (bombWaveRadius >= bombWaveMaxRadius)
                 {
@@ -244,6 +272,39 @@ namespace RE_SHMUP
 
             player.Update(gameTime);
 
+            _meteorsDestroyed = meteors.All(m => m.Destroyed);
+
+            if (_meteorsDestroyed && !readyForMissiles)
+            {
+                // Enable missile spawning
+                readyForMissiles = true;
+            }
+
+            if (readyForMissiles && missiles.Count < maxMissileCount)
+            {
+                _rand = new System.Random();
+                MissileSprite missile = new MissileSprite(new Vector2(_rand.Next(0, Core.Graphics.PreferredBackBufferWidth), -400));
+                missile.LoadContent(Content);
+                missiles.Add(missile);
+            }
+
+            _balloonWaveTimer += (float)gameTime.ElapsedGameTime.TotalSeconds;
+
+            if (_balloonWaveTimer >= _balloonWaveInterval && balloons.Count < _maxBalloonCount)
+            {
+                _balloonWaveTimer = 0f;
+
+                int waveSize = _rand.Next(1, 3);
+                for (int i = 0; i < waveSize; i++)
+                {
+                    Vector2 startPos = new Vector2(_rand.Next(0, Core.Graphics.PreferredBackBufferWidth), -_rand.Next(100, 400));
+                    Vector2 velocity = new Vector2((_rand.Next(-20, 20)) / 10f, (float)_rand.NextDouble() * 1.5f + 0.5f);
+                    DummyBalloonSprite balloon = new DummyBalloonSprite(startPos, velocity, this);
+                    balloon.LoadContent(Content);
+                    balloons.Add(balloon);
+                }
+            }
+
             //meteor x bullet x player
             foreach (var meteor in meteors)
             {
@@ -251,7 +312,6 @@ namespace RE_SHMUP
                 {
                     meteorCount--;
                     meteor.Destroyed = true;
-                    _score /= 2;
                     SerializeScore();
                     _explodeSoundEffect.Play();
                     _explosions.PlaceExplosion(meteor.position);
@@ -280,7 +340,6 @@ namespace RE_SHMUP
                 if (!missile.Destroyed && missile.Bounds.CollidesWith(player.Bounds))
                 {
                     _playerDead = true;
-                    _score /= 2;
                     SerializeScore();
 
                     Core.ChangeScene(new LevelScene()); //this will change to destroy an Orbiter when they are added
@@ -295,6 +354,7 @@ namespace RE_SHMUP
                 {
                     if (!missile.Destroyed && missile.Bounds.CollidesWith(bullet.Bounds))
                     {
+                        _score += 100;
                         missile.Destroyed = true;
                         bullet.Hit = true;
                         _explodeSoundEffect.Play();
@@ -304,6 +364,45 @@ namespace RE_SHMUP
                     }
                 }
             }
+
+            foreach (var balloon in balloons)
+            {
+                balloon.Update(gameTime);
+            }
+
+            //balloon x player x bullet
+            foreach (var balloon in balloons)
+            {
+                if (balloon.Destroyed) continue;
+
+                if (!bombActive && balloon.Bounds.CollidesWith(player.Bounds))
+                {
+                    _playerDead = true;
+                    SerializeScore();
+                    Core.ChangeScene(new LevelScene());
+                }
+
+                foreach (var bullet in bullets)
+                {
+                    if (!balloon.Destroyed && balloon.Bounds.CollidesWith(bullet.Bounds))
+                    {
+                        balloon.Destroyed = true;
+                        _score += 120;
+                        SerializeScore();
+                        bullet.Hit = true;
+                        _explodeSoundEffect.Play();
+                        _explosions.PlaceExplosion(balloon.position);
+                        _shakeTime = 0;
+                        _shaking = true;
+                    }
+                }
+
+                if (balloon.position.Y > Core.Graphics.PreferredBackBufferHeight + 200)
+                    balloon.Destroyed = true;
+            }
+
+            //kill all dummies that are dead
+            balloons.RemoveAll(b => b.Destroyed);
 
             //meteor x meteor
             for (int i = 0; i < meteors.Count; i++)
@@ -423,6 +522,12 @@ namespace RE_SHMUP
                 b.LoadContent(Content);
             }
 
+            foreach (DummyBalloonSprite b in balloons)
+            {
+                b.LoadContent(Content);
+            }
+
+
             _tilemap = Content.Load<BasicTilemap>("Tilemap");
 
             base.LoadContent();
@@ -475,6 +580,11 @@ namespace RE_SHMUP
             foreach (MissileSprite m in missiles)
             {
                 m.Draw(gameTime, Core.SpriteBatch);
+            }
+
+            foreach (DummyBalloonSprite b in balloons)
+            {
+                b.Draw(gameTime, Core.SpriteBatch);
             }
 
             _tilemap.Draw(gameTime, Core.SpriteBatch);

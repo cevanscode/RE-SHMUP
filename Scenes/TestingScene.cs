@@ -27,6 +27,8 @@ namespace RE_SHMUP.Scenes
 
         private int maxMissileCount = 100;
 
+        public bool readyForMissiles = false;
+
         private SpriteFont _spriteFont;
 
         private Texture2D basicStar;
@@ -68,8 +70,6 @@ namespace RE_SHMUP.Scenes
         private bool _playerDead = false;
 
         private bool _timerStart = false;
-
-        public bool readyForMissiles = false;
 
         ExplosionParticleSystem _explosions;
 
