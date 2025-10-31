@@ -79,6 +79,15 @@ namespace RE_SHMUP {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Defeat pirates!.
+        /// </summary>
+        internal static string DefeatPiratesString {
+            get {
+                return ResourceManager.GetString("DefeatPiratesString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Focus: Right Trigger or Shift.
         /// </summary>
         internal static string FocusControlsString {
@@ -102,6 +111,24 @@ namespace RE_SHMUP {
         internal static string GoodJobString {
             get {
                 return ResourceManager.GetString("GoodJobString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Story.
+        /// </summary>
+        internal static string GoToLevelString {
+            get {
+                return ResourceManager.GetString("GoToLevelString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Missile Tests.
+        /// </summary>
+        internal static string GoToTestString {
+            get {
+                return ResourceManager.GetString("GoToTestString", resourceCulture);
             }
         }
         

@@ -180,4 +180,13 @@
   <data name="BombControlsString" xml:space="preserve">
     <value>爆発: (B)/X</value>
   </data>
+  <data name="DefeatPiratesString" xml:space="preserve">
+    <value>海賊を負かて！</value>
+  </data>
+  <data name="GoToTestString" xml:space="preserve">
+    <value> ミサイルの試し</value>
+  </data>
+  <data name="GoToLevelString" xml:space="preserve">
+    <value> ストーリー </value>
+  </data>
 </root>

@@ -14,6 +14,17 @@ namespace RE_SHMUP.Scenes
 
         public Game _theGame;
 
+        private Texture2D menuButtonTexture;
+        private Button[] _theButtons = new Button[2];
+        private ButtonHelper _buttonHelper = new ButtonHelper();
+        private float prevStickY = 0;
+        private float currStickY = 0;
+
+        #region Buttons
+        public Button missileTestButton;
+        public Button levelButton;
+        #endregion
+
         /// <summary>
         /// Initializes content
         /// </summary>
@@ -28,18 +39,36 @@ namespace RE_SHMUP.Scenes
         /// <param name="gameTime">The game time</param>
         public override void Update(GameTime gameTime)
         {
-            if (Core.Input.GamePads[0].WasButtonJustPressed(Buttons.Back) ||
-                Core.Input.Keyboard.WasKeyJustPressed(Keys.Escape))
+            currStickY = Core.Input.GamePads[0].LeftThumbStick.Y;
+
+            if (Core.Input.GamePads[0].WasButtonJustPressed(Buttons.Back) || Core.Input.Keyboard.WasKeyJustPressed(Keys.Escape))
                 Core.Instance.Exit();
 
             if (Core.Input.GamePads[0].WasButtonJustPressed(Buttons.Y) ||
                 Core.Input.Keyboard.WasKeyJustPressed(Keys.R))
                 Core.ChangeScene(new TitleScene());
 
-            if (Core.Input.GamePads[0].WasButtonJustPressed(Buttons.A) || 
-                Core.Input.Keyboard.WasKeyJustPressed(Keys.Space) ||
-                Core.Input.Keyboard.WasKeyJustPressed(Keys.Z))
-                Core.ChangeScene(new TestingScene());
+            if (Core.Input.Keyboard.WasKeyJustPressed(Keys.Down)
+                || Core.Input.GamePads[0].WasButtonJustPressed(Buttons.DPadDown)
+                || Core.Input.GamePads[0].WasButtonJustPressed(Buttons.DPadDown)
+                || (currStickY < -0.5f && prevStickY >= -0.5f))
+            {
+                _buttonHelper.IncrementSelection();
+            }
+
+            if (Core.Input.Keyboard.WasKeyJustPressed(Keys.Up)
+                || Core.Input.GamePads[0].WasButtonJustPressed(Buttons.DPadUp)
+                || Core.Input.GamePads[0].WasButtonJustPressed(Buttons.DPadDown)
+                || (currStickY < 0.5f && prevStickY >= 0.5f))
+            {
+                _buttonHelper.DecrementSelection();
+            }
+
+            // TODO: Add your update logic here
+            missileTestButton.Update(gameTime);
+            levelButton.Update(gameTime);
+
+            prevStickY = currStickY;
 
             base.Update(gameTime);
         }
@@ -50,6 +79,23 @@ namespace RE_SHMUP.Scenes
         public override void LoadContent()
         {
             _spriteFont = Content.Load<SpriteFont>("ArkPixel");
+
+            menuButtonTexture = Content.Load<Texture2D>("MenuButton-Smaller");
+
+            missileTestButton = new Button(_spriteFont, menuButtonTexture);
+            missileTestButton.buttonPosition = new Vector2(650, 190);
+            missileTestButton._buttonText = Localization.GetText("GoToTestString");
+            missileTestButton.Click += MissileTestButton_Click;
+            _theButtons[0] = missileTestButton;
+
+            levelButton = new Button(_spriteFont, menuButtonTexture);
+            levelButton.buttonPosition = new Vector2(650, 320);
+            levelButton._buttonText = Localization.GetText("GoToLevelString");
+            levelButton.Click += LevelButton_Click;
+            _theButtons[1] = levelButton;
+
+            _theButtons[0].Selected = true;
+            _buttonHelper.Buttons = _theButtons;
 
             base.LoadContent();
         }
@@ -63,6 +109,9 @@ namespace RE_SHMUP.Scenes
             Core.SpriteBatch.Begin();
 
             Core.GraphicsDevice.Clear(Color.Black);
+
+            missileTestButton.Draw(gameTime, Core.SpriteBatch);
+            levelButton.Draw(gameTime, Core.SpriteBatch);
 
             //Instruction strings follow here
 
@@ -149,6 +198,26 @@ namespace RE_SHMUP.Scenes
             Core.SpriteBatch.End();
 
             base.Draw(gameTime);
+        }
+
+        /// <summary>
+        /// Sets the game state to the testing scene
+        /// </summary>
+        /// <param name="sender">The object signaling the event</param>
+        /// <param name="e">Information about the event</param>
+        private void MissileTestButton_Click(object sender, System.EventArgs e)
+        {
+            Core.ChangeScene(new TestingScene());
+        }
+
+        /// <summary>
+        /// Sets the game state to the level scene
+        /// </summary>
+        /// <param name="sender">The object signaling the event</param>
+        /// <param name="e">Information about the event</param>
+        private void LevelButton_Click(object sender, System.EventArgs e)
+        {
+            Core.ChangeScene(new LevelScene());
         }
     }
 }

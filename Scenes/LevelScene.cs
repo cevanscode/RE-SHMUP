@@ -80,6 +80,13 @@ namespace RE_SHMUP
 
         public static float _bestSurvivalTime = 0f;
 
+        private int _score = 0;
+
+        /// <summary>
+        /// Name of the player who achieved a score
+        /// </summary>
+        private string _scorerName;
+
         private bool _playerDead = false;
 
         private bool _timerStart = false;
@@ -200,6 +207,7 @@ namespace RE_SHMUP
                         if (distance < bombWaveRadius)
                         {
                             missile.Destroyed = true;
+                            _score += 100;
                             _explodeSoundEffect.Play();
                             _explosions.PlaceExplosion(missile.position);
                         }
@@ -495,7 +503,7 @@ namespace RE_SHMUP
                 if (_survivalTime < 5)
                 {
                     Core.SpriteBatch.DrawString(_spriteFont,
-                        Localization.GetText("WatchOutString"),
+                        Localization.GetText("DefeatPiratesString"),
                         new Vector2(100, 100),
                         Color.White,
                         0f,
