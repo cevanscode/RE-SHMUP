@@ -99,7 +99,7 @@ namespace RE_SHMUP
         /// </summary>
         public override void Initialize()
         {
-            player = new PlayerSprite();
+            player = new PlayerSprite(this);
 
             bullets = new List<BulletSprite>();
 
@@ -118,7 +118,7 @@ namespace RE_SHMUP
                     (float)rand.NextDouble() * Core.Graphics.PreferredBackBufferHeight);
                 Vector2 randVelocity = new Vector2(rand.Next(1, 3),
                     rand.Next(1, 3));
-                meteors.Add(new MeteorSprite(randPos, randVelocity));
+                meteors.Add(new MeteorSprite(randPos, randVelocity, this));
             }
 
             bombWaveMaxRadius = MathF.Max(Core.Graphics.PreferredBackBufferWidth, Core.Graphics.PreferredBackBufferHeight);
@@ -451,8 +451,6 @@ namespace RE_SHMUP
         {
             Core.GraphicsDevice.Clear(Color.Black);
 
-            _tilemap.Draw(gameTime, Core.SpriteBatch);
-
             Matrix shakeTransform = Matrix.Identity;
             if (_shaking)
             {
@@ -498,6 +496,8 @@ namespace RE_SHMUP
             {
                 m.Draw(gameTime, Core.SpriteBatch);
             }
+
+            _tilemap.Draw(gameTime, Core.SpriteBatch);
 
             Core.SpriteBatch.DrawString(_spriteFont,
                 Localization.GetText("BestTimeString") + $": {_bestSurvivalTime:F2}s",

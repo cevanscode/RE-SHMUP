@@ -88,7 +88,7 @@ namespace RE_SHMUP.Scenes
         /// </summary>
         public override void Initialize()
         {
-            player = new PlayerSprite();
+            player = new PlayerSprite(this);
 
             bullets = new List<BulletSprite>();
 
@@ -107,7 +107,7 @@ namespace RE_SHMUP.Scenes
                     (float)rand.NextDouble() * Core.Graphics.PreferredBackBufferHeight);
                 Vector2 randVelocity = new Vector2(rand.Next(1, 3), 
                     rand.Next(1, 3));
-                meteors.Add(new MeteorSprite(randPos, randVelocity));
+                meteors.Add(new MeteorSprite(randPos, randVelocity, this));
             }
 
             bombWaveMaxRadius = MathF.Max(Core.Graphics.PreferredBackBufferWidth, Core.Graphics.PreferredBackBufferHeight);

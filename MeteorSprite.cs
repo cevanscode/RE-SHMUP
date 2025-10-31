@@ -25,6 +25,8 @@ namespace RE_SHMUP
 
         private Texture2D circleTexture;
 
+        private Scene _sceneSpawnedOn;
+
         public Vector2 velocity;
 
         /// <summary>
@@ -42,12 +44,13 @@ namespace RE_SHMUP
         /// </summary>
         /// <param name="position">Position of a meteor</param>
         /// <param name="velocity">Velocity of a meteor</param>
-        public MeteorSprite(Vector2 position, Vector2 velocity)
+        public MeteorSprite(Vector2 position, Vector2 velocity, Scene sceneSpawnedOn)
         {
             this.position = position;
             float radius = 16;
             this.bounds = new BoundingCircle(position, radius);
             this.velocity = velocity;
+            _sceneSpawnedOn = sceneSpawnedOn;
         }
 
         /// <summary>
@@ -80,17 +83,17 @@ namespace RE_SHMUP
             float circle = MathHelper.Pi * 2;
             rotationAngle %= circle;
 
-            if (position.X <= 0 || position.X + texture.Width >= Core.Graphics.PreferredBackBufferWidth)
+            if (position.X <= 48 || position.X + texture.Width >= 600)
             {
                 velocity.X *= -1;
-                position.X = Math.Clamp(position.X, 0, Core.Graphics.PreferredBackBufferWidth - texture.Width);
+                position.X = Math.Clamp(position.X, 48, 600);
                 rotationAngle *= -1;
             }
 
-            if (position.Y <= 0 || position.Y + texture.Height >= Core.Graphics.PreferredBackBufferHeight)
+            if (position.Y <= 48 || position.Y + texture.Height >= 432)
             {
                 velocity.Y *= -1;
-                position.Y = Math.Clamp(position.Y, 0, Core.Graphics.PreferredBackBufferHeight - texture.Height);
+                position.Y = Math.Clamp(position.Y, 48, 432);
                 rotationAngle *= -1;
             }
         }

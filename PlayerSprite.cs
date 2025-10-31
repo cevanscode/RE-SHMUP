@@ -3,7 +3,9 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using MonoGameLibrary;
+using RE_SHMUP.Scenes;
 using System;
+using System.Xml.Linq;
 
 namespace RE_SHMUP
 {
@@ -36,6 +38,8 @@ namespace RE_SHMUP
 
         private Texture2D circleTexture;
 
+        private Scene _sceneSpawnedOn;
+
         /// <summary>
         /// The bounding volume of the sprite
         /// </summary>
@@ -45,6 +49,11 @@ namespace RE_SHMUP
         /// The color to blend with the sprite
         /// </summary>
         public Color Color { get; set; } = Color.White;
+
+        public PlayerSprite(Scene scene)
+        {
+            _sceneSpawnedOn = scene;
+        }
 
         /// <summary>
         /// Loads the sprite texture using the provided ContentManager
@@ -97,8 +106,16 @@ namespace RE_SHMUP
             if (Core.Input.Keyboard.IsKeyDown(Keys.Left) || Core.Input.Keyboard.IsKeyDown(Keys.A) || Core.Input.GamePads[0].IsButtonDown(Buttons.DPadLeft)) position += new Vector2(-moveSpeed, 0);
             if (Core.Input.Keyboard.IsKeyDown(Keys.Right) || Core.Input.Keyboard.IsKeyDown(Keys.D) || Core.Input.GamePads[0].IsButtonDown(Buttons.DPadRight)) position += new Vector2(moveSpeed, 0);
 
-            position.X = Math.Clamp(position.X, bounds.Radius, Core.Graphics.PreferredBackBufferWidth - bounds.Radius);
-            position.Y = Math.Clamp(position.Y, bounds.Radius, Core.Graphics.PreferredBackBufferHeight - bounds.Radius);
+            if (_sceneSpawnedOn is TestingScene) //keep player within bounds of the window
+            {
+                position.X = Math.Clamp(position.X, bounds.Radius, Core.Graphics.PreferredBackBufferWidth - bounds.Radius);
+                position.Y = Math.Clamp(position.Y, bounds.Radius, Core.Graphics.PreferredBackBufferHeight - bounds.Radius);
+            }
+            else if (_sceneSpawnedOn is LevelScene) //if the GUI from the tilemap is visible, clamp smaller
+            {
+                position.X = Math.Clamp(position.X, 48, 600);
+                position.Y = Math.Clamp(position.Y, 48, 432);
+            }
 
             bounds.Center = position;
         }
