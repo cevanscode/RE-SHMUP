@@ -201,4 +201,7 @@
   <data name="DestroyDummyString" xml:space="preserve">
     <value> ダミー バルーンを壊して!</value>
   </data>
+  <data name="splashScreenText1" xml:space="preserve">
+    <value>cevanscode</value>
+  </data>
 </root>

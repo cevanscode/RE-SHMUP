@@ -16,6 +16,8 @@ Button Tutorial (just the clicking functionality, controller/keyboard support by
 Particle System and Explosion From Nathan Bean - https://www.youtube.com/watch?v=dLz6556Xkso&feature=youtu.be
 Tilemap and Associated Content Pipeline From Nathan Bean - https://github.com/zombiepaladin/basic-tilemap-pipeline
 Special Effects (ScreenBatch Transform) From Nathan Bean - https://github.com/zombiepaladin/spritebatch-transform-special-effects
+3D Basics based on implementation from Nathan Bean - https://github.com/ksu-cis/basic-3d-starter
+
 Ark Pixel Font (By TakWolf) - https://github.com/TakWolf/ark-pixel-font
 	Usage permitted under Open Font License.
 Testing Scene Music - Noisy Battle by Some Weirdo - https://opengameart.org/content/noisy-battle

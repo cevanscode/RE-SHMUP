@@ -268,6 +268,15 @@ namespace RE_SHMUP {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to cevanscode.
+        /// </summary>
+        internal static string splashScreenText1 {
+            get {
+                return ResourceManager.GetString("splashScreenText1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Start.
         /// </summary>
         internal static string StartButton {

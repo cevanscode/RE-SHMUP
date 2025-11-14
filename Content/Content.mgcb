@@ -172,6 +172,18 @@
 /processorParam:TextureFormat=Color
 /build:LangButton.png
 
+#begin lil_bro.jpg
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:lil_bro.jpg
+
 #begin Meiryo.spritefont
 /importer:FontDescriptionImporter
 /processor:FontDescriptionProcessor
@@ -268,18 +280,6 @@
 /processor:SongProcessor
 /processorParam:Quality=Best
 /build:noisy_battle.ogg
-
-#begin Pirate-Mech.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Pirate-Mech.png
 
 #begin Pirate-Mech.png
 /importer:TextureImporter
