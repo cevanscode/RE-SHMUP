@@ -403,7 +403,7 @@ namespace RE_SHMUP.Scenes
             _shootSoundEffect = Content.Load<SoundEffect>("shoot");
 
             Song noisy = Content.Load<Song>("noisy_battle");
-
+            /*
             if (MediaPlayer.State == MediaState.Playing)
             {
                 MediaPlayer.Stop();
@@ -412,6 +412,9 @@ namespace RE_SHMUP.Scenes
             MediaPlayer.Play(noisy);
 
             MediaPlayer.IsRepeating = true;
+            */
+
+            Core.Audio.PlaySong(noisy);
 
             Random random = new Random();
 

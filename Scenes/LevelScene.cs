@@ -485,17 +485,22 @@ namespace RE_SHMUP
             _beamShotSoundEffect = Content.Load<SoundEffect>("beam_weapon");
             _explodeSoundEffect = Content.Load<SoundEffect>("explode");
             _shootSoundEffect = Content.Load<SoundEffect>("shoot");
-
+            
             Song noisy = Content.Load<Song>("noisy_battle");
 
+            /*
             if (MediaPlayer.State == MediaState.Playing)
             {
                 MediaPlayer.Stop();
             }
 
+            
             MediaPlayer.Play(noisy);
 
             MediaPlayer.IsRepeating = true;
+            */
+
+            Core.Audio.PlaySong(noisy);
 
             Random random = new Random();
 

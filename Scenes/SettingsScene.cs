@@ -7,8 +7,8 @@ using MonoGameLibrary;
 using MonoGameLibrary.Input;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.IO;
+using System.Linq;
 namespace RE_SHMUP.Scenes
 {
     public class SettingsScene : Scene
@@ -154,17 +154,19 @@ namespace RE_SHMUP.Scenes
 
         private void VolumeUpButton_Click(object sender, EventArgs e)
         {
-            //turns up volume
+            Core.Audio.SongVolume += 0.1f;
+            Core.Audio.SoundEffectVolume += 0.1f;
         }
 
         private void VolumeDownButton_Click(object sender, EventArgs e)
         {
-            //turns down volume
+            Core.Audio.SongVolume -= 0.1f;
+            Core.Audio.SoundEffectVolume -= 0.1f;
         }
 
         private void ResolutionChangeButton_Click(object sender, EventArgs e)
         {
-            //turns down volume
+
         }
     }
 }
