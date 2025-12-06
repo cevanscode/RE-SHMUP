@@ -6,8 +6,6 @@ using Microsoft.Xna.Framework.Media;
 using MonoGameLibrary;
 using MonoGameLibrary.Input;
 using System;
-using System.Collections.Generic;
-using System.Globalization;
 using System.IO;
 using System.Linq;
 namespace RE_SHMUP.Scenes
@@ -238,9 +236,20 @@ namespace RE_SHMUP.Scenes
             Core.Audio.SoundEffectVolume -= 0.1f;
         }
 
-        private void ResolutionChangeButton_Click(object sender, EventArgs e)
+        private void ResolutionChangeButton_Click(object sender, EventArgs e) 
         {
-
+            if (!Core.Graphics.IsFullScreen)
+            {
+                Core.Graphics.PreferredBackBufferWidth = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
+                Core.Graphics.PreferredBackBufferHeight = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height;
+                fullScreen = true;
+            }
+            else
+            {
+                Core.Graphics.PreferredBackBufferWidth = 800;
+                Core.Graphics.PreferredBackBufferHeight = 480;
+                fullScreen= false;
+            }
         }
     }
 }
