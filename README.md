@@ -4,6 +4,7 @@ Inspired by ZUN's TOUHOU Project.
 From MonoGame Documentation:
 Class Library Tutorial: https://docs.monogame.net/articles/tutorials/building_2d_games/04_creating_a_class_library/index.html?tabs=vscode
 Input Management: https://docs.monogame.net/articles/tutorials/building_2d_games/11_input_management/
+Audio Management: https://docs.monogame.net/articles/tutorials/building_2d_games/15_audio_controller/index.html
 Collision Basis: https://docs.monogame.net/articles/tutorials/building_2d_games/12_collision_detection/index.html
 Scenes Tutorial: https://docs.monogame.net/articles/tutorials/building_2d_games/17_scenes/
 Localization Basis - https://docs.monogame.net/articles/getting_started/content_pipeline/localization.html

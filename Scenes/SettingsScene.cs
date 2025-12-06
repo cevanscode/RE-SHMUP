@@ -179,8 +179,8 @@ namespace RE_SHMUP.Scenes
                 Localization.SetLanguage("ja");
                 languageButton._buttonText = Localization.GetText("LanguageLabel");
             }
-            volumeMusicUpButton._buttonText = Localization.GetText("VolumeUp");
-            volumeMusicDownButton._buttonText = Localization.GetText("VolumeDown");
+            volumeMusicUpButton._buttonText = Localization.GetText("VolumeMusicUp");
+            volumeMusicDownButton._buttonText = Localization.GetText("VolumeMusicDown");
             backToMenuButton._buttonText = Localization.GetText("BackToMenu");
             resolutionChangeButton._buttonText = Localization.GetText("ResolutionChange");
         }

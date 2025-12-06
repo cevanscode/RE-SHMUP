@@ -214,7 +214,7 @@
     <value>音楽 -</value>
   </data>
   <data name="ResolutionChange" xml:space="preserve">
-    <value>解像度を変化する</value>
+    <value>解像度</value>
   </data>
   <data name="Settings" xml:space="preserve">
     <value>設定</value>

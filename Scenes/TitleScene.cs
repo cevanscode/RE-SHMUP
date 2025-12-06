@@ -29,7 +29,7 @@ namespace RE_SHMUP.Scenes
         private Texture2D comet;
         #endregion
 
-        private Button[] _theButtons = new Button[4];
+        private Button[] _theButtons = new Button[3];
         private ButtonHelper _buttonHelper = new ButtonHelper();
         private float prevStickY = 0;
         private float currStickY = 0;
@@ -68,7 +68,7 @@ namespace RE_SHMUP.Scenes
             }
 
             // TODO: Add your update logic here
-            languageButton.Update(gameTime);
+            //languageButton.Update(gameTime);
             quitButton.Update(gameTime);
             startButton.Update(gameTime);
             settingsButton.Update(gameTime);
@@ -121,28 +121,28 @@ namespace RE_SHMUP.Scenes
             _spriteFont = Content.Load<SpriteFont>("ArkPixel");
 
             startButton = new Button(_spriteFont, menuButtonTexture);
-            startButton.buttonPosition = new Vector2(650, 190);
+            startButton.buttonPosition = new Vector2(650, 260);
             startButton._buttonText = Localization.GetText("StartButton");
             startButton.Click += StartButton_Click;
             _theButtons[0] = startButton;
 
-            languageButton = new Button(_spriteFont, menuButtonTexture);
-            languageButton.buttonPosition = new Vector2(650, 260);
-            languageButton._buttonText = Localization.GetText("LanguageLabel");
-            languageButton.Click += LanguageButton_Click;
-            _theButtons[1] = languageButton;
+            //languageButton = new Button(_spriteFont, menuButtonTexture);
+            //languageButton.buttonPosition = new Vector2(650, 260);
+            //languageButton._buttonText = Localization.GetText("LanguageLabel");
+            //languageButton.Click += LanguageButton_Click;
+            //_theButtons[1] = languageButton;
 
             settingsButton = new Button(_spriteFont, menuButtonTexture);
             settingsButton.buttonPosition = new Vector2(650, 330);
             settingsButton._buttonText = Localization.GetText("Settings");
             settingsButton.Click += ScreenButton_Click;
-            _theButtons[2] = settingsButton;
+            _theButtons[1] = settingsButton;
 
             quitButton = new Button(_spriteFont, menuButtonTexture);
             quitButton.buttonPosition = new Vector2(650, 400);
             quitButton._buttonText = Localization.GetText("QuitButton");
             quitButton.Click += QuitButton_Click;
-            _theButtons[3] = quitButton;
+            _theButtons[2] = quitButton;
 
             _theButtons[0].Selected = true;
             _buttonHelper.Buttons = _theButtons;
@@ -172,7 +172,7 @@ namespace RE_SHMUP.Scenes
             }
 
             startButton.Draw(gameTime, Core.SpriteBatch);
-            languageButton.Draw(gameTime, Core.SpriteBatch);
+            //languageButton.Draw(gameTime, Core.SpriteBatch);
             settingsButton.Draw(gameTime, Core.SpriteBatch);
             quitButton.Draw(gameTime, Core.SpriteBatch);
 
