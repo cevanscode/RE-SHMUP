@@ -46,7 +46,6 @@ namespace RE_SHMUP.Scenes
 
             if (Core.Input.Keyboard.WasKeyJustPressed(Keys.Down)
                 || Core.Input.GamePads[0].WasButtonJustPressed(Buttons.DPadDown)
-                || Core.Input.GamePads[0].WasButtonJustPressed(Buttons.DPadDown)
                 || (currStickY < -0.5f && prevStickY >= -0.5f))
             {
                 _buttonHelper.IncrementSelection();
@@ -54,7 +53,6 @@ namespace RE_SHMUP.Scenes
 
             if (Core.Input.Keyboard.WasKeyJustPressed(Keys.Up)
                 || Core.Input.GamePads[0].WasButtonJustPressed(Buttons.DPadUp)
-                || Core.Input.GamePads[0].WasButtonJustPressed(Buttons.DPadDown)
                 || (currStickY < 0.5f && prevStickY >= 0.5f))
             {
                 _buttonHelper.DecrementSelection();
@@ -69,8 +67,6 @@ namespace RE_SHMUP.Scenes
 
         public override void LoadContent()
         {
-            Localization.SetLanguage("en");
-
             _spriteFont = Content.Load<SpriteFont>("ArkPixel");
             menuButtonTexture = Content.Load<Texture2D>("MenuButton-Smaller");
             mousePointer = Content.Load<Texture2D>("Pointer");
@@ -79,33 +75,33 @@ namespace RE_SHMUP.Scenes
 
             backToMenuButton = new Button(_spriteFont, menuButtonTexture);
             backToMenuButton.buttonPosition = new Vector2(400, 10);
-            backToMenuButton._buttonText = Localization.GetText("Test");
+            backToMenuButton._buttonText = Localization.GetText("BackToMenu");
             backToMenuButton.Click += BackToMenuButton_Click;
             _theButtons[0] = backToMenuButton;
 
             languageButton = new Button(_spriteFont, menuButtonTexture);
             languageButton.buttonPosition = new Vector2(400, 80);
-            languageButton._buttonText = Localization.GetText("Test");
+            languageButton._buttonText = Localization.GetText("LanguageLabel");
             languageButton.Click += LanguageButton_Click;
             _theButtons[1] = languageButton;
 
             volumeUpButton = new Button(_spriteFont, menuButtonTexture);
             volumeUpButton.buttonPosition = new Vector2(400, 150);
-            volumeUpButton._buttonText = Localization.GetText("Test");
+            volumeUpButton._buttonText = Localization.GetText("VolumeUp");
             volumeUpButton.Click += VolumeUpButton_Click;
             _theButtons[2] = volumeUpButton;
 
             volumeDownButton = new Button(_spriteFont, menuButtonTexture);
             volumeDownButton.buttonPosition = new Vector2(400, 220);
-            volumeDownButton._buttonText = Localization.GetText("Test");
+            volumeDownButton._buttonText = Localization.GetText("VolumeDown");
             volumeDownButton.Click += VolumeDownButton_Click;
             _theButtons[3] = volumeDownButton;
 
             resolutionChangeButton = new Button(_spriteFont, menuButtonTexture);
             resolutionChangeButton.buttonPosition = new Vector2(400, 290);
-            resolutionChangeButton._buttonText = Localization.GetText("Test");
+            resolutionChangeButton._buttonText = Localization.GetText("ResolutionChange");
             resolutionChangeButton.Click += ResolutionChangeButton_Click;
-            _theButtons[4] = volumeUpButton;
+            _theButtons[4] = resolutionChangeButton;
 
             _theButtons[0].Selected = true;
             _buttonHelper.Buttons = _theButtons;

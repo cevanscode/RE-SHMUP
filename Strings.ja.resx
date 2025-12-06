@@ -208,10 +208,10 @@
     <value> メニュー </value>
   </data>
   <data name="VolumeUp" xml:space="preserve">
-    <value>上</value>
+    <value>+</value>
   </data>
   <data name="VolumeDown" xml:space="preserve">
-    <value>下</value>
+    <value>-</value>
   </data>
   <data name="ResolutionChange" xml:space="preserve">
     <value>解像度を変化する</value>

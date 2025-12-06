@@ -349,7 +349,7 @@ namespace RE_SHMUP {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Down.
+        ///   Looks up a localized string similar to -.
         /// </summary>
         internal static string VolumeDown {
             get {
@@ -358,7 +358,7 @@ namespace RE_SHMUP {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Up.
+        ///   Looks up a localized string similar to +.
         /// </summary>
         internal static string VolumeUp {
             get {

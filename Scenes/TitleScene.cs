@@ -55,7 +55,6 @@ namespace RE_SHMUP.Scenes
 
             if (Core.Input.Keyboard.WasKeyJustPressed(Keys.Down) 
                 || Core.Input.GamePads[0].WasButtonJustPressed(Buttons.DPadDown) 
-                || Core.Input.GamePads[0].WasButtonJustPressed(Buttons.DPadDown)
                 || (currStickY < -0.5f && prevStickY >= -0.5f))
             {
                 _buttonHelper.IncrementSelection();
@@ -63,7 +62,6 @@ namespace RE_SHMUP.Scenes
 
             if (Core.Input.Keyboard.WasKeyJustPressed(Keys.Up) 
                 || Core.Input.GamePads[0].WasButtonJustPressed(Buttons.DPadUp) 
-                || Core.Input.GamePads[0].WasButtonJustPressed(Buttons.DPadDown)
                 || (currStickY < 0.5f && prevStickY >= 0.5f))
             {
                 _buttonHelper.DecrementSelection();
@@ -88,7 +86,7 @@ namespace RE_SHMUP.Scenes
             //Localization.SetLanguage("ja");
 
             //English mode
-            Localization.SetLanguage("en");
+            //Localization.SetLanguage("en");
 
             if (MediaPlayer.State == MediaState.Playing)
             {

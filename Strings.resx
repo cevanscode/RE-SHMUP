@@ -208,10 +208,10 @@
     <value>Back to Menu</value>
   </data>
   <data name="VolumeUp" xml:space="preserve">
-    <value>Up</value>
+    <value>+</value>
   </data>
   <data name="VolumeDown" xml:space="preserve">
-    <value>Down</value>
+    <value>-</value>
   </data>
   <data name="ResolutionChange" xml:space="preserve">
     <value>Change Resolution</value>
