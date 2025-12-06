@@ -204,4 +204,22 @@
   <data name="splashScreenText1" xml:space="preserve">
     <value>cevanscode</value>
   </data>
+  <data name="BackToMenu" xml:space="preserve">
+    <value>Back to Menu</value>
+  </data>
+  <data name="VolumeUp" xml:space="preserve">
+    <value>Up</value>
+  </data>
+  <data name="VolumeDown" xml:space="preserve">
+    <value>Down</value>
+  </data>
+  <data name="ResolutionChange" xml:space="preserve">
+    <value>Change Resolution</value>
+  </data>
+  <data name="Settings" xml:space="preserve">
+    <value>Settings</value>
+  </data>
+  <data name="Test" xml:space="preserve">
+    <value>Test</value>
+  </data>
 </root>

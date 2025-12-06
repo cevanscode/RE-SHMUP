@@ -204,4 +204,22 @@
   <data name="splashScreenText1" xml:space="preserve">
     <value>cevanscode</value>
   </data>
+  <data name="BackToMenu" xml:space="preserve">
+    <value> メニュー </value>
+  </data>
+  <data name="VolumeUp" xml:space="preserve">
+    <value>上</value>
+  </data>
+  <data name="VolumeDown" xml:space="preserve">
+    <value>下</value>
+  </data>
+  <data name="ResolutionChange" xml:space="preserve">
+    <value>解像度を変化する</value>
+  </data>
+  <data name="Settings" xml:space="preserve">
+    <value>設定</value>
+  </data>
+  <data name="Test" xml:space="preserve">
+    <value>Test</value>
+  </data>
 </root>

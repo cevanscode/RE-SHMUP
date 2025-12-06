@@ -61,6 +61,15 @@ namespace RE_SHMUP {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Back to Menu.
+        /// </summary>
+        internal static string BackToMenu {
+            get {
+                return ResourceManager.GetString("BackToMenu", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Best Score:.
         /// </summary>
         internal static string BestScoreString {
@@ -250,11 +259,29 @@ namespace RE_SHMUP {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Change Resolution.
+        /// </summary>
+        internal static string ResolutionChange {
+            get {
+                return ResourceManager.GetString("ResolutionChange", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Score:.
         /// </summary>
         internal static string ScoreString {
             get {
                 return ResourceManager.GetString("ScoreString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Settings.
+        /// </summary>
+        internal static string Settings {
+            get {
+                return ResourceManager.GetString("Settings", resourceCulture);
             }
         }
         
@@ -304,11 +331,38 @@ namespace RE_SHMUP {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Test.
+        /// </summary>
+        internal static string Test {
+            get {
+                return ResourceManager.GetString("Test", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Time.
         /// </summary>
         internal static string TimeString {
             get {
                 return ResourceManager.GetString("TimeString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Down.
+        /// </summary>
+        internal static string VolumeDown {
+            get {
+                return ResourceManager.GetString("VolumeDown", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Up.
+        /// </summary>
+        internal static string VolumeUp {
+            get {
+                return ResourceManager.GetString("VolumeUp", resourceCulture);
             }
         }
         

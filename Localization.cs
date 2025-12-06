@@ -1,9 +1,10 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using System.Resources;
+using System;
 using System.Globalization;
 using System.Reflection;
+using System.Resources;
 
 namespace RE_SHMUP
 {
@@ -37,5 +38,17 @@ namespace RE_SHMUP
         {
             return _resourceManager.GetString(langKey, CurrentCulture) ?? $"[{langKey}]";
         }
+
+        public static void ValidateString(SpriteFont font, string text)
+        {
+            foreach (char c in text)
+            {
+                if (!font.Characters.Contains(c))
+                {
+                    throw new Exception($"Missing glyph: '{c}' (U+{((int)c):X4})");
+                }
+            }
+        }
+
     }
 }

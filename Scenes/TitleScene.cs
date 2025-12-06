@@ -37,7 +37,7 @@ namespace RE_SHMUP.Scenes
         #region Buttons
         public Button languageButton;
         public Button quitButton;
-        public Button screenButton;
+        public Button settingsButton;
         public Button startButton;
         #endregion
 
@@ -73,7 +73,7 @@ namespace RE_SHMUP.Scenes
             languageButton.Update(gameTime);
             quitButton.Update(gameTime);
             startButton.Update(gameTime);
-            screenButton.Update(gameTime);
+            settingsButton.Update(gameTime);
 
             _cometPosition += _cometVelocity;
 
@@ -134,11 +134,11 @@ namespace RE_SHMUP.Scenes
             languageButton.Click += LanguageButton_Click;
             _theButtons[1] = languageButton;
 
-            screenButton = new Button(_spriteFont, menuButtonTexture);
-            screenButton.buttonPosition = new Vector2(650, 330);
-            screenButton._buttonText = Localization.GetText("FullScreenButton");
-            screenButton.Click += ScreenButton_Click;
-            _theButtons[2] = screenButton;
+            settingsButton = new Button(_spriteFont, menuButtonTexture);
+            settingsButton.buttonPosition = new Vector2(650, 330);
+            settingsButton._buttonText = Localization.GetText("Settings");
+            settingsButton.Click += ScreenButton_Click;
+            _theButtons[2] = settingsButton;
 
             quitButton = new Button(_spriteFont, menuButtonTexture);
             quitButton.buttonPosition = new Vector2(650, 400);
@@ -175,7 +175,7 @@ namespace RE_SHMUP.Scenes
 
             startButton.Draw(gameTime, Core.SpriteBatch);
             languageButton.Draw(gameTime, Core.SpriteBatch);
-            screenButton.Draw(gameTime, Core.SpriteBatch);
+            settingsButton.Draw(gameTime, Core.SpriteBatch);
             quitButton.Draw(gameTime, Core.SpriteBatch);
 
             Core.SpriteBatch.Draw(comet, 
@@ -265,26 +265,26 @@ namespace RE_SHMUP.Scenes
             {
                 Localization.SetLanguage("en");
                 languageButton._buttonText = Localization.GetText("LanguageLabel");
-                screenButton._buttonText = Localization.GetText("FullScreenButton");
+                settingsButton._buttonText = Localization.GetText("FullScreenButton");
             }
             else
             {
                 Localization.SetLanguage("ja");
                 languageButton._buttonText = Localization.GetText("LanguageLabel");
-                screenButton._buttonText = Localization.GetText("FullScreenButton");
+                settingsButton._buttonText = Localization.GetText("FullScreenButton");
             }
             startButton._buttonText = Localization.GetText("StartButton");
             quitButton._buttonText = Localization.GetText("QuitButton");
         }
 
         /// <summary>
-        /// Sets the game to full screen or windowed mode
+        /// Opens the settings menu
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void ScreenButton_Click(object sender, System.EventArgs e)
         {
-            //Does nothing yet
+            Core.ChangeScene(new SettingsScene());
         }
 
         /// <summary>

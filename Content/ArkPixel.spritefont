@@ -50,29 +50,65 @@ with.
     character set. The characters are ordered according to the Unicode standard.
     See the documentation for more information.
     -->
-    <CharacterRegions>
-      <!-- Basic Latin -->
-      <CharacterRegion>
-        <Start> </Start>
-        <End>~</End>
-      </CharacterRegion>
-      <!-- Basic Japanese characters -->
-      <CharacterRegion>
-        <Start>A</Start>
-        <End>Z</End>
-      </CharacterRegion>
-      <CharacterRegion>
-        <Start>あ</Start>
-        <End>ん</End>
-      </CharacterRegion>
-      <CharacterRegion>
-        <Start>ア</Start>
-        <End>ン</End>
-      </CharacterRegion>
-      <CharacterRegion>
-        <Start>一</Start>
-        <End>龯</End>
-      </CharacterRegion>
-    </CharacterRegions>
+	  <CharacterRegions>
+
+		  <!-- Basic English / ASCII -->
+		  <CharacterRegion>
+			  <Start>&#32;</Start>
+			  <!-- space -->
+			  <End>&#126;</End>
+			  <!-- ~ -->
+		  </CharacterRegion>
+
+		  <!-- Hiragana -->
+		  <CharacterRegion>
+			  <Start>ぁ</Start>
+			  <!-- U+3041 -->
+			  <End>ゟ</End>
+			  <!-- U+309F -->
+		  </CharacterRegion>
+
+		  <!-- Katakana -->
+		  <CharacterRegion>
+			  <Start>ァ</Start>
+			  <!-- U+30A1 -->
+			  <End>ヿ</End>
+			  <!-- U+30FF -->
+		  </CharacterRegion>
+
+		  <!-- Katakana Phonetic Extensions -->
+		  <CharacterRegion>
+			  <Start>ㇰ</Start>
+			  <!-- U+31F0 -->
+			  <End>ㇿ</End>
+			  <!-- U+31FF -->
+		  </CharacterRegion>
+
+		  <!-- Full-width ASCII + Japanese punctuation -->
+		  <CharacterRegion>
+			  <Start>！</Start>
+			  <!-- U+FF01 -->
+			  <End>～</End>
+			  <!-- U+FF5E -->
+		  </CharacterRegion>
+
+		  <!-- CJK Unified Ideographs (Kanji: U+4E00 to U+9FFF) -->
+		  <CharacterRegion>
+			  <Start>一</Start>
+			  <!-- U+4E00 -->
+			  <End>龯</End>
+			  <!-- U+9FAF -->
+		  </CharacterRegion>
+
+		  <!-- CJK Unified Ideographs Extension A (more kanji) -->
+		  <CharacterRegion>
+			  <Start>㐀</Start>
+			  <!-- U+3400 -->
+			  <End>㘿</End>
+			  <!-- U+4DBF -->
+		  </CharacterRegion>
+
+	  </CharacterRegions>
+
   </Asset>
 </XnaContent>
