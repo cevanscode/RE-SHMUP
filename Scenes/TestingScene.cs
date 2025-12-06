@@ -83,6 +83,8 @@ namespace RE_SHMUP.Scenes
         private SoundEffect _explodeSoundEffect;
         private SoundEffect _beamShotSoundEffect;
 
+        private bool _paused;
+
         /// <summary>
         /// Initializes content
         /// </summary>
@@ -140,257 +142,273 @@ namespace RE_SHMUP.Scenes
         /// <param name="gameTime">The game time</param>
         public override void Update(GameTime gameTime)
         {
-            //exit program 
-            if (Core.Input.GamePads[0].WasButtonJustPressed(Buttons.Back) || 
-                Core.Input.Keyboard.WasKeyJustPressed(Keys.Escape))
-                Core.Instance.Exit();
-
-            //reset to title
-            if (Core.Input.GamePads[0].WasButtonJustPressed(Buttons.Y) || 
-                Core.Input.Keyboard.WasKeyJustPressed(Keys.R))
-                Core.ChangeScene(new TitleScene());
-
-            //Shoot
-            if (Core.Input.Keyboard.WasKeyJustPressed(Keys.Z) || 
-                Core.Input.Keyboard.WasKeyJustPressed(Keys.Space) || 
-                Core.Input.GamePads[0].WasButtonJustPressed(Buttons.A))
+            //THIS IS NOW THE PAUSE CONTROL
+            if (((Core.Input.GamePads[0].WasButtonJustPressed(Buttons.Back) ||
+                Core.Input.Keyboard.WasKeyJustPressed(Keys.Escape))) && _paused == false)
             {
-                BulletSprite bullet = new BulletSprite(player.Bounds.Center + new Vector2(0, 16));
-                bullet.LoadContent(Content);
-                Core.Audio.PlaySoundEffect(_shootSoundEffect);
-                //_shootSoundEffect.Play();
-
-                bullets.Add(bullet);
+                _paused = true;
+                Core.Audio.PauseAudio();
+            }
+            else if (((Core.Input.GamePads[0].WasButtonJustPressed(Buttons.Back) ||
+                Core.Input.Keyboard.WasKeyJustPressed(Keys.Escape))) && _paused == true)
+            {
+                _paused = false;
+                Core.Audio.ResumeAudio();
             }
 
-            if ((Core.Input.Keyboard.WasKeyJustPressed(Keys.X) ||
-                 Core.Input.GamePads[0].WasButtonJustPressed(Buttons.B)) &&
-                 bombCount > 0 && !bombActive)
+            if (_paused)
             {
-                ActivateBomb();
+
             }
-
-            if (bombWaveActive)
+            else
             {
-                bombWaveRadius += bombWaveSpeed * (float)gameTime.ElapsedGameTime.TotalSeconds;
+                //reset to title
+                if (Core.Input.GamePads[0].WasButtonJustPressed(Buttons.Y) ||
+                    Core.Input.Keyboard.WasKeyJustPressed(Keys.R))
+                    Core.ChangeScene(new TitleScene());
 
-                foreach (MeteorSprite meteor in meteors)
+                //Shoot
+                if (Core.Input.Keyboard.WasKeyJustPressed(Keys.Z) ||
+                    Core.Input.Keyboard.WasKeyJustPressed(Keys.Space) ||
+                    Core.Input.GamePads[0].WasButtonJustPressed(Buttons.A))
                 {
-                    if (!meteor.Destroyed)
+                    BulletSprite bullet = new BulletSprite(player.Bounds.Center + new Vector2(0, 16));
+                    bullet.LoadContent(Content);
+                    Core.Audio.PlaySoundEffect(_shootSoundEffect);
+                    //_shootSoundEffect.Play();
+
+                    bullets.Add(bullet);
+                }
+
+                if ((Core.Input.Keyboard.WasKeyJustPressed(Keys.X) ||
+                     Core.Input.GamePads[0].WasButtonJustPressed(Buttons.B)) &&
+                     bombCount > 0 && !bombActive)
+                {
+                    ActivateBomb();
+                }
+
+                if (bombWaveActive)
+                {
+                    bombWaveRadius += bombWaveSpeed * (float)gameTime.ElapsedGameTime.TotalSeconds;
+
+                    foreach (MeteorSprite meteor in meteors)
                     {
-                        float distance = Vector2.Distance(bombWaveCenter, meteor.position);
-                        if (distance < bombWaveRadius)
+                        if (!meteor.Destroyed)
+                        {
+                            float distance = Vector2.Distance(bombWaveCenter, meteor.position);
+                            if (distance < bombWaveRadius)
+                            {
+                                meteor.Destroyed = true;
+                                meteorCount--;
+                                Core.Audio.PlaySoundEffect(_explodeSoundEffect);
+                                //_explodeSoundEffect.Play();
+                                _explosions.PlaceExplosion(meteor.position);
+                            }
+                        }
+                    }
+
+                    foreach (MissileSprite missile in missiles)
+                    {
+                        if (!missile.Destroyed)
+                        {
+                            float distance = Vector2.Distance(bombWaveCenter, missile.position);
+                            if (distance < bombWaveRadius)
+                            {
+                                missile.Destroyed = true;
+                                Core.Audio.PlaySoundEffect(_explodeSoundEffect);
+                                //_explodeSoundEffect.Play();
+                                _explosions.PlaceExplosion(missile.position);
+                            }
+                        }
+                    }
+
+                    if (bombWaveRadius >= bombWaveMaxRadius)
+                    {
+                        bombWaveActive = false;
+                    }
+                }
+
+                foreach (var bullet in bullets)
+                {
+                    bullet.Update(gameTime);
+                }
+
+                foreach (var meteor in meteors)
+                {
+                    meteor.Update(gameTime);
+                }
+
+                foreach (var missile in missiles)
+                {
+                    missile.Update(gameTime);
+                }
+
+                player.Update(gameTime);
+
+                _meteorsDestroyed = meteors.All(m => m.Destroyed);
+
+                if (_meteorsDestroyed && !readyForMissiles)
+                {
+                    // Enable missile spawning
+                    readyForMissiles = true;
+                }
+
+                if (readyForMissiles && missiles.Count < maxMissileCount)
+                {
+                    System.Random rand = new System.Random();
+                    MissileSprite missile = new MissileSprite(new Vector2(rand.Next(0, Core.Graphics.PreferredBackBufferWidth), -400));
+                    missile.LoadContent(Content);
+                    missiles.Add(missile);
+                }
+
+                //meteor x bullet x player
+                foreach (var meteor in meteors)
+                {
+                    if (!bombActive && !meteor.Destroyed && meteor.Bounds.CollidesWith(player.Bounds))
+                    {
+                        Core.ChangeScene(new TestingScene()); //this will change to destroy an Orbiter when they are added
+                    }
+
+                    foreach (var bullet in bullets)
+                    {
+                        if (!meteor.Destroyed && meteor.Bounds.CollidesWith(bullet.Bounds))
                         {
                             meteor.Destroyed = true;
+                            bullet.Hit = true;
                             meteorCount--;
                             Core.Audio.PlaySoundEffect(_explodeSoundEffect);
                             //_explodeSoundEffect.Play();
                             _explosions.PlaceExplosion(meteor.position);
+                            _shakeTime = 0;
+                            _shaking = true;
                         }
                     }
                 }
 
-                foreach(MissileSprite missile in missiles)
+                foreach (var missile in missiles)
                 {
-                    if (!missile.Destroyed)
+                    if (!missile.Destroyed && missile.Bounds.CollidesWith(player.Bounds))
                     {
-                        float distance = Vector2.Distance(bombWaveCenter, missile.position);
-                        if (distance < bombWaveRadius)
+                        _playerDead = true;
+                        _lastSurvivalTime = _survivalTime;
+                        if (_lastSurvivalTime > _bestSurvivalTime)
+                        {
+                            _bestSurvivalTime = _lastSurvivalTime;
+
+                            //saving the best time
+                            try
+                            {
+                                string savePath = Path.Combine(
+                                    Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
+                                    "RE_SHMUP");
+
+                                Directory.CreateDirectory(savePath);
+
+                                string filePath = Path.Combine(savePath, "bestTime.txt");
+
+                                using (StreamWriter sw = new StreamWriter(filePath))
+                                {
+                                    sw.WriteLine(_bestSurvivalTime);
+                                }
+
+                                System.Diagnostics.Debug.WriteLine($"Best time saved to: {filePath}");
+                            }
+                            catch (Exception ex)
+                            {
+                                System.Diagnostics.Debug.WriteLine("Error writing best time: " + ex.Message);
+                            }
+                        }
+
+                        Core.ChangeScene(new TestingScene()); //this will change to destroy an Orbiter when they are added
+                    }
+
+                    if (missile.position.Y > Core.Graphics.PreferredBackBufferHeight && !missile.Destroyed)
+                    {
+                        missile.Destroyed = true;
+                    }
+
+                    foreach (var bullet in bullets)
+                    {
+                        if (!missile.Destroyed && missile.Bounds.CollidesWith(bullet.Bounds))
                         {
                             missile.Destroyed = true;
+                            bullet.Hit = true;
                             Core.Audio.PlaySoundEffect(_explodeSoundEffect);
                             //_explodeSoundEffect.Play();
                             _explosions.PlaceExplosion(missile.position);
+                            _shakeTime = 0;
+                            _shaking = true;
                         }
                     }
                 }
 
-                if (bombWaveRadius >= bombWaveMaxRadius)
+                //meteor x meteor
+                for (int i = 0; i < meteors.Count; i++)
                 {
-                    bombWaveActive = false;
-                }
-            }
-
-            foreach (var bullet in bullets)
-            {
-                bullet.Update(gameTime);
-            }
-
-            foreach (var meteor in meteors)
-            {
-                meteor.Update(gameTime);
-            }
-
-            foreach (var missile in missiles)
-            {
-                missile.Update(gameTime);
-            }
-
-            player.Update(gameTime);
-
-            _meteorsDestroyed = meteors.All(m => m.Destroyed);
-
-            if (_meteorsDestroyed && !readyForMissiles)
-            {
-                // Enable missile spawning
-                readyForMissiles = true;
-            }
-
-            if (readyForMissiles && missiles.Count < maxMissileCount)
-            {
-                System.Random rand = new System.Random();
-                MissileSprite missile = new MissileSprite(new Vector2(rand.Next(0, Core.Graphics.PreferredBackBufferWidth), -400));
-                missile.LoadContent(Content);
-                missiles.Add(missile);
-            }
-
-            //meteor x bullet x player
-            foreach (var meteor in meteors)
-            {
-                if (!bombActive && !meteor.Destroyed && meteor.Bounds.CollidesWith(player.Bounds))
-                {
-                    Core.ChangeScene(new TestingScene()); //this will change to destroy an Orbiter when they are added
-                }
-
-                foreach (var bullet in bullets)
-                {
-                    if (!meteor.Destroyed && meteor.Bounds.CollidesWith(bullet.Bounds))
+                    for (int j = i + 1; j < meteors.Count; j++)
                     {
-                        meteor.Destroyed = true;
-                        bullet.Hit = true;
-                        meteorCount--;
-                        Core.Audio.PlaySoundEffect(_explodeSoundEffect);
-                        //_explodeSoundEffect.Play();
-                        _explosions.PlaceExplosion(meteor.position);
-                        _shakeTime = 0;
-                        _shaking = true;
-                    }
-                }
-            }
+                        MeteorSprite m1 = meteors[i];
+                        MeteorSprite m2 = meteors[j];
 
-            foreach (var missile in missiles)
-            {
-                if (!missile.Destroyed && missile.Bounds.CollidesWith(player.Bounds))
-                {
-                    _playerDead = true;
-                    _lastSurvivalTime = _survivalTime;
-                    if (_lastSurvivalTime > _bestSurvivalTime)
-                    {
-                        _bestSurvivalTime = _lastSurvivalTime;
+                        if (m1.Destroyed || m2.Destroyed) continue;
 
-                        //saving the best time
-                        try
+                        if (!m1.Bounds.CollidesWith(m2.Bounds)) continue;
+
+                        Vector2 normal = m2.Bounds.Center - m1.Bounds.Center;
+                        float distance = normal.Length();
+
+                        if (distance < 0.0001f)
                         {
-                            string savePath = Path.Combine(
-                                Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
-                                "RE_SHMUP");
-
-                            Directory.CreateDirectory(savePath);
-
-                            string filePath = Path.Combine(savePath, "bestTime.txt");
-
-                            using (StreamWriter sw = new StreamWriter(filePath))
-                            {
-                                sw.WriteLine(_bestSurvivalTime);
-                            }
-
-                            System.Diagnostics.Debug.WriteLine($"Best time saved to: {filePath}");
+                            normal = new Vector2(1f, 0f);
+                            distance = 0.0001f;
                         }
-                        catch (Exception ex)
+                        normal /= distance;
+
+                        float overlap = (m1.Bounds.Radius + m2.Bounds.Radius) - distance;
+                        if (overlap > 0f)
                         {
-                            System.Diagnostics.Debug.WriteLine("Error writing best time: " + ex.Message);
+                            m1.ChangeHelper(-normal * overlap * 0.5f);
+                            m2.ChangeHelper(normal * overlap * 0.5f);
                         }
+
+                        Vector2 relativeVelocity = m1.velocity - m2.velocity;
+                        float velocityOfNormal = Vector2.Dot(relativeVelocity, normal);
+
+                        if (velocityOfNormal > 0) continue;
+
+                        float the_bouncer = 1f;
+
+                        float impulse = -(1f + the_bouncer) * velocityOfNormal / 2f;
+
+                        Vector2 impulseVector = impulse * normal;
+
+                        m1.velocity += impulseVector;
+                        m2.velocity -= impulseVector;
                     }
-
-                    Core.ChangeScene(new TestingScene()); //this will change to destroy an Orbiter when they are added
                 }
 
-                if (missile.position.Y > Core.Graphics.PreferredBackBufferHeight && !missile.Destroyed)
+                if (bombActive)
                 {
-                    missile.Destroyed = true;
-                }
-
-                foreach (var bullet in bullets)
-                {
-                    if (!missile.Destroyed && missile.Bounds.CollidesWith(bullet.Bounds))
+                    bombTimer -= (float)gameTime.ElapsedGameTime.TotalSeconds;
+                    if (bombTimer <= 0)
                     {
-                        missile.Destroyed = true;
-                        bullet.Hit = true;
-                        Core.Audio.PlaySoundEffect(_explodeSoundEffect);
-                        //_explodeSoundEffect.Play();
-                        _explosions.PlaceExplosion(missile.position);
-                        _shakeTime = 0;
-                        _shaking = true;
+                        bombActive = false;
                     }
                 }
-            }
 
-            //meteor x meteor
-            for (int i = 0; i < meteors.Count; i++)
-            {
-                for (int j = i + 1; j < meteors.Count; j++)
+                //kill bullets that are dead (hit something or went off top)
+                bullets.RemoveAll(b => b.Hit || b.Bounds.Center.Y < 0);
+
+                //kill all missiles that are dead (destroyed by bomb/bullet or went off bottom
+                missiles.RemoveAll(m => m.Destroyed);
+
+                if (!_playerDead && _timerStart)
                 {
-                    MeteorSprite m1 = meteors[i];
-                    MeteorSprite m2 = meteors[j];
-
-                    if (m1.Destroyed || m2.Destroyed) continue;
-
-                    if (!m1.Bounds.CollidesWith(m2.Bounds)) continue;
-
-                    Vector2 normal = m2.Bounds.Center - m1.Bounds.Center;
-                    float distance = normal.Length();
-
-                    if (distance < 0.0001f)
-                    {
-                        normal = new Vector2(1f, 0f);
-                        distance = 0.0001f;
-                    }
-                    normal /= distance;
-
-                    float overlap = (m1.Bounds.Radius + m2.Bounds.Radius) - distance;
-                    if (overlap > 0f)
-                    {
-                        m1.ChangeHelper(-normal * overlap * 0.5f);
-                        m2.ChangeHelper(normal * overlap * 0.5f);
-                    }
-
-                    Vector2 relativeVelocity = m1.velocity - m2.velocity;
-                    float velocityOfNormal = Vector2.Dot(relativeVelocity, normal);
-
-                    if (velocityOfNormal > 0) continue;
-
-                    float the_bouncer = 1f;
-
-                    float impulse = -(1f + the_bouncer) * velocityOfNormal / 2f;
-
-                    Vector2 impulseVector = impulse * normal;
-
-                    m1.velocity += impulseVector;
-                    m2.velocity -= impulseVector;
+                    _survivalTime += (float)gameTime.ElapsedGameTime.TotalSeconds;
                 }
+
+                base.Update(gameTime);
             }
-
-            if (bombActive)
-            {
-                bombTimer -= (float)gameTime.ElapsedGameTime.TotalSeconds;
-                if (bombTimer <= 0)
-                {
-                    bombActive = false;
-                }
-            }
-
-            //kill bullets that are dead (hit something or went off top)
-            bullets.RemoveAll(b => b.Hit || b.Bounds.Center.Y < 0);
-
-            //kill all missiles that are dead (destroyed by bomb/bullet or went off bottom
-            missiles.RemoveAll(m => m.Destroyed);
-
-            if (!_playerDead && _timerStart)
-            {
-                _survivalTime += (float)gameTime.ElapsedGameTime.TotalSeconds;
-            }
-
-            base.Update(gameTime);
         }
 
         /// <summary>
