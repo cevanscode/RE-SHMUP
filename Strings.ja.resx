@@ -228,4 +228,7 @@
   <data name="VolumeSFXUp" xml:space="preserve">
     <value>効果音 +</value>
   </data>
+  <data name="PauseControlsString" xml:space="preserve">
+    <value>休止: (BACK)/ESC</value>
+  </data>
 </root>

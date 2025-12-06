@@ -232,6 +232,15 @@ namespace RE_SHMUP {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Pause: (BACK)/ESC.
+        /// </summary>
+        internal static string PauseControlsString {
+            get {
+                return ResourceManager.GetString("PauseControlsString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Quit (or ESC).
         /// </summary>
         internal static string QuitButton {
@@ -241,7 +250,7 @@ namespace RE_SHMUP {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Quit Game: (BACK) or ESC.
+        ///   Looks up a localized string similar to Quit Game: (BACK)/ESC.
         /// </summary>
         internal static string QuitControlsString {
             get {

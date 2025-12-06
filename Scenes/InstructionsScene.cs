@@ -117,11 +117,21 @@ namespace RE_SHMUP.Scenes
 
             Core.SpriteBatch.DrawString(_spriteFont,
                 Localization.GetText("LysitheaPlotString"),
-                new Vector2(100, 100),
+                new Vector2(100, 50),
                 Color.White,
                 0f,
                 new Vector2(0, 0),
                 2f,
+                SpriteEffects.None,
+                0f);
+
+            Core.SpriteBatch.DrawString(_spriteFont,
+                Localization.GetText("PauseControlsString"),
+                new Vector2(100, 100),
+                Color.White,
+                0f,
+                new Vector2(0, 0),
+                1f,
                 SpriteEffects.None,
                 0f);
 
@@ -176,18 +186,8 @@ namespace RE_SHMUP.Scenes
                 0f);
 
             Core.SpriteBatch.DrawString(_spriteFont,
-                Localization.GetText("QuitControlsString"),
-                new Vector2(100, 400),
-                Color.White,
-                0f,
-                new Vector2(0, 0),
-                1f,
-                SpriteEffects.None,
-                0f);
-
-            Core.SpriteBatch.DrawString(_spriteFont,
                 Localization.GetText("StartGameString"),
-                new Vector2(100, 450),
+                new Vector2(100, 400),
                 Color.White,
                 0f,
                 new Vector2(0, 0),

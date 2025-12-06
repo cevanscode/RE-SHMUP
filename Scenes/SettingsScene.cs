@@ -7,6 +7,7 @@ using MonoGameLibrary;
 using MonoGameLibrary.Input;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 namespace RE_SHMUP.Scenes
@@ -33,6 +34,9 @@ namespace RE_SHMUP.Scenes
         public Button backToMenuButton;
         public Button resolutionChangeButton;
         #endregion
+
+        public bool fullScreen;
+        public bool japanese;
 
         public override void Initialize()
         {
@@ -171,11 +175,13 @@ namespace RE_SHMUP.Scenes
         {
             if (Localization.CurrentCulture.TwoLetterISOLanguageName == "ja")
             {
+                japanese = false;
                 Localization.SetLanguage("en");
                 languageButton._buttonText = Localization.GetText("LanguageLabel");
             }
             else
             {
+                japanese = true;
                 Localization.SetLanguage("ja");
                 languageButton._buttonText = Localization.GetText("LanguageLabel");
             }
@@ -187,6 +193,28 @@ namespace RE_SHMUP.Scenes
 
         private void BackToMenuButton_Click(object sender, EventArgs e)
         {
+            try
+            {
+                string savePath = Path.Combine(
+                    Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
+                    "RE_SHMUP");
+
+                Directory.CreateDirectory(savePath);
+
+                string filePath = Path.Combine(savePath, "settings.txt");
+
+                using (StreamWriter sw = new StreamWriter(filePath))
+                {
+                    sw.Write(japanese.ToString() + "," + Core.Audio.SongVolume + "," + Core.Audio.SoundEffectVolume + "," + fullScreen.ToString());
+                }
+
+                System.Diagnostics.Debug.WriteLine($"Settings saved to: {filePath}");
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine("Error writing settings: " + ex.Message);
+            }
+
             Core.ChangeScene(new TitleScene());
         }
 

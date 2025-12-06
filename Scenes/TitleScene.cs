@@ -6,6 +6,7 @@ using MonoGameLibrary;
 using MonoGameLibrary.Input;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 
 namespace RE_SHMUP.Scenes
@@ -43,6 +44,59 @@ namespace RE_SHMUP.Scenes
 
         public override void Initialize()
         {
+            try
+            {
+                string savePath = Path.Combine(
+                    Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
+                    "RE_SHMUP",
+                    "settings.txt");
+
+                if (File.Exists(savePath))
+                {
+                    string content = File.ReadAllText(savePath);
+
+                    string[] parts = content.Split(',');
+
+                    if (parts.Length >= 4)
+                    {
+                        if (bool.TryParse(parts[0], out bool japanese))
+                        {
+                            if (japanese)
+                            {
+                                Localization.SetLanguage("ja");
+                            }
+                            else
+                            {
+                                Localization.SetLanguage("en");
+                            }
+                        }
+
+                        if (float.TryParse(parts[1], out float songVolume))
+                        {
+                            Core.Audio.SongVolume = songVolume;
+                        }
+
+                        if (float.TryParse(parts[2], out float sfxVolume))
+                        {
+                            Core.Audio.SoundEffectVolume = sfxVolume;
+                        }
+
+                        if (bool.TryParse(parts[3], out bool isFullScreen))
+                        {
+                            Core.Graphics.IsFullScreen = isFullScreen;
+                            Core.Graphics.ApplyChanges();
+                        }
+
+                        System.Diagnostics.Debug.WriteLine($"Settings loaded: Song={Core.Audio.SongVolume}, SFX={Core.Audio.SoundEffectVolume}, FullScreen={Core.Graphics.IsFullScreen}");
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine("Error loading settings: " + ex.Message);
+            }
+
+
             base.Initialize();
         }
 

@@ -154,7 +154,7 @@
     <value>Move: Left Stick or WASD/Arrow Keys</value>
   </data>
   <data name="QuitControlsString" xml:space="preserve">
-    <value>Quit Game: (BACK) or ESC</value>
+    <value>Quit Game: (BACK)/ESC</value>
   </data>
   <data name="FocusControlsString" xml:space="preserve">
     <value>Focus: Right Trigger or Shift</value>
@@ -227,5 +227,8 @@
   </data>
   <data name="VolumeSFXUp" xml:space="preserve">
     <value>SFX +</value>
+  </data>
+  <data name="PauseControlsString" xml:space="preserve">
+    <value>Pause: (BACK)/ESC</value>
   </data>
 </root>
