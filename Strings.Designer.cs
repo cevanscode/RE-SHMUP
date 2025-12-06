@@ -349,20 +349,38 @@ namespace RE_SHMUP {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to -.
+        ///   Looks up a localized string similar to Volume -.
         /// </summary>
-        internal static string VolumeDown {
+        internal static string VolumeMusicDown {
             get {
-                return ResourceManager.GetString("VolumeDown", resourceCulture);
+                return ResourceManager.GetString("VolumeMusicDown", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to +.
+        ///   Looks up a localized string similar to Volume +.
         /// </summary>
-        internal static string VolumeUp {
+        internal static string VolumeMusicUp {
             get {
-                return ResourceManager.GetString("VolumeUp", resourceCulture);
+                return ResourceManager.GetString("VolumeMusicUp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to SFX -.
+        /// </summary>
+        internal static string VolumeSFXDown {
+            get {
+                return ResourceManager.GetString("VolumeSFXDown", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to SFX +.
+        /// </summary>
+        internal static string VolumeSFXUp {
+            get {
+                return ResourceManager.GetString("VolumeSFXUp", resourceCulture);
             }
         }
         

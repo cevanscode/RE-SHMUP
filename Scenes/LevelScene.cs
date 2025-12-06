@@ -185,7 +185,7 @@ namespace RE_SHMUP
             {
                 BulletSprite bullet = new BulletSprite(player.Bounds.Center + new Vector2(0, 16));
                 bullet.LoadContent(Content);
-                _shootSoundEffect.Play();
+                Core.Audio.PlaySoundEffect(_shootSoundEffect);
 
                 bullets.Add(bullet);
             }
@@ -211,7 +211,7 @@ namespace RE_SHMUP
                             meteor.Destroyed = true; //no point for bombs because it makes everything suck. Do it the hard way :3
                             meteorCount--;
                             SerializeScore();
-                            _explodeSoundEffect.Play();
+                            Core.Audio.PlaySoundEffect(_explodeSoundEffect);
                             _explosions.PlaceExplosion(meteor.position);
                         }
                     }
@@ -226,7 +226,7 @@ namespace RE_SHMUP
                         {
                             missile.Destroyed = true;
                             SerializeScore();
-                            _explodeSoundEffect.Play();
+                            Core.Audio.PlaySoundEffect(_explodeSoundEffect);
                             _explosions.PlaceExplosion(missile.position);
                         }
                     }
@@ -240,7 +240,7 @@ namespace RE_SHMUP
                         if (distance < bombWaveRadius)
                         {
                             balloon.Destroyed = true;
-                            _explodeSoundEffect.Play();
+                            Core.Audio.PlaySoundEffect(_explodeSoundEffect);
                             _explosions.PlaceExplosion(balloon.position);
                         }
                     }
@@ -313,7 +313,7 @@ namespace RE_SHMUP
                     meteorCount--;
                     meteor.Destroyed = true;
                     SerializeScore();
-                    _explodeSoundEffect.Play();
+                    Core.Audio.PlaySoundEffect(_explodeSoundEffect);
                     _explosions.PlaceExplosion(meteor.position);
                     Core.ChangeScene(new LevelScene()); //this will change to destroy an Orbiter when they are added
                 }
@@ -327,7 +327,7 @@ namespace RE_SHMUP
                         SerializeScore();
                         bullet.Hit = true;
                         meteorCount--;
-                        _explodeSoundEffect.Play();
+                        Core.Audio.PlaySoundEffect(_explodeSoundEffect);
                         _explosions.PlaceExplosion(meteor.position);
                         _shakeTime = 0;
                         _shaking = true;
@@ -357,7 +357,7 @@ namespace RE_SHMUP
                         _score += 100;
                         missile.Destroyed = true;
                         bullet.Hit = true;
-                        _explodeSoundEffect.Play();
+                        Core.Audio.PlaySoundEffect(_explodeSoundEffect);
                         _explosions.PlaceExplosion(missile.position);
                         _shakeTime = 0;
                         _shaking = true;
@@ -390,7 +390,7 @@ namespace RE_SHMUP
                         _score += 120;
                         SerializeScore();
                         bullet.Hit = true;
-                        _explodeSoundEffect.Play();
+                        Core.Audio.PlaySoundEffect(_explodeSoundEffect);
                         _explosions.PlaceExplosion(balloon.position);
                         _shakeTime = 0;
                         _shaking = true;

@@ -157,7 +157,8 @@ namespace RE_SHMUP.Scenes
             {
                 BulletSprite bullet = new BulletSprite(player.Bounds.Center + new Vector2(0, 16));
                 bullet.LoadContent(Content);
-                _shootSoundEffect.Play();
+                Core.Audio.PlaySoundEffect(_shootSoundEffect);
+                //_shootSoundEffect.Play();
 
                 bullets.Add(bullet);
             }
@@ -182,7 +183,8 @@ namespace RE_SHMUP.Scenes
                         {
                             meteor.Destroyed = true;
                             meteorCount--;
-                            _explodeSoundEffect.Play();
+                            Core.Audio.PlaySoundEffect(_explodeSoundEffect);
+                            //_explodeSoundEffect.Play();
                             _explosions.PlaceExplosion(meteor.position);
                         }
                     }
@@ -196,7 +198,8 @@ namespace RE_SHMUP.Scenes
                         if (distance < bombWaveRadius)
                         {
                             missile.Destroyed = true;
-                            _explodeSoundEffect.Play();
+                            Core.Audio.PlaySoundEffect(_explodeSoundEffect);
+                            //_explodeSoundEffect.Play();
                             _explosions.PlaceExplosion(missile.position);
                         }
                     }
@@ -256,7 +259,8 @@ namespace RE_SHMUP.Scenes
                         meteor.Destroyed = true;
                         bullet.Hit = true;
                         meteorCount--;
-                        _explodeSoundEffect.Play();
+                        Core.Audio.PlaySoundEffect(_explodeSoundEffect);
+                        //_explodeSoundEffect.Play();
                         _explosions.PlaceExplosion(meteor.position);
                         _shakeTime = 0;
                         _shaking = true;
@@ -312,7 +316,8 @@ namespace RE_SHMUP.Scenes
                     {
                         missile.Destroyed = true;
                         bullet.Hit = true;
-                        _explodeSoundEffect.Play();
+                        Core.Audio.PlaySoundEffect(_explodeSoundEffect);
+                        //_explodeSoundEffect.Play();
                         _explosions.PlaceExplosion(missile.position);
                         _shakeTime = 0;
                         _shaking = true;

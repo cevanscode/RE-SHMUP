@@ -19,15 +19,17 @@ namespace RE_SHMUP.Scenes
         private Texture2D mousePointer;
         #endregion
 
-        private Button[] _theButtons = new Button[5];
+        private Button[] _theButtons = new Button[7];
         private ButtonHelper _buttonHelper = new ButtonHelper();
         private float prevStickY = 0;
         private float currStickY = 0;
 
         #region Buttons
         public Button languageButton;
-        public Button volumeUpButton;
-        public Button volumeDownButton;
+        public Button volumeMusicUpButton;
+        public Button volumeMusicDownButton;
+        public Button volumeSFXUpButton;
+        public Button volumeSFXDownButton;
         public Button backToMenuButton;
         public Button resolutionChangeButton;
         #endregion
@@ -59,8 +61,10 @@ namespace RE_SHMUP.Scenes
             }
 
             languageButton.Update(gameTime);
-            volumeUpButton.Update(gameTime);
-            volumeDownButton.Update(gameTime);
+            volumeMusicUpButton.Update(gameTime);
+            volumeMusicDownButton.Update(gameTime);
+            volumeSFXUpButton.Update(gameTime);
+            volumeSFXDownButton.Update(gameTime);
             backToMenuButton.Update(gameTime);
             resolutionChangeButton.Update(gameTime);
         }
@@ -85,23 +89,35 @@ namespace RE_SHMUP.Scenes
             languageButton.Click += LanguageButton_Click;
             _theButtons[1] = languageButton;
 
-            volumeUpButton = new Button(_spriteFont, menuButtonTexture);
-            volumeUpButton.buttonPosition = new Vector2(400, 150);
-            volumeUpButton._buttonText = Localization.GetText("VolumeUp");
-            volumeUpButton.Click += VolumeUpButton_Click;
-            _theButtons[2] = volumeUpButton;
+            volumeMusicDownButton = new Button(_spriteFont, menuButtonTexture);
+            volumeMusicDownButton.buttonPosition = new Vector2(300, 150);
+            volumeMusicDownButton._buttonText = Localization.GetText("VolumeMusicDown");
+            volumeMusicDownButton.Click += VolumeDownButton_Click;
+            _theButtons[2] = volumeMusicDownButton;
 
-            volumeDownButton = new Button(_spriteFont, menuButtonTexture);
-            volumeDownButton.buttonPosition = new Vector2(400, 220);
-            volumeDownButton._buttonText = Localization.GetText("VolumeDown");
-            volumeDownButton.Click += VolumeDownButton_Click;
-            _theButtons[3] = volumeDownButton;
+            volumeMusicUpButton = new Button(_spriteFont, menuButtonTexture);
+            volumeMusicUpButton.buttonPosition = new Vector2(500, 150);
+            volumeMusicUpButton._buttonText = Localization.GetText("VolumeMusicUp");
+            volumeMusicUpButton.Click += VolumeUpButton_Click;
+            _theButtons[3] = volumeMusicUpButton;
+
+            volumeSFXDownButton = new Button(_spriteFont, menuButtonTexture);
+            volumeSFXDownButton.buttonPosition = new Vector2(300, 220);
+            volumeSFXDownButton._buttonText = Localization.GetText("VolumeSFXDown");
+            volumeSFXDownButton.Click += VolumeSFXDownButton_Click;
+            _theButtons[4] = volumeSFXDownButton;
+
+            volumeSFXUpButton = new Button(_spriteFont, menuButtonTexture);
+            volumeSFXUpButton.buttonPosition = new Vector2(500, 220);
+            volumeSFXUpButton._buttonText = Localization.GetText("VolumeSFXUp");
+            volumeSFXUpButton.Click += VolumeSFXUpButton_Click;
+            _theButtons[5] = volumeSFXUpButton;
 
             resolutionChangeButton = new Button(_spriteFont, menuButtonTexture);
             resolutionChangeButton.buttonPosition = new Vector2(400, 290);
             resolutionChangeButton._buttonText = Localization.GetText("ResolutionChange");
             resolutionChangeButton.Click += ResolutionChangeButton_Click;
-            _theButtons[4] = resolutionChangeButton;
+            _theButtons[6] = resolutionChangeButton;
 
             _theButtons[0].Selected = true;
             _buttonHelper.Buttons = _theButtons;
@@ -115,9 +131,31 @@ namespace RE_SHMUP.Scenes
 
             backToMenuButton.Draw(gameTime, Core.SpriteBatch);
             languageButton.Draw(gameTime, Core.SpriteBatch);
-            volumeUpButton.Draw(gameTime, Core.SpriteBatch);
-            volumeDownButton.Draw(gameTime, Core.SpriteBatch);
+            volumeMusicUpButton.Draw(gameTime, Core.SpriteBatch);
+            volumeMusicDownButton.Draw(gameTime, Core.SpriteBatch);
+            volumeSFXDownButton.Draw(gameTime, Core.SpriteBatch);
+            volumeSFXUpButton.Draw(gameTime, Core.SpriteBatch);
             resolutionChangeButton.Draw(gameTime, Core.SpriteBatch);
+
+            Core.SpriteBatch.DrawString(_spriteFont,
+                ((int)Math.Round(Core.Audio.SongVolume * 10f)).ToString(),
+                new Vector2(440, 160),
+                Color.Red,
+                0f,
+                new Vector2(0, 0),
+                3f,
+                SpriteEffects.None,
+                0f);
+
+            Core.SpriteBatch.DrawString(_spriteFont,
+                ((int)Math.Round(Core.Audio.SoundEffectVolume * 10f)).ToString(),
+                new Vector2(440, 230),
+                Color.Red,
+                0f,
+                new Vector2(0, 0),
+                3f,
+                SpriteEffects.None,
+                0f);
 
             Core.SpriteBatch.End();
 
@@ -141,8 +179,8 @@ namespace RE_SHMUP.Scenes
                 Localization.SetLanguage("ja");
                 languageButton._buttonText = Localization.GetText("LanguageLabel");
             }
-            volumeUpButton._buttonText = Localization.GetText("VolumeUp");
-            volumeDownButton._buttonText = Localization.GetText("VolumeDown");
+            volumeMusicUpButton._buttonText = Localization.GetText("VolumeUp");
+            volumeMusicDownButton._buttonText = Localization.GetText("VolumeDown");
             backToMenuButton._buttonText = Localization.GetText("BackToMenu");
             resolutionChangeButton._buttonText = Localization.GetText("ResolutionChange");
         }
@@ -155,12 +193,20 @@ namespace RE_SHMUP.Scenes
         private void VolumeUpButton_Click(object sender, EventArgs e)
         {
             Core.Audio.SongVolume += 0.1f;
-            Core.Audio.SoundEffectVolume += 0.1f;
         }
 
         private void VolumeDownButton_Click(object sender, EventArgs e)
         {
             Core.Audio.SongVolume -= 0.1f;
+        }
+
+        private void VolumeSFXUpButton_Click(object sender, EventArgs e)
+        {
+            Core.Audio.SoundEffectVolume += 0.1f;
+        }
+
+        private void VolumeSFXDownButton_Click(object sender, EventArgs e)
+        {
             Core.Audio.SoundEffectVolume -= 0.1f;
         }
 

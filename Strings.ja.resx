@@ -207,11 +207,11 @@
   <data name="BackToMenu" xml:space="preserve">
     <value> メニュー </value>
   </data>
-  <data name="VolumeUp" xml:space="preserve">
-    <value>+</value>
+  <data name="VolumeMusicUp" xml:space="preserve">
+    <value>音楽 +</value>
   </data>
-  <data name="VolumeDown" xml:space="preserve">
-    <value>-</value>
+  <data name="VolumeMusicDown" xml:space="preserve">
+    <value>音楽 -</value>
   </data>
   <data name="ResolutionChange" xml:space="preserve">
     <value>解像度を変化する</value>
@@ -221,5 +221,11 @@
   </data>
   <data name="Test" xml:space="preserve">
     <value>Test</value>
+  </data>
+  <data name="VolumeSFXDown" xml:space="preserve">
+    <value>効果音 -</value>
+  </data>
+  <data name="VolumeSFXUp" xml:space="preserve">
+    <value>効果音 +</value>
   </data>
 </root>

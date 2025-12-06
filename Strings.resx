@@ -207,11 +207,11 @@
   <data name="BackToMenu" xml:space="preserve">
     <value>Back to Menu</value>
   </data>
-  <data name="VolumeUp" xml:space="preserve">
-    <value>+</value>
+  <data name="VolumeMusicUp" xml:space="preserve">
+    <value>Volume +</value>
   </data>
-  <data name="VolumeDown" xml:space="preserve">
-    <value>-</value>
+  <data name="VolumeMusicDown" xml:space="preserve">
+    <value>Volume -</value>
   </data>
   <data name="ResolutionChange" xml:space="preserve">
     <value>Change Resolution</value>
@@ -221,5 +221,11 @@
   </data>
   <data name="Test" xml:space="preserve">
     <value>Test</value>
+  </data>
+  <data name="VolumeSFXDown" xml:space="preserve">
+    <value>SFX -</value>
+  </data>
+  <data name="VolumeSFXUp" xml:space="preserve">
+    <value>SFX +</value>
   </data>
 </root>
