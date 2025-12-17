@@ -1,0 +1,46 @@
+%RE-SHMUP
+Inspired by ZUN's TOUHOU Project.
+
+
+
+%From the MonoGame Documentation
+Class Library Tutorial
+Input Management
+Audio Management
+Collision Basis
+Scenes Tutorial
+Localization Basis
+
+
+
+%Oyyou
+Button Tutorial
+
+
+
+%Nathan Bean
+Particle System and Explosion Effect
+Tilemap and Associated Content Pipeline
+Special Effects (ScreenBatch Transform) From Nathan Bean
+3D Basics
+
+
+
+%Licensed Materials
+Ark Pixel Font (By TakWolf) 
+Usage permitted under Open Font License.
+Testing Scene Music - Noisy Battle by Some Weird 
+Usage permitted under CC0 1.0 Universal
+
+
+
+%CevansCode
+Art Assets if not otherwise listed here - Me in Aseprite
+Sound Effects if not otherwise listed here - Me in Pico-8
+
+
+
+%Special Thanks
+Nathan Bean
+Yoshiyuki Tomino
+...and you for playing!

@@ -97,6 +97,15 @@ namespace RE_SHMUP {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Credits.
+        /// </summary>
+        internal static string CreditsButton {
+            get {
+                return ResourceManager.GetString("CreditsButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Defeat pirates!.
         /// </summary>
         internal static string DefeatPiratesString {

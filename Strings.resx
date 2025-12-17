@@ -231,4 +231,7 @@
   <data name="PauseControlsString" xml:space="preserve">
     <value>Pause: (BACK)/ESC</value>
   </data>
+  <data name="CreditsButton" xml:space="preserve">
+    <value>Credits</value>
+  </data>
 </root>

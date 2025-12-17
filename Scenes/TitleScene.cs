@@ -30,13 +30,13 @@ namespace RE_SHMUP.Scenes
         private Texture2D comet;
         #endregion
 
-        private Button[] _theButtons = new Button[3];
+        private Button[] _theButtons = new Button[4];
         private ButtonHelper _buttonHelper = new ButtonHelper();
         private float prevStickY = 0;
         private float currStickY = 0;
 
         #region Buttons
-        public Button languageButton;
+        public Button creditsButton;
         public Button quitButton;
         public Button settingsButton;
         public Button startButton;
@@ -122,7 +122,7 @@ namespace RE_SHMUP.Scenes
             }
 
             // TODO: Add your update logic here
-            //languageButton.Update(gameTime);
+            creditsButton.Update(gameTime);
             quitButton.Update(gameTime);
             startButton.Update(gameTime);
             settingsButton.Update(gameTime);
@@ -175,28 +175,28 @@ namespace RE_SHMUP.Scenes
             _spriteFont = Content.Load<SpriteFont>("ArkPixel");
 
             startButton = new Button(_spriteFont, menuButtonTexture);
-            startButton.buttonPosition = new Vector2(650, 260);
+            startButton.buttonPosition = new Vector2(650, 190);
             startButton._buttonText = Localization.GetText("StartButton");
             startButton.Click += StartButton_Click;
             _theButtons[0] = startButton;
 
-            //languageButton = new Button(_spriteFont, menuButtonTexture);
-            //languageButton.buttonPosition = new Vector2(650, 260);
-            //languageButton._buttonText = Localization.GetText("LanguageLabel");
-            //languageButton.Click += LanguageButton_Click;
-            //_theButtons[1] = languageButton;
+            creditsButton = new Button(_spriteFont, menuButtonTexture);
+            creditsButton.buttonPosition = new Vector2(650, 260);
+            creditsButton._buttonText = Localization.GetText("CreditsButton");
+            creditsButton.Click += CreditsButton_Click;
+            _theButtons[1] = creditsButton;
 
             settingsButton = new Button(_spriteFont, menuButtonTexture);
             settingsButton.buttonPosition = new Vector2(650, 330);
             settingsButton._buttonText = Localization.GetText("Settings");
             settingsButton.Click += ScreenButton_Click;
-            _theButtons[1] = settingsButton;
+            _theButtons[2] = settingsButton;
 
             quitButton = new Button(_spriteFont, menuButtonTexture);
             quitButton.buttonPosition = new Vector2(650, 400);
             quitButton._buttonText = Localization.GetText("QuitButton");
             quitButton.Click += QuitButton_Click;
-            _theButtons[2] = quitButton;
+            _theButtons[3] = quitButton;
 
             _theButtons[0].Selected = true;
             _buttonHelper.Buttons = _theButtons;
@@ -226,7 +226,7 @@ namespace RE_SHMUP.Scenes
             }
 
             startButton.Draw(gameTime, Core.SpriteBatch);
-            //languageButton.Draw(gameTime, Core.SpriteBatch);
+            creditsButton.Draw(gameTime, Core.SpriteBatch);
             settingsButton.Draw(gameTime, Core.SpriteBatch);
             quitButton.Draw(gameTime, Core.SpriteBatch);
 
@@ -307,26 +307,15 @@ namespace RE_SHMUP.Scenes
         }
 
         /// <summary>
-        /// Changes the language when connected button is clicked
+        /// Goes to the credits
         /// </summary>
         /// <param name="sender">The object signaling the event</param>
         /// <param name="e">Information about the event</param>
-        private void LanguageButton_Click(object sender, System.EventArgs e)
+        private void CreditsButton_Click(object sender, System.EventArgs e)
         {
-            if (Localization.CurrentCulture.TwoLetterISOLanguageName == "ja")
-            {
-                Localization.SetLanguage("en");
-                languageButton._buttonText = Localization.GetText("LanguageLabel");
-                settingsButton._buttonText = Localization.GetText("FullScreenButton");
-            }
-            else
-            {
-                Localization.SetLanguage("ja");
-                languageButton._buttonText = Localization.GetText("LanguageLabel");
-                settingsButton._buttonText = Localization.GetText("FullScreenButton");
-            }
-            startButton._buttonText = Localization.GetText("StartButton");
-            quitButton._buttonText = Localization.GetText("QuitButton");
+            StoryModeScene filler = new StoryModeScene();
+            filler.score = -420;
+            Core.ChangeScene(new CreditsScene(filler));
         }
 
         /// <summary>

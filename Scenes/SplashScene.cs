@@ -34,6 +34,7 @@ namespace RE_SHMUP.Scenes
 
             if (gameTime.TotalGameTime.TotalSeconds >= 5
                 || Core.Input.Keyboard.WasKeyJustPressed(Keys.Space)
+                || Core.Input.Keyboard.WasKeyJustPressed(Keys.Z)
                 || Core.Input.GamePads[0].WasButtonJustPressed(Buttons.A))
             {
                 Core.ChangeScene(new TitleScene());
