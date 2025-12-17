@@ -96,16 +96,12 @@ namespace RE_SHMUP.Scenes
                 System.Diagnostics.Debug.WriteLine("Error loading settings: " + ex.Message);
             }
 
-
             base.Initialize();
         }
 
         public override void Update(GameTime gameTime)
         {
             currStickY = Core.Input.GamePads[0].LeftThumbStick.Y;
-
-            if (Core.Input.GamePads[0].WasButtonJustPressed(Buttons.Back) || Core.Input.Keyboard.WasKeyJustPressed(Keys.Escape))
-                Core.Instance.Exit();
 
             if (Core.Input.Keyboard.WasKeyJustPressed(Keys.Down) 
                 || Core.Input.GamePads[0].WasButtonJustPressed(Buttons.DPadDown) 

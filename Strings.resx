@@ -234,4 +234,10 @@
   <data name="CreditsButton" xml:space="preserve">
     <value>Credits</value>
   </data>
+  <data name="TitleButton" xml:space="preserve">
+    <value>To Title</value>
+  </data>
+  <data name="ResumeButton" xml:space="preserve">
+    <value>Resume</value>
+  </data>
 </root>

@@ -286,6 +286,15 @@ namespace RE_SHMUP {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Resume.
+        /// </summary>
+        internal static string ResumeButton {
+            get {
+                return ResourceManager.GetString("ResumeButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Score:.
         /// </summary>
         internal static string ScoreString {
@@ -363,6 +372,15 @@ namespace RE_SHMUP {
         internal static string TimeString {
             get {
                 return ResourceManager.GetString("TimeString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to To Title.
+        /// </summary>
+        internal static string TitleButton {
+            get {
+                return ResourceManager.GetString("TitleButton", resourceCulture);
             }
         }
         

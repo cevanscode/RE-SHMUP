@@ -234,4 +234,10 @@
   <data name="CreditsButton" xml:space="preserve">
     <value> エンドロール </value>
   </data>
+  <data name="TitleButton" xml:space="preserve">
+    <value>タイトル</value>
+  </data>
+  <data name="ResumeButton" xml:space="preserve">
+    <value> レジューム </value>
+  </data>
 </root>
