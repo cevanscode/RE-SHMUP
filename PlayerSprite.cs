@@ -50,6 +50,11 @@ namespace RE_SHMUP
         /// </summary>
         public Color Color { get; set; } = Color.White;
 
+        /// <summary>
+        /// The number of times a player can revive after getting hit
+        /// </summary>
+        public int Repairs { get; set; } = 3;
+
         public PlayerSprite(Scene scene)
         {
             _sceneSpawnedOn = scene;

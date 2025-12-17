@@ -74,8 +74,8 @@ namespace RE_SHMUP.Scenes
         private bool _paused;
 
         #region Sprites/Objects
-        private List<MeteorSprite> meteors;
-        private int meteorCount = 10;
+        //private List<MeteorSprite> meteors;
+        //private int meteorCount = 10;
 
         private PlayerSprite player;
 
