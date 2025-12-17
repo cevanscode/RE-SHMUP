@@ -25,13 +25,16 @@ namespace RE_SHMUP.Scenes
         private float _scrollY;
         private float _scrollSpeed = 40f;
 
+        private float _endTimer = 0f;
+        private const float EndDelay = 5f;
+
         private int _score;
 
         private Rank rank;
 
         public CreditsScene(StoryModeScene storyModeScene)
         {
-            _score = storyModeScene.score;
+            //_score = storyModeScene.score;
         }
 
         public override void Initialize()
@@ -55,15 +58,50 @@ namespace RE_SHMUP.Scenes
                 _scrollSpeed = 40f;
             }
 
+            if (Keyboard.GetState().IsKeyDown(Keys.Escape))
+            {
+                Core.ChangeScene(new TitleScene());
+            }
+
             _scrollY -= _scrollSpeed * delta;
+
+            float creditsHeight = GetCreditsHeight();
+
+            if (_scrollY + creditsHeight < 0)
+            {
+                _endTimer += delta;
+
+                if (_endTimer >= EndDelay)
+                {
+                    Core.ChangeScene(new TitleScene());
+                }
+            }
+
 
             base.Update(gameTime);
         }
 
-
         public override void LoadContent()
         {
             base.LoadContent();
+
+            try
+            {
+                string savePath = Path.Combine(
+                    Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
+                    "RE_SHMUP",
+                    "bestScore.txt");
+
+                if (File.Exists(savePath))
+                {
+                    string content = File.ReadAllText(savePath);
+                    int.TryParse(content, out _score);
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine("Error loading best time: " + ex.Message);
+            }
 
             _spriteFont = Content.Load<SpriteFont>("ArkPixel");
 
@@ -85,25 +123,25 @@ namespace RE_SHMUP.Scenes
             switch(rank)
             {
                 case Rank.S:
-                    _creditLines.Add(new CreditLine($"RANK: {rank}... Perfect, ready for Mass Production!", true));
+                    _creditLines.Add(new CreditLine($"Best RANK: {rank}... Perfect, ready for Mass Production!", true));
                     break;
                 case Rank.A:
-                    _creditLines.Add(new CreditLine($"RANK: {rank}... Excellent, a solid machine!", true));
+                    _creditLines.Add(new CreditLine($"Best RANK: {rank}... Excellent, a solid machine!", true));
                     break;
                 case Rank.B:
-                    _creditLines.Add(new CreditLine($"RANK: {rank}... Good, but requires more research.", true));
+                    _creditLines.Add(new CreditLine($"BestRANK: {rank}... Good, but requires more research.", true));
                     break;
                 case Rank.C:
-                    _creditLines.Add(new CreditLine($"RANK: {rank}... Average, the brass was unimpressed.", true));
+                    _creditLines.Add(new CreditLine($"Best RANK: {rank}... Average, the brass was unimpressed.", true));
                     break;
                 case Rank.D:
-                    _creditLines.Add(new CreditLine($"RANK: {rank}... Lysithea was dismantled after the incident.", true));
+                    _creditLines.Add(new CreditLine($"Best RANK: {rank}... Lysithea was dismantled after the incident.", true));
                     break;
                 case Rank.Unranked:
                     _creditLines.Add(new CreditLine($"", true));
                     break;
                 case Rank.F:
-                    _creditLines.Add(new CreditLine($"RANK: {rank}... How did you even get this?", true));
+                    _creditLines.Add(new CreditLine($"Best RANK: {rank}... How did you even get this?", true));
                     break;
             }
 
@@ -133,19 +171,19 @@ namespace RE_SHMUP.Scenes
 
         public Rank GiveRanking()
         {
-            if (_score >= 1000)
+            if (_score >= 5000)
             {
                 return Rank.S;
             }
-            else if (_score >= 500)
+            else if (_score >= 4000)
             {
                 return Rank.A;
             }
-            else if (_score >= 250)
+            else if (_score >= 3000)
             {
                 return Rank.B;
             }
-            else if (_score > 100)
+            else if (_score > 1000)
             {
                 return Rank.C;
             }
@@ -161,6 +199,19 @@ namespace RE_SHMUP.Scenes
             {
                 return Rank.F;
             }
+        }
+
+        private float GetCreditsHeight()
+        {
+            float height = 0f;
+
+            foreach (var line in _creditLines)
+            {
+                SpriteFont font = _spriteFont;
+                height += font.MeasureString(line.Text).Y + 10;
+            }
+
+            return height;
         }
     }
 }

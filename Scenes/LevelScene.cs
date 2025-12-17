@@ -122,6 +122,21 @@ namespace RE_SHMUP
         public Button exitButton;
         #endregion
 
+        #region Death Menu
+        private bool _deathMenuActive = false;
+
+        private Button retryButton;
+        private Button deathTitleButton;
+        private Button deathExitButton;
+        private Button deathCreditsButton;
+
+        private Button[] _deathButtons = new Button[4];
+        private ButtonHelper _deathButtonHelper = new ButtonHelper();
+
+        private Rank _playerRank;
+        #endregion
+
+
         /// <summary>
         /// Initializes content
         /// </summary>
@@ -153,7 +168,7 @@ namespace RE_SHMUP
 
             bombWaveMaxRadius = MathF.Max(Core.Graphics.PreferredBackBufferWidth, Core.Graphics.PreferredBackBufferHeight);
 
-            //get best time
+            //get best score
             try
             {
                 string savePath = Path.Combine(
@@ -194,8 +209,28 @@ namespace RE_SHMUP
                 _paused = false;
                 Core.Audio.ResumeAudio();
             }
+            if (_playerDead)
+            {
+                currStickY = Core.Input.GamePads[0].LeftThumbStick.Y;
 
-            if (_paused)
+                if (Core.Input.Keyboard.WasKeyJustPressed(Keys.Down) ||
+                    Core.Input.GamePads[0].WasButtonJustPressed(Buttons.DPadDown))
+                {
+                    _deathButtonHelper.IncrementSelection();
+                }
+
+                if (Core.Input.Keyboard.WasKeyJustPressed(Keys.Up) ||
+                    Core.Input.GamePads[0].WasButtonJustPressed(Buttons.DPadUp))
+                {
+                    _deathButtonHelper.DecrementSelection();
+                }
+
+                retryButton.Update(gameTime);
+                deathTitleButton.Update(gameTime);
+                deathExitButton.Update(gameTime);
+                deathCreditsButton.Update(gameTime);
+            }
+            else if (_paused)
             {
                 currStickY = Core.Input.GamePads[0].LeftThumbStick.Y;
 
@@ -296,8 +331,6 @@ namespace RE_SHMUP
                         }
                     }
 
-
-
                     if (bombWaveRadius >= bombWaveMaxRadius)
                     {
                         bombWaveActive = false;
@@ -362,10 +395,11 @@ namespace RE_SHMUP
                     {
                         meteorCount--;
                         meteor.Destroyed = true;
+                        _playerDead = true;
                         SerializeScore();
                         Core.Audio.PlaySoundEffect(_explodeSoundEffect);
                         _explosions.PlaceExplosion(meteor.position);
-                        Core.ChangeScene(new LevelScene()); //this will change to destroy an Orbiter when they are added
+                        ActivateDeathMenu();
                     }
 
                     foreach (var bullet in bullets)
@@ -391,8 +425,7 @@ namespace RE_SHMUP
                     {
                         _playerDead = true;
                         SerializeScore();
-
-                        Core.ChangeScene(new LevelScene()); //this will change to destroy an Orbiter when they are added
+                        ActivateDeathMenu();
                     }
 
                     if (missile.position.Y > Core.Graphics.PreferredBackBufferHeight && !missile.Destroyed)
@@ -429,7 +462,7 @@ namespace RE_SHMUP
                     {
                         _playerDead = true;
                         SerializeScore();
-                        Core.ChangeScene(new LevelScene());
+                        ActivateDeathMenu();
                     }
 
                     foreach (var bullet in bullets)
@@ -559,19 +592,27 @@ namespace RE_SHMUP
             _theButtons[0].Selected = true;
             _buttonHelper.Buttons = _theButtons;
 
+            retryButton = new Button(_spriteFont, menuButtonTexture);
+            retryButton.buttonPosition = new Vector2(300, 130);
+            retryButton._buttonText = "Retry";
+            retryButton.Click += (s, e) => Core.ChangeScene(new LevelScene());
+
+            deathTitleButton = new Button(_spriteFont, menuButtonTexture);
+            deathTitleButton.buttonPosition = new Vector2(300, 200);
+            deathTitleButton._buttonText = "Title";
+            deathTitleButton.Click += (s, e) => Core.ChangeScene(new TitleScene());
+
+            deathExitButton = new Button(_spriteFont, menuButtonTexture);
+            deathExitButton.buttonPosition = new Vector2(300, 340);
+            deathExitButton._buttonText = "Quit";
+            deathExitButton.Click += (s, e) => Core.Instance.Exit();
+
+            deathCreditsButton = new Button(_spriteFont, menuButtonTexture);
+            deathCreditsButton.buttonPosition = new Vector2(300, 270);
+            deathCreditsButton._buttonText = "CreditsButton";
+            deathCreditsButton.Click += (s, e) => Core.ChangeScene(new CreditsScene(new StoryModeScene()));
+
             Song noisy = Content.Load<Song>("noisy_battle");
-
-            /*
-            if (MediaPlayer.State == MediaState.Playing)
-            {
-                MediaPlayer.Stop();
-            }
-
-            
-            MediaPlayer.Play(noisy);
-
-            MediaPlayer.IsRepeating = true;
-            */
 
             Core.Audio.PlaySong(noisy);
 
@@ -730,6 +771,46 @@ namespace RE_SHMUP
                 exitButton.Draw(gameTime, Core.SpriteBatch);
             }
 
+            if (_deathMenuActive)
+            {
+                Core.SpriteBatch.Draw(
+                    basicStar,
+                    new Rectangle(0, 0,
+                        Core.Graphics.PreferredBackBufferWidth,
+                        Core.Graphics.PreferredBackBufferHeight),
+                    Color.Black * 0.7f
+                );
+
+                Core.SpriteBatch.DrawString(
+                    _spriteFont,
+                    "YOU DIED",
+                    new Vector2(300, 100),
+                    Color.Red,
+                    0f,
+                    Vector2.Zero,
+                    2f,
+                    SpriteEffects.None,
+                    0f
+                );
+
+                Core.SpriteBatch.DrawString(
+                    _spriteFont,
+                    $"RANK: {_playerRank}",
+                    new Vector2(320, 160),
+                    Color.Gold,
+                    0f,
+                    Vector2.Zero,
+                    1.5f,
+                    SpriteEffects.None,
+                    0f
+                );
+
+                retryButton.Draw(gameTime, Core.SpriteBatch);
+                deathTitleButton.Draw(gameTime, Core.SpriteBatch);
+                deathExitButton.Draw(gameTime, Core.SpriteBatch);
+                deathCreditsButton.Draw(gameTime, Core.SpriteBatch);
+            }
+
             Core.SpriteBatch.End();
 
             base.Draw(gameTime);
@@ -752,6 +833,56 @@ namespace RE_SHMUP
             );
 
             bullets.Clear();
+        }
+
+        private void ActivateDeathMenu()
+        {
+            _deathMenuActive = true;
+            _paused = false;
+
+            _playerRank = GiveRanking();
+
+            Core.Audio.PauseAudio();
+
+            _deathButtons[0] = retryButton;
+            _deathButtons[1] = deathTitleButton;
+            _deathButtons[2] = deathCreditsButton;
+            _deathButtons[3] = deathExitButton;
+
+            _deathButtons[0].Selected = true;
+            _deathButtonHelper.Buttons = _deathButtons;
+        }
+
+        public Rank GiveRanking()
+        {
+            if (_score >= 5000)
+            {
+                return Rank.S;
+            }
+            else if (_score >= 4000)
+            {
+                return Rank.A;
+            }
+            else if (_score >= 3000)
+            {
+                return Rank.B;
+            }
+            else if (_score > 1000)
+            {
+                return Rank.C;
+            }
+            else if (_score > 0)
+            {
+                return Rank.D;
+            }
+            else if (_score == -420)
+            {
+                return Rank.Unranked;
+            }
+            else //if you somehow get a score lower than 0... if that's even possible
+            {
+                return Rank.F;
+            }
         }
 
         private void SerializeScore()

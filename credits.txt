@@ -21,7 +21,7 @@ Button Tutorial
 %Nathan Bean
 Particle System and Explosion Effect
 Tilemap and Associated Content Pipeline
-Special Effects (ScreenBatch Transform) From Nathan Bean
+Special Effects (ScreenBatch Transform)
 3D Basics
 
 
@@ -42,5 +42,8 @@ Sound Effects if not otherwise listed here - Me in Pico-8
 
 %Special Thanks
 Nathan Bean
+GamingGuy7
 Yoshiyuki Tomino
 ...and you for playing!
+
+
