@@ -785,6 +785,7 @@ namespace RE_SHMUP
             }
         }
 
+        #region Button Event Handlers
         /// <summary>
         /// Unpauses the game
         /// </summary>
@@ -814,5 +815,6 @@ namespace RE_SHMUP
         {
             Core.Instance.Exit();
         }
+        #endregion
     }
 }

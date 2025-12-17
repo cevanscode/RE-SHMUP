@@ -83,7 +83,19 @@ namespace RE_SHMUP.Scenes
         private SoundEffect _explodeSoundEffect;
         private SoundEffect _beamShotSoundEffect;
 
+        #region Pausing
+        private Texture2D menuButtonTexture;
+
+        private Button[] _theButtons = new Button[3];
+        private ButtonHelper _buttonHelper = new ButtonHelper();
+        private float prevStickY = 0;
+        private float currStickY = 0;
+
         private bool _paused;
+        public Button resumeButton;
+        public Button titleButton;
+        public Button exitButton;
+        #endregion
 
         /// <summary>
         /// Initializes content
@@ -158,7 +170,27 @@ namespace RE_SHMUP.Scenes
 
             if (_paused)
             {
+                currStickY = Core.Input.GamePads[0].LeftThumbStick.Y;
 
+                if (Core.Input.Keyboard.WasKeyJustPressed(Keys.Down)
+                    || Core.Input.GamePads[0].WasButtonJustPressed(Buttons.DPadDown)
+                    || (currStickY < -0.5f && prevStickY >= -0.5f))
+                {
+                    _buttonHelper.IncrementSelection();
+                }
+
+                if (Core.Input.Keyboard.WasKeyJustPressed(Keys.Up)
+                    || Core.Input.GamePads[0].WasButtonJustPressed(Buttons.DPadUp)
+                    || (currStickY < 0.5f && prevStickY >= 0.5f))
+                {
+                    _buttonHelper.DecrementSelection();
+                }
+
+                resumeButton.Update(gameTime);
+                exitButton.Update(gameTime);
+                titleButton.Update(gameTime);
+
+                base.Update(gameTime);
             }
             else
             {
@@ -426,6 +458,30 @@ namespace RE_SHMUP.Scenes
             _shootSoundEffect = Content.Load<SoundEffect>("shoot");
 
             Song noisy = Content.Load<Song>("noisy_battle");
+
+            menuButtonTexture = Content.Load<Texture2D>("MenuButton-Smaller");
+
+            resumeButton = new Button(_spriteFont, menuButtonTexture);
+            resumeButton.buttonPosition = new Vector2(350, 120);
+            resumeButton._buttonText = Localization.GetText("ResumeButton");
+            resumeButton.Click += ResumeButton_Click;
+            _theButtons[0] = resumeButton;
+
+            titleButton = new Button(_spriteFont, menuButtonTexture);
+            titleButton.buttonPosition = new Vector2(350, 190);
+            titleButton._buttonText = Localization.GetText("TitleButton");
+            titleButton.Click += TitleButton_Click;
+            _theButtons[1] = titleButton;
+
+            exitButton = new Button(_spriteFont, menuButtonTexture);
+            exitButton.buttonPosition = new Vector2(350, 260);
+            exitButton._buttonText = Localization.GetText("QuitButton");
+            exitButton.Click += ExitButton_Click;
+            _theButtons[2] = exitButton;
+
+            _theButtons[0].Selected = true;
+            _buttonHelper.Buttons = _theButtons;
+
             /*
             if (MediaPlayer.State == MediaState.Playing)
             {
@@ -576,6 +632,13 @@ namespace RE_SHMUP.Scenes
 
             player.Draw(gameTime, Core.SpriteBatch);
 
+            if (_paused)
+            {
+                resumeButton.Draw(gameTime, Core.SpriteBatch);
+                titleButton.Draw(gameTime, Core.SpriteBatch);
+                exitButton.Draw(gameTime, Core.SpriteBatch);
+            }
+
             Core.SpriteBatch.End();
 
             base.Draw(gameTime);
@@ -599,5 +662,37 @@ namespace RE_SHMUP.Scenes
 
             bullets.Clear();
         }
+
+        #region Button Event Handlers
+        /// <summary>
+        /// Unpauses the game
+        /// </summary>
+        /// <param name="sender">The object signaling the event</param>
+        /// <param name="e">Information about the event</param>
+        private void ResumeButton_Click(object sender, System.EventArgs e)
+        {
+            _paused = false;
+        }
+
+        /// <summary>
+        /// Sets the game state to the title scene
+        /// </summary>
+        /// <param name="sender">The object signaling the event</param>
+        /// <param name="e">Information about the event</param>
+        private void TitleButton_Click(object sender, System.EventArgs e)
+        {
+            Core.ChangeScene(new TitleScene());
+        }
+
+        /// <summary>
+        /// Exits the game from the pause menu
+        /// </summary>
+        /// <param name="sender">The object signaling the event</param>
+        /// <param name="e">Information about the event</param>
+        private void ExitButton_Click(object sender, System.EventArgs e)
+        {
+            Core.Instance.Exit();
+        }
+        #endregion
     }
 }
