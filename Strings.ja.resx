@@ -154,7 +154,7 @@
     <value>移動: 左スティック/WASD/方向キ</value>
   </data>
   <data name="QuitControlsString" xml:space="preserve">
-    <value>やめる: (BACK)/ESC</value>
+    <value>とまる: (BACK)/ESC</value>
   </data>
   <data name="FocusControlsString" xml:space="preserve">
     <value>集中: 右トリガ/Shift</value>
@@ -239,5 +239,8 @@
   </data>
   <data name="ResumeButton" xml:space="preserve">
     <value> レジューム </value>
+  </data>
+  <data name="RetryButton" xml:space="preserve">
+    <value>まった</value>
   </data>
 </root>

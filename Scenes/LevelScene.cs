@@ -61,9 +61,9 @@ namespace RE_SHMUP
         private int _maxBalloonCount = 3;
         private float _balloonWaveTimer = 0f;
         private float _balloonWaveInterval = 8f;
+        private float _inc = 0;
         private Random _rand = new Random();
         #endregion
-
 
         #region Bomb fields
 
@@ -104,6 +104,8 @@ namespace RE_SHMUP
         private string _scorerName;
 
         private bool _playerDead = false;
+
+        private bool _startInvincibility = true;
 
         private bool _timerStart = false;
         #endregion
@@ -363,6 +365,19 @@ namespace RE_SHMUP
                     readyForMissiles = true;
                 }
 
+                _inc += (float)gameTime.ElapsedGameTime.TotalSeconds;
+
+                if (_inc > 2)
+                {
+                    _startInvincibility = false;
+                }
+
+                if (_inc >= 5)
+                {
+                    _inc = 0;
+                    UpDifficulty();
+                }
+
                 if (readyForMissiles && missiles.Count < maxMissileCount)
                 {
                     _rand = new System.Random();
@@ -391,7 +406,7 @@ namespace RE_SHMUP
                 //meteor x bullet x player
                 foreach (var meteor in meteors)
                 {
-                    if (!bombActive && !meteor.Destroyed && meteor.Bounds.CollidesWith(player.Bounds))
+                    if (!bombActive && !meteor.Destroyed && meteor.Bounds.CollidesWith(player.Bounds) && !_startInvincibility)
                     {
                         meteorCount--;
                         meteor.Destroyed = true;
@@ -470,7 +485,7 @@ namespace RE_SHMUP
                         if (!balloon.Destroyed && balloon.Bounds.CollidesWith(bullet.Bounds))
                         {
                             balloon.Destroyed = true;
-                            _score += 120;
+                            _score += 200;
                             SerializeScore();
                             bullet.Hit = true;
                             Core.Audio.PlaySoundEffect(_explodeSoundEffect);
@@ -594,22 +609,22 @@ namespace RE_SHMUP
 
             retryButton = new Button(_spriteFont, menuButtonTexture);
             retryButton.buttonPosition = new Vector2(300, 130);
-            retryButton._buttonText = "Retry";
+            retryButton._buttonText = Localization.GetText("RetryButton");
             retryButton.Click += (s, e) => Core.ChangeScene(new LevelScene());
 
             deathTitleButton = new Button(_spriteFont, menuButtonTexture);
             deathTitleButton.buttonPosition = new Vector2(300, 200);
-            deathTitleButton._buttonText = "Title";
+            deathTitleButton._buttonText = Localization.GetText("TitleButton");
             deathTitleButton.Click += (s, e) => Core.ChangeScene(new TitleScene());
 
             deathExitButton = new Button(_spriteFont, menuButtonTexture);
             deathExitButton.buttonPosition = new Vector2(300, 340);
-            deathExitButton._buttonText = "Quit";
+            deathExitButton._buttonText = Localization.GetText("QuitButton");
             deathExitButton.Click += (s, e) => Core.Instance.Exit();
 
             deathCreditsButton = new Button(_spriteFont, menuButtonTexture);
             deathCreditsButton.buttonPosition = new Vector2(300, 270);
-            deathCreditsButton._buttonText = "CreditsButton";
+            deathCreditsButton._buttonText = Localization.GetText("CreditsButton"); ;
             deathCreditsButton.Click += (s, e) => Core.ChangeScene(new CreditsScene(new StoryModeScene()));
 
             Song noisy = Content.Load<Song>("noisy_battle");
@@ -784,7 +799,7 @@ namespace RE_SHMUP
                 Core.SpriteBatch.DrawString(
                     _spriteFont,
                     "YOU DIED",
-                    new Vector2(300, 100),
+                    new Vector2(300, 70),
                     Color.Red,
                     0f,
                     Vector2.Zero,
@@ -796,7 +811,7 @@ namespace RE_SHMUP
                 Core.SpriteBatch.DrawString(
                     _spriteFont,
                     $"RANK: {_playerRank}",
-                    new Vector2(320, 160),
+                    new Vector2(320, 100),
                     Color.Gold,
                     0f,
                     Vector2.Zero,
@@ -855,19 +870,19 @@ namespace RE_SHMUP
 
         public Rank GiveRanking()
         {
-            if (_score >= 5000)
+            if (_score >= 10000)
             {
                 return Rank.S;
             }
-            else if (_score >= 4000)
+            else if (_score >= 7500)
             {
                 return Rank.A;
             }
-            else if (_score >= 3000)
+            else if (_score >= 5000)
             {
                 return Rank.B;
             }
-            else if (_score > 1000)
+            else if (_score > 2500)
             {
                 return Rank.C;
             }
@@ -883,6 +898,11 @@ namespace RE_SHMUP
             {
                 return Rank.F;
             }
+        }
+
+        private void UpDifficulty()
+        {
+            maxMissileCount += 2;
         }
 
         private void SerializeScore()

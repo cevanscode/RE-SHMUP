@@ -29,8 +29,11 @@ namespace RE_SHMUP.Scenes
         private const float EndDelay = 5f;
 
         private int _score;
+        private int _time;
 
-        private Rank rank;
+
+        private Rank _scoreRank;
+        private Rank _timeRank;
 
         public CreditsScene(StoryModeScene storyModeScene)
         {
@@ -103,6 +106,24 @@ namespace RE_SHMUP.Scenes
                 System.Diagnostics.Debug.WriteLine("Error loading best time: " + ex.Message);
             }
 
+            try
+            {
+                string savePath = Path.Combine(
+                    Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
+                    "RE_SHMUP",
+                    "bestTime.txt");
+
+                if (File.Exists(savePath))
+                {
+                    string content = File.ReadAllText(savePath);
+                    int.TryParse(content, out _time);
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine("Error loading best time: " + ex.Message);
+            }
+
             _spriteFont = Content.Load<SpriteFont>("ArkPixel");
 
             var lines = File.ReadAllLines("credits.txt");
@@ -119,29 +140,55 @@ namespace RE_SHMUP.Scenes
                 }
             }
 
-            rank = GiveRanking();
-            switch(rank)
+            _scoreRank = GiveRanking();
+            switch (_scoreRank)
             {
                 case Rank.S:
-                    _creditLines.Add(new CreditLine($"Best RANK: {rank}... Perfect, ready for Mass Production!", true));
+                    _creditLines.Add(new CreditLine($"Best Dummy RANK: {_scoreRank}... Perfect, ready for Mass Production!", true));
                     break;
                 case Rank.A:
-                    _creditLines.Add(new CreditLine($"Best RANK: {rank}... Excellent, a solid machine!", true));
+                    _creditLines.Add(new CreditLine($"Best Dummy RANK: {_scoreRank}... Excellent, a solid machine!", true));
                     break;
                 case Rank.B:
-                    _creditLines.Add(new CreditLine($"BestRANK: {rank}... Good, but requires more research.", true));
+                    _creditLines.Add(new CreditLine($"Best Dummy RANK: {_scoreRank}... Good, but requires more research.", true));
                     break;
                 case Rank.C:
-                    _creditLines.Add(new CreditLine($"Best RANK: {rank}... Average, the brass was unimpressed.", true));
+                    _creditLines.Add(new CreditLine($"Best Dummy RANK: {_scoreRank}... Average, the brass was unimpressed.", true));
                     break;
                 case Rank.D:
-                    _creditLines.Add(new CreditLine($"Best RANK: {rank}... Lysithea was dismantled after the incident.", true));
+                    _creditLines.Add(new CreditLine($"Best Dummy RANK: {_scoreRank}... Lysithea was dismantled after the incident.", true));
                     break;
                 case Rank.Unranked:
                     _creditLines.Add(new CreditLine($"", true));
                     break;
                 case Rank.F:
-                    _creditLines.Add(new CreditLine($"Best RANK: {rank}... How did you even get this?", true));
+                    _creditLines.Add(new CreditLine($"Best Time RANK: {_scoreRank}... How did you even get this?", true));
+                    break;
+            }
+
+            _timeRank = GiveTimeRanking();
+            switch (_timeRank)
+            {
+                case Rank.S:
+                    _creditLines.Add(new CreditLine($"Best Time RANK: {_timeRank}... Perfect, ready for Mass Production!", true));
+                    break;
+                case Rank.A:
+                    _creditLines.Add(new CreditLine($"Best Time RANK: {_timeRank}... Excellent, a solid machine!", true));
+                    break;
+                case Rank.B:
+                    _creditLines.Add(new CreditLine($"Best Time RANK: {_timeRank}... Good, but requires more research.", true));
+                    break;
+                case Rank.C:
+                    _creditLines.Add(new CreditLine($"Best Time RANK: {_timeRank}... Average, the brass was unimpressed.", true));
+                    break;
+                case Rank.D:
+                    _creditLines.Add(new CreditLine($"Best Time RANK: {_timeRank}... Lysithea was dismantled after the incident.", true));
+                    break;
+                case Rank.Unranked:
+                    _creditLines.Add(new CreditLine($"", true));
+                    break;
+                case Rank.F:
+                    _creditLines.Add(new CreditLine($"Best Time RANK: {_timeRank}... How did you even get this?", true));
                     break;
             }
 
@@ -192,6 +239,38 @@ namespace RE_SHMUP.Scenes
                 return Rank.D;
             }
             else if (_score == -420)
+            {
+                return Rank.Unranked;
+            }
+            else //if you somehow get a score lower than 0... if that's even possible
+            {
+                return Rank.F;
+            }
+        }
+
+        public Rank GiveTimeRanking()
+        {
+            if (_time >= 120)
+            {
+                return Rank.S;
+            }
+            else if (_time >= 90)
+            {
+                return Rank.A;
+            }
+            else if (_time >= 60)
+            {
+                return Rank.B;
+            }
+            else if (_time > 30)
+            {
+                return Rank.C;
+            }
+            else if (_time > 0)
+            {
+                return Rank.D;
+            }
+            else if (_time == -420)
             {
                 return Rank.Unranked;
             }

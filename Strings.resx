@@ -130,7 +130,7 @@
     <value>Kanji</value>
   </data>
   <data name="QuitButton" xml:space="preserve">
-    <value>Quit (or ESC)</value>
+    <value>Quit</value>
   </data>
   <data name="JapaneseLabel" xml:space="preserve">
     <value>Japanese</value>
@@ -154,7 +154,7 @@
     <value>Move: Left Stick or WASD/Arrow Keys</value>
   </data>
   <data name="QuitControlsString" xml:space="preserve">
-    <value>Quit Game: (BACK)/ESC</value>
+    <value>Pause Game: (BACK)/ESC</value>
   </data>
   <data name="FocusControlsString" xml:space="preserve">
     <value>Focus: Right Trigger or Shift</value>
@@ -239,5 +239,8 @@
   </data>
   <data name="ResumeButton" xml:space="preserve">
     <value>Resume</value>
+  </data>
+  <data name="RetryButton" xml:space="preserve">
+    <value>Retry</value>
   </data>
 </root>

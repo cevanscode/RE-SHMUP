@@ -250,7 +250,7 @@ namespace RE_SHMUP {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Quit (or ESC).
+        ///   Looks up a localized string similar to Quit.
         /// </summary>
         internal static string QuitButton {
             get {
@@ -259,7 +259,7 @@ namespace RE_SHMUP {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Quit Game: (BACK)/ESC.
+        ///   Looks up a localized string similar to Pause Game: (BACK)/ESC.
         /// </summary>
         internal static string QuitControlsString {
             get {
@@ -291,6 +291,15 @@ namespace RE_SHMUP {
         internal static string ResumeButton {
             get {
                 return ResourceManager.GetString("ResumeButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Retry.
+        /// </summary>
+        internal static string RetryButton {
+            get {
+                return ResourceManager.GetString("RetryButton", resourceCulture);
             }
         }
         
